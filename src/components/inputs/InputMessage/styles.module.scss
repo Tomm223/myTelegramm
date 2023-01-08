@@ -1,0 +1,14 @@
+@import "../../../styles/vars.scss";
+
+.input {
+   background-color: $col_input_gray;
+   border: 0;
+   border-radius: 30px;
+   font-style: 12px;
+   padding: 10px 20px;
+   color: $font_dark;
+
+   &::placeholder {
+      color: $font_placoholder;
+   }
+}

@@ -1,0 +1,18 @@
+@import "../../../../styles/vars.scss";
+
+.block {
+   width: 100%;
+   height: auto;
+   padding: 10px 0;
+   border-top: 1px $col_border_gray solid;
+   display: grid;
+   grid-template-columns: 32px 1fr;
+   gap: 10px;
+
+}
+
+.form {
+   display: grid;
+   grid-template-columns: 1fr 28px;
+   gap: 10px;
+}

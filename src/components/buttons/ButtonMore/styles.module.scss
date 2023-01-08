@@ -1,0 +1,22 @@
+@import '../../../styles/vars.scss';
+
+.btn {
+   cursor: pointer;
+   width: 25px;
+   height: 25px;
+   border-radius: 50%;
+   background-color: $col_btn_gray;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: all .4s ease;
+
+   &:hover {
+      background-color: $col_btn_gray_hover;
+   }
+}
+
+.img {
+   width: auto;
+   height: auto;
+}

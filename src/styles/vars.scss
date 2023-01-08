@@ -1,0 +1,25 @@
+$col_blue: #3369F3;
+$col_white: #ffffff;
+$col_gray: #EFEFEF;
+$font_dark: #1E1E1E;
+$font_red: #FF2F2F;
+$font_placoholder: #999;
+$font_white: #fff;
+$col_background_dark: rgba(#000, 0.4);
+$col_background_white: #fff;
+$col_border_gray: #EAEAEA;
+$col_nav_white: #FBFBFB;
+$col_btn_gray: #F5F5F5;
+$col_btn_gray_hover: #F1F1F1;
+$col_chatlist_item_hover: #E4EDFD;
+$col_input_gray: #EFEFEF;
+
+@mixin scrollbar_zero {
+
+   &::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+      background-color: inherit;
+   }
+
+}

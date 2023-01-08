@@ -1,0 +1,37 @@
+@import '../../../styles/vars.scss';
+
+
+.form {
+   width: 100%;
+   height: auto;
+}
+
+.input,
+.btn {
+   width: 100%;
+   padding: 10px;
+   font-size: 12px;
+   border-radius: 5px;
+   background-color: $col_gray;
+   cursor: pointer;
+}
+
+.btn {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   &__p {
+      font-size: inherit;
+      color: $font_placoholder;
+   }
+}
+
+.input {
+   padding-left: 34px;
+
+}
+
+.img {
+   margin-right: 5px;
+}
