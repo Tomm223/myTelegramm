@@ -5,7 +5,7 @@ import SingIn from './pages/SingIn'
 import '@/styles/global.scss'
 import '@/styles/vars.scss'
 import '@/styles/reset.css'
-import Search from './components/form/Search';
+
 import Messanger from './pages/Messenger';
 import SingUp from './pages/SingUp';
 import Profile from './pages/Profile';
@@ -65,6 +65,7 @@ if (window.location.pathname === '/500') {
 4) доделать адаптив
 5) кнопки которые transperent => это ссылки link to /* например как buttonConstructor(view:'transperent')
 === ButtonsProfileNavigate === link ===
+6) переделать, netlify ругаеться import * as style  
 */
 
 
