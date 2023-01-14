@@ -94,6 +94,7 @@ video {
    font-size: 100%;
    vertical-align: baseline;
    font-size: 13px;
+   background-color: inherit;
 }
 
 /* HTML5 display-role reset for older browsers */

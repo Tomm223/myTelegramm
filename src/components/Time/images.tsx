@@ -2,12 +2,12 @@ import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 
 export interface TimeForImages {
-   time: string
+   date: string
 }
 
-export default function TimeForImages({ time }: TimeForImages) {
+export default function TimeForImages({ date }: TimeForImages) {
 
-   const newTime = new Date(time)
+   const newTime = new Date(date)
 
    return (
       <div class={styles.block_image}>

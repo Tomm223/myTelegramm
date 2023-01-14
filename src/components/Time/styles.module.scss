@@ -19,3 +19,21 @@
 
    }
 }
+
+.blue,
+.gray,
+.white {
+   font-size: 11px;
+}
+
+.gray {
+   color: $font_placoholder;
+}
+
+.white {
+   color: $font_white;
+}
+
+.blue {
+   color: $col_blue;
+}

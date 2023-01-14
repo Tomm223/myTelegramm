@@ -4,7 +4,8 @@ import styles from './styles.module.scss'
 interface Authtorization {
    inputs: Node[]
    buttons: Node[]
-   title: string
+   title: string,
+   onSubmit?: (e: any) => void
 }
 
 

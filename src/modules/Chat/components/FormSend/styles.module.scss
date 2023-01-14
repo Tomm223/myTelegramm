@@ -8,6 +8,7 @@
    display: grid;
    grid-template-columns: 32px 1fr;
    gap: 10px;
+   position: relative;
 
 }
 
@@ -15,4 +16,12 @@
    display: grid;
    grid-template-columns: 1fr 28px;
    gap: 10px;
+}
+
+.menu {
+   z-index: 2000;
+   position: absolute;
+   transform: translate(0%, -100%);
+   top: -10px;
+   left: -10px;
 }

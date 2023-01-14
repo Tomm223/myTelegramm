@@ -6,6 +6,7 @@
    grid-template-columns: 34px 1fr 25px;
    gap: 10px;
    border-bottom: 1px $col_border_gray solid;
+   position: relative;
 }
 
 .title {
@@ -21,4 +22,12 @@
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+.menu {
+   z-index: 2000;
+   position: absolute;
+   transform: translate(0%, 100%);
+   bottom: -10px;
+   right: -10px;
 }

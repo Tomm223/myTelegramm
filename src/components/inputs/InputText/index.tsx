@@ -5,13 +5,12 @@ interface InputText {
    error?: string | null
    name: string
    placeholder: string
+   type?: 'password' | 'text'
 }
 
-export default function InputText({ error, name, placeholder }: InputText) {
+export default function InputText({ error, name, placeholder, type }: InputText) {
 
    let focus = false
-   const input = document.querySelector(styles.input)
-   console.log(input);
 
    /*input.addEventListener('focus', () => {
       console.log('focus work');
@@ -23,7 +22,7 @@ export default function InputText({ error, name, placeholder }: InputText) {
    return (
       <div class={styles.block}>
          <label for={name} class={`${focus ? 'hidden' : ''} ${styles.label}`} htmlFor={name}>{placeholder}</label>
-         <input id={name} name={name} type="text" class={styles.input} />
+         <input id={name} name={name} type={type ? type : 'text'} class={styles.input} />
          <p class={`${error ? '' : 'hidden'}  ${styles.error}`}>{error ? error : ''}</p>
       </div>
    )

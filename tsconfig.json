@@ -41,6 +41,9 @@
       "@/static/*": [
         "static/*"
       ],
+      "@/routes/*": [
+        "src/routes.ts"
+      ],
       "@/types/*": [
         "src/types/*"
       ],

@@ -1,34 +1,40 @@
-import ChatsList from "@/modules/ChatsList"
-import Search from "@/components/form/Search"
 import CompileMaster from "@/core/CompileJSX"
-import { ChatList } from "src/types/chats"
 import styles from './styles.module.scss'
-import Polygon1 from 'static/icons/Polygon 1.png'
 import Chat from "@/modules/Chat"
+import ChatNav from "@/modules/ChatNav"
+import AddUser from "@/modules/modals/AddUser"
+import RemoveUser from "@/modules/modals/RemoveUser"
 
 export default function Messanger() {
-   const gg: ChatList = {
-      avatar: 'static/',
-      id: 123,
-      last_message: {
-         content: 'нужно чтобы текст переходил на след строчку(в сумме 2) и заканчивался на "..."  даже если много текста',
-         time: "2020-01-02T14:22:22.000Z",
-         user: {
-            avatar: "sds",
-            email: 'goga.com',
-            first_name: 'Goga',
-            second_name: 'Gogich',
-            login: "GogaOneLove",
-            phone: '89539005757'
-         }
-      },
-      title: "Chat Lohov",
-      unread_count: 15
+
+   let isAddUserWindow = false
+   let isRemoveUserWindow = false
+
+   const pathname = window.location.pathname
+
+   const [path, category] = pathname.split("/").slice(1)
+
+   if (category === 'add-user') {
+      isAddUserWindow = true
+   }
+   if (category === 'remove-user') {
+      isRemoveUserWindow = true
    }
 
    return (
-      <main class={styles.main}>
-         <nav class={styles.nav}>
+      <div class={styles.main}>
+         {AddUser({ size: { width: '340px', height: '260px' }, isOpen: isAddUserWindow, onClick: () => { } })}
+         {RemoveUser({ size: { width: '340px', height: '260px' }, isOpen: isRemoveUserWindow, onClick: () => { } })}
+         <div class={styles.container}>
+            {ChatNav()}
+            {Chat()}
+         </div>
+      </div>
+   )
+}
+
+/*
+ <nav class={styles.nav}>
             <div class={styles.nav__link}>
                <a class={styles.link_profile} href="">
                   <p class={styles.link_profile__text}>Профиль</p>
@@ -43,6 +49,4 @@ export default function Messanger() {
             </div>
          </nav>
          {Chat()}
-      </main>
-   )
-}
+*/

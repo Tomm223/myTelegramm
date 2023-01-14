@@ -1,6 +1,7 @@
 import Avatar from "@/components/Avatar";
 import ButtonMore from "@/components/buttons/ButtonMore";
 import CompileMaster from "@/core/CompileJSX";
+import MenuManageChat from "../MenuChat/ManageChat";
 import styles from './styles.module.scss'
 
 interface Header {
@@ -16,6 +17,10 @@ export default function Header({ img, title }: Header) {
          <h3 class={styles.title}>{title}</h3>
          <div class={styles.btn}>
             {ButtonMore()}
+         </div>
+         <div class={styles.menu}>
+            {MenuManageChat()}
+
          </div>
       </div>
    )

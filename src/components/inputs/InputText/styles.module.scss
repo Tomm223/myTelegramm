@@ -2,7 +2,7 @@
 
 .block {
    width: 100%;
-   margin-bottom: 1rem;
+   margin-bottom: .5rem;
 
    &:last-child {
       margin-bottom: 0;
@@ -21,7 +21,6 @@
    //border: none;
    border-bottom: 1px #3369F3 solid;
    color: $font_dark;
-   margin-bottom: 7px;
 
    &::placeholder {
       color: $font_placoholder;
