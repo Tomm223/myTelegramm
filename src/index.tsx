@@ -65,6 +65,7 @@ if (window.location.pathname === '/500') {
 4) доделать адаптив
 5) кнопки которые transperent => это ссылки link to /* например как buttonConstructor(view:'transperent')
 === ButtonsProfileNavigate === link ===
+6) переделать тк netlify ругается import * as styles
 */
 
 
