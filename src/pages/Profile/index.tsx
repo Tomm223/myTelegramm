@@ -63,3 +63,4 @@ export default function Profile({ isEdit = false, isEditAvatar = false, isPasswo
       </div>
    )
 }
+

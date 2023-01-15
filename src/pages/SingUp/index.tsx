@@ -82,10 +82,10 @@ export default function SingUp({ size, onSubmit }: SingUp) {
                         </div>,
                         <div class={styles.form__item}>
                            {InputText({
-                              name: 'pasword_repeat',
-                              placeholder: 'Пароль (еще раз)',
+                              name: 'phone',
+                              placeholder: 'Телефон',
                               error: error,
-                              type: 'password'
+                              type: 'number'
 
                            })}
                         </div>,
@@ -101,3 +101,5 @@ export default function SingUp({ size, onSubmit }: SingUp) {
       </div>
    )
 }
+
+

@@ -32,7 +32,7 @@ export default function ChatNav() {
             {LinkToProfile({ href: '/profile', onClick: () => { } })}
          </div>
          <div class={styles.nav__search}>
-            {Search()}
+            {Search({ inputName: 'message' })}
          </div>
          <div class={styles.nav__overflow}>
             {ChatsList({ list: Array(15).fill(gg) })}
@@ -40,3 +40,4 @@ export default function ChatNav() {
       </nav>
    )
 }
+

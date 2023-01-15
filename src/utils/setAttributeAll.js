@@ -3,3 +3,4 @@ export function setAttributeAll(node, obj) {
       node.setAttribute(key, obj[key])
    })
 }
+

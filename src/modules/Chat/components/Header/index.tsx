@@ -25,3 +25,4 @@ export default function Header({ img, title }: Header) {
       </div>
    )
 }
+

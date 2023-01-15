@@ -34,3 +34,4 @@ export default function ButtonsForm({ isEdit, navBtnList }: ButtonsForm) {
       </div>
    )
 }
+

@@ -26,3 +26,4 @@ export default function MessageImage({ date, img, isMy, isRead }: MessageImage) 
       </div>
    )
 }
+

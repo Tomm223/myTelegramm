@@ -24,3 +24,4 @@ export default ({ pathname }: Routes) => {
       pages[404] || pages[500]
    }
 }
+

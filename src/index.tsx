@@ -14,7 +14,6 @@ import Error from './pages/Error';
 
 const root = document.querySelector('#root') as HTMLElement;
 
-console.log('path', window.location.pathname);
 
 if (window.location.pathname.includes('messanger')) {
    root.innerHTML = ''

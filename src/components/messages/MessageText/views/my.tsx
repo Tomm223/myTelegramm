@@ -23,3 +23,4 @@ export default function MyMessage({ date, text, isRead }: MyMessage) {
       </div>
    )
 }
+

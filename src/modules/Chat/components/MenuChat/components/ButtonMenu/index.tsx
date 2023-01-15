@@ -32,3 +32,4 @@ export default function ButtonMenu({ img, text, onClick }: ButtonMenu) {
       </button>
    )
 }
+

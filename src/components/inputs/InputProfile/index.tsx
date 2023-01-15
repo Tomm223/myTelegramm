@@ -20,3 +20,4 @@ export default function InputProfile({ isEdit, name, type, label, text }: InputP
       </div>
    )
 }
+

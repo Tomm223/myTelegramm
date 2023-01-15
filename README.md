@@ -1,4 +1,4 @@
-### Practicum frontend: sprint_1 GitHub Workflow Status Netlify Status
+### Practicum frontend: sprint_1
 <hr/>
 Description: Web chat messenger.
 

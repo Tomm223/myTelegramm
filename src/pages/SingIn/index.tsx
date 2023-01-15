@@ -68,3 +68,4 @@ export default function SingIn({ size, onSubmit }: SingIn) {
       </div>
    )
 }
+

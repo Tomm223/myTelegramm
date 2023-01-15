@@ -27,3 +27,4 @@ export default function MessageText({ text, date, isMy, isRead }: MessageText) {
       )
    }
 }
+

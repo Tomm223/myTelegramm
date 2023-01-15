@@ -33,7 +33,7 @@ export default function RemoveUser({ onClick, isOpen, size }: RemoveUser) {
                      inputs: [
                         <div class={styles.form__item}>
                            {InputText({
-                              name: 'name',
+                              name: 'remove_name',
                               placeholder: 'Имя',
                               error: null
                            })}
@@ -53,3 +53,4 @@ export default function RemoveUser({ onClick, isOpen, size }: RemoveUser) {
       </div>
    )
 }
+

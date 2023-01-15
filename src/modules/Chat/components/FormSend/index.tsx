@@ -12,7 +12,7 @@ export default function FormSend() {
       <div class={styles.block}>
          {ButtonAttach()}
          <form class={styles.form}>
-            {InputMessage({ name: 'input', placeholder: 'Сообщение' })}
+            {InputMessage({ name: 'message', placeholder: 'Сообщение' })}
             {ButtonArrow({})}
          </form>
          <div class={styles.menu}>

@@ -23,3 +23,4 @@ export default function DnOwnMessage({ date, text }: DnOwnMessage) {
       </div>
    )
 }
+

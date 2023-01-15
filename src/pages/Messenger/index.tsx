@@ -32,21 +32,3 @@ export default function Messanger() {
       </div>
    )
 }
-
-/*
- <nav class={styles.nav}>
-            <div class={styles.nav__link}>
-               <a class={styles.link_profile} href="">
-                  <p class={styles.link_profile__text}>Профиль</p>
-                  <img class={styles.link_profile__img} src={Polygon1} alt="" />
-               </a>
-            </div>
-            <div class={styles.nav__search}>
-               {Search()}
-            </div>
-            <div class={styles.nav__overflow}>
-               {ChatsList({ list: Array(15).fill(gg) })}
-            </div>
-         </nav>
-         {Chat()}
-*/
