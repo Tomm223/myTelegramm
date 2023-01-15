@@ -1,6 +1,6 @@
 import CompileMaster from "@/core/CompileJSX";
 import styles from './styles.module.scss'
-import Arrow from '@/static/icons/arrow_circle.png'
+import Arrow from '@/static/icons/arrow-circle.svg'
 
 interface ButtonArrow {
    onClick?: () => void | undefined

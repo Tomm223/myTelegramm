@@ -16,7 +16,7 @@ export default function Header({ img, title }: Header) {
          {Avatar({ link: img })}
          <h3 class={styles.title}>{title}</h3>
          <div class={styles.btn}>
-            {ButtonMore()}
+            {ButtonMore({ isActive: true })}
          </div>
          <div class={styles.menu}>
             {MenuManageChat()}

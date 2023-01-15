@@ -4,7 +4,7 @@ import Search from "@/components/form/Search"
 import ChatsList from './components/ChatsList'
 import { ChatList } from "src/types/chats"
 import LinkToProfile from "./components/LinkToProfile"
-import Routes from "@/routes/*"
+import Routes from "src/routes"
 
 
 export default function ChatNav() {
@@ -29,7 +29,7 @@ export default function ChatNav() {
    return (
       <nav class={styles.nav}>
          <div class={styles.nav__link}>
-            {LinkToProfile({ href: Routes.profile, onClick: () => { } })}
+            {LinkToProfile({ href: '/profile', onClick: () => { } })}
          </div>
          <div class={styles.nav__search}>
             {Search()}

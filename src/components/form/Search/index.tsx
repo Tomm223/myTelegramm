@@ -1,6 +1,6 @@
 import CompileMaster from "@/core/CompileJSX"
 import styles from './styles.module.scss'
-import Img from '../../../../static/icons/Union.png'
+import Img from '../../../../static/icons/search.svg'
 
 
 export default function Search() {

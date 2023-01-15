@@ -53,20 +53,6 @@ if (window.location.pathname === '/500') {
    root.appendChild(Error({ numberError: 501, type: '500' }))
 }
 
-/*
-1) доделать роутинг
-2) привязать раздачу с express
-
-недочеты:
-1) меню на msgscreen летает а не стоит на месте
-2) роутинг можно сделать более круче чем jf else
-3) НАДО НАУЧИТЬСЯ ДЕЛАТЬ ОНКЛИК НА КНОПКИ А ТО НЕТ ПОЛНОГО РОУТИНГА
-И ЭТО В БУДУШЕМ БУСТАНЕТ
-4) доделать адаптив
-5) кнопки которые transperent => это ссылки link to /* например как buttonConstructor(view:'transperent')
-=== ButtonsProfileNavigate === link ===
-6) переделать тк netlify ругается import * as styles
-*/
 
 
 
