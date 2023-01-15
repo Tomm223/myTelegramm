@@ -14,7 +14,6 @@ import Error from './pages/Error';
 
 const root = document.querySelector('#root') as HTMLElement;
 
-console.log('path', window.location.pathname);
 
 if (window.location.pathname.includes('messanger')) {
    root.innerHTML = ''
@@ -52,22 +51,3 @@ if (window.location.pathname === '/500') {
    root.innerHTML = ''
    root.appendChild(Error({ numberError: 501, type: '500' }))
 }
-
-/*
-1) доделать роутинг
-2) привязать раздачу с express
-
-недочеты:
-1) меню на msgscreen летает а не стоит на месте
-2) роутинг можно сделать более круче чем jf else
-3) НАДО НАУЧИТЬСЯ ДЕЛАТЬ ОНКЛИК НА КНОПКИ А ТО НЕТ ПОЛНОГО РОУТИНГА
-И ЭТО В БУДУШЕМ БУСТАНЕТ
-4) доделать адаптив
-5) кнопки которые transperent => это ссылки link to /* например как buttonConstructor(view:'transperent')
-=== ButtonsProfileNavigate === link ===
-6) переделать, netlify ругаеться import * as style  
-*/
-
-
-
-

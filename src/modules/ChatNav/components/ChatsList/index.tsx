@@ -38,3 +38,4 @@ export default function ChatsList({ list }: ChatsUl) {
       </ul>
    )
 }
+

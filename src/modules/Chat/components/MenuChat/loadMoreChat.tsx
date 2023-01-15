@@ -1,9 +1,9 @@
 import WindowDefault from "@/components/modals/ModalDefault/components/WindowDefault";
 import CompileMaster from "@/core/CompileJSX";
 import styles from "./styles.module.scss"
-import Photo from '@/static/icons/pics_message.png'
-import File from '@/static/icons/file.png'
-import Local from '@/static/icons/local.png'
+import Photo from '@/static/icons/pics_message.svg'
+import File from '@/static/icons/file.svg'
+import Local from '@/static/icons/local.svg'
 import ButtonMenu from "./components/ButtonMenu";
 
 
@@ -40,3 +40,4 @@ export default function MenuLoadMoreChat() {
       </div>
    )
 }
+

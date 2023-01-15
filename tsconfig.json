@@ -42,7 +42,7 @@
         "static/*"
       ],
       "@/routes/*": [
-        "src/routes.ts"
+        "src/routes.tsxx"
       ],
       "@/types/*": [
         "src/types/*"

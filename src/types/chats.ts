@@ -29,3 +29,4 @@ export interface Message {
    time: string //"2020-01-02T14:22:22.000Z"
    content: string
 }
+

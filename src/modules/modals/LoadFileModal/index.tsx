@@ -19,7 +19,7 @@ interface size {
 export default function LoadFileModal({ isOpen, size }: LoadFileModal) {
 
    return (
-      <div>
+      <form>
          {ModalDefault({
             background: 'dark',
             isOpen: isOpen,
@@ -41,6 +41,7 @@ export default function LoadFileModal({ isOpen, size }: LoadFileModal) {
             )
 
          })}
-      </div>
+      </form>
    )
 }
+

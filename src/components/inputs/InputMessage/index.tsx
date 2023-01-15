@@ -12,3 +12,4 @@ export default function InputMessage({ name, placeholder }: InputMessage) {
       <input name={name} placeholder={placeholder} class={styles.input} type="text" />
    )
 }
+

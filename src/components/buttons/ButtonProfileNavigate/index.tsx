@@ -26,3 +26,5 @@ export default function ButtonsProfileNavigate({ children, onClick, view }: Butt
       </button>
    )
 }
+
+

@@ -16,3 +16,4 @@ export default function flagRead({ isRead }: flagRead) {
 
    return <img class={styles.unimg} src={UnRead} alt="" />
 }
+

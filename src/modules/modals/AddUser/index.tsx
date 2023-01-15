@@ -53,3 +53,4 @@ export default function AddUser({ onClick, isOpen, size }: AddUser) {
       </div>
    )
 }
+

@@ -1,9 +1,14 @@
 import CompileMaster from "@/core/CompileJSX"
 import styles from './styles.module.scss'
-import Img from '../../../../static/icons/Union.png'
+import Img from '../../../../static/icons/search.svg'
+
+interface Search {
+   inputName: string
+}
 
 
-export default function Search() {
+
+export default function Search({ inputName }: Search) {
 
    let isFocus = false
 
@@ -17,9 +22,8 @@ export default function Search() {
 
    if (isFocus) {
       return (
-         <form onsunbmit={submit} class={styles.form} >
-            <input class={styles.input} type="text" />
-            <button class="hidden" type="submit"></button>
+         <form onsunbmit={submit} class={styles.form_active} >
+            <input class={styles.input} type="text" name={inputName} />
          </form>
       )
    }
@@ -31,7 +35,7 @@ export default function Search() {
             <img src={Img} alt="Search" class={styles.img} />
             <p class={styles.btn__p}>Поиск</p>
          </button>
-         <button class="hidden" type="submit"></button>
       </form>
    )
 }
+

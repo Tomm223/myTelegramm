@@ -27,3 +27,4 @@ export default function Error({ numberError = 404, type }: Error) {
       </main>
    )
 }
+

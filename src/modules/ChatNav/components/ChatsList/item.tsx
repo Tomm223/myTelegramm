@@ -21,7 +21,7 @@ export default function ChatsListItem({ avatar, id, last_message, title, unread_
             </div>
             <div class={styles.right}>
                <div class={styles.time}>
-                  {Time({ time: last_message.time })}
+                  {Time({ date: last_message.time, view: 'gray' })}
                </div>
                <div class={styles.unread}>
                   {UnRead({ number: unread_count })}
@@ -48,3 +48,4 @@ export default function ChatsListItem({ avatar, id, last_message, title, unread_
          </a>
       </li>
  */
+

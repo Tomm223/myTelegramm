@@ -5,7 +5,7 @@ interface InputText {
    error?: string | null
    name: string
    placeholder: string
-   type?: 'password' | 'text'
+   type?: 'password' | 'text' | 'number'
 }
 
 export default function InputText({ error, name, placeholder, type }: InputText) {
@@ -29,3 +29,5 @@ export default function InputText({ error, name, placeholder, type }: InputText)
 }
 
 // <p class={`${error ? 'hidden' : ''}  ${styles.error__message}`}>{error}</p>
+
+

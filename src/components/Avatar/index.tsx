@@ -14,3 +14,5 @@ export default function Avatar({ link, width }: Avatar) {
       </div>
    )
 }
+
+
