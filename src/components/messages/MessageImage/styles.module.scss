@@ -1,0 +1,27 @@
+@import "../../../styles/vars.scss";
+
+.msg {
+   border-radius: 12px;
+   position: relative;
+   border: 1px $col_border_gray solid;
+   overflow: hidden;
+}
+
+.img {
+   width: auto;
+   height: auto;
+}
+
+.time {
+   position: absolute;
+   bottom: 10px;
+   right: 10px;
+   display: inline-flex;
+   padding: 2px 7px;
+   border-radius: 30px;
+   background: rgba(82, 82, 82, 0.5);
+}
+
+.flag {
+   height: 9px;
+}

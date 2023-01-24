@@ -1,0 +1,30 @@
+@import "../../styles/vars.scss";
+
+.nav {
+   width: 100%;
+   height: inherit;
+   padding: 0 10px;
+   background-color: $col_nav_white ;
+   display: grid;
+   grid-template-columns: 1fr;
+   grid-template-rows: 55px 49px 1fr;
+   border-right: 1px $col_border_gray solid;
+
+   &__link {
+      padding: 21px 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+   }
+
+   &__search {
+      margin-bottom: 14px;
+   }
+
+   &__overflow {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      @include scrollbar_zero;
+   }
+}
