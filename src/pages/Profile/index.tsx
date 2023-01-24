@@ -64,3 +64,13 @@ export default function Profile({ isEdit = false, isEditAvatar = false, isPasswo
    )
 }
 
+
+/**
+ *  {LoadFileModal({ isOpen: isAvatarWindow, size: { height: '260px' }, error: null })}
+         <div class={styles.link_back}>
+            {LinkToBack({ href: '/' })}
+         </div>
+         <div class={styles.form}>
+            {ProfileForm({ isEdit, isPassword })}
+         </div>
+ */

@@ -19,6 +19,8 @@ export default function ButtonConstructor({ onClick, view, name }: ButtonConstru
       }
    }
 
+
+
    return (
       <button class={`${styles[view]} ${styles.btn}`} onclick={handle}>{name}</button>
    )

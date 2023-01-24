@@ -85,7 +85,6 @@ export default function ProfileForm({ isEdit = false, isPassword = false }: Prof
 
          </div>
          <div className={styles.form__buttons}>
-
             <div class={isEdit ? '' : 'hidden'}>
                {ButtonConstructor({ name: 'Сохранить', view: 'primary', onClick: toSave })}
                {ButtonConstructor({ name: "Не сохранять", view: 'transparent', onClick: () => { } })}
@@ -103,9 +102,6 @@ export default function ProfileForm({ isEdit = false, isPassword = false }: Prof
                   )
                })}
             </div>
-
-
-
          </div>
       </form>
    )
