@@ -4,6 +4,7 @@ import InputText from "@/components/inputs/InputText"
 import ButtonConstructor from "@/components/buttons/ButtonConstructor"
 import ModalDefault from "@/components/modals/ModalDefault"
 import styles from './styles.module.scss'
+import NextComp from "../Component"
 
 interface SingIn {
    size: size,
@@ -20,12 +21,12 @@ interface size {
    borderRadius?: string
 }
 
+
 export default function SingIn({ size, onSubmit }: SingIn) {
 
    const error = 'неверный пароль'
 
    const handle = () => alert('work')
-
 
 
    return (
