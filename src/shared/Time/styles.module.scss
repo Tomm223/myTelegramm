@@ -1,0 +1,37 @@
+@import '../../styles/vars.scss';
+
+.block {
+  &__time {
+    font-size: 9px;
+    color: $font_placoholder;
+  }
+}
+
+.block_image {
+  padding: 2px 7px;
+  border-radius: 30px;
+  background: rgba(82, 82, 82, 0.5);
+
+  &__time {
+    font-size: 9px;
+    color: $font_white;
+  }
+}
+
+.blue,
+.gray,
+.white {
+  font-size: 11px;
+}
+
+.gray {
+  color: $font_placoholder;
+}
+
+.white {
+  color: $font_white;
+}
+
+.blue {
+  color: $col_blue;
+}

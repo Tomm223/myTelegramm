@@ -1,0 +1,54 @@
+import FormConstructor from '@/shared/form/FormConstructor'
+import ModalDefault from '@/shared/modals/ModalDefault'
+import CompileMaster from '@/core/CompileJSX'
+import styles from './styles.module.scss'
+import InputText from '@/shared/inputs/InputText'
+import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
+import Component from '@/utils/Component'
+
+interface AddUserType {
+  onClose: () => void
+  onSubmit: (form: any) => void
+  isOpen: boolean
+  size: Size
+  modal?: Component
+}
+
+interface Size {
+  width?: string
+  height?: string
+  borderRadius?: string
+}
+
+export default class AddUser extends Component<AddUserType> {
+  protected render(): HTMLElement {
+    return (
+      <div>
+        {/* {this.childrenHTML.elements.modal} */}
+        {new ModalDefault({
+          background: 'dark',
+          isOpen: this.props.isOpen,
+          size: this.props.size,
+          onOut: this.props.onClose,
+          children: new FormConstructor({
+            title: 'Добавить Пользователя',
+            inputs: [
+              new InputText({
+                name: 'add_name',
+                label: 'Имя',
+              }),
+            ],
+            buttons: [
+              new ButtonConstructor({
+                name: 'Добавить',
+                view: 'primary',
+                events: { click: this.props.onSubmit },
+              }),
+            ],
+            onSubmit: this.props.onSubmit,
+          }),
+        }).getContent()}
+      </div>
+    )
+  }
+}

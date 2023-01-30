@@ -1,0 +1,53 @@
+@import '../../../styles/vars.scss';
+
+.container {
+  width: 100%;
+  height: auto;
+  border-top: 1px $col_border_gray solid;
+  position: relative;
+}
+.block {
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 10px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 28px;
+  gap: 10px;
+}
+
+.menu,
+.menu_active {
+  z-index: 2000;
+  position: absolute;
+  transition: all 1s ease-out;
+  padding-bottom: 10px;
+}
+@keyframes menu {
+  from {
+    transform: translate(0%, 300%);
+  }
+  to {
+    transform: translate(0%, -100%);
+  }
+}
+.menu_active {
+  opacity: 1;
+  //transform: translate(0%, -100%);
+  top: 0px;
+  left: -10px;
+  animation-name: menu;
+  animation-iteration-count: 1;
+  animation-duration: 200ms, 500ms;
+  animation-fill-mode: forwards;
+}
+.menu {
+  width: 0;
+  height: 0;
+  transform: translate(0%, 100%);
+  bottom: 0px;
+  left: -10px;
+}

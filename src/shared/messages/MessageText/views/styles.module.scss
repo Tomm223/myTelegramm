@@ -1,0 +1,55 @@
+@import '../../../../styles/vars.scss';
+
+.msg_dont,
+.msg_my {
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 11px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  &__text {
+    font-size: 12px;
+    line-height: 15px;
+    //color: $col_font;
+  }
+
+  &__time {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    height: 9px;
+    position: relative;
+  }
+}
+
+.msg_my {
+  background-color: $col_msg_blue;
+
+  &__flag_read,
+  &__flag_unread {
+    height: inherit;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__flag_read {
+    margin-right: 3px;
+  }
+
+  &__flag_unread {
+    margin: 0;
+  }
+}
+
+.msg_dont {
+  background-color: $col_msg_gray;
+
+  &__flag_zero {
+    margin-right: 4px;
+    opacity: 0;
+    //height: inherit;
+  }
+}
