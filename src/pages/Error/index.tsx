@@ -18,7 +18,7 @@ export default function Error({ numberError = 404, type }: Error) {
           <p class={styles.text}>{text}</p>
         </header>
         <div class={styles.center__link}>
-          {ButtonConstructor({ view: 'transparent', name: 'Назад к чатам' })}
+          {new ButtonConstructor({ view: 'transparent', name: 'Назад к чатам' }).getContent()}
         </div>
       </div>
     </main>

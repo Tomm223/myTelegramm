@@ -11,6 +11,9 @@ import InputProfile from '@/shared/inputs/InputProfile'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ButtonProfileNavigate from '@/shared/buttons/ButtonProfileNavigate'
 import { EventBus } from '@/utils/EventBus'
+import AvatarForm from './UI/AvatarForm'
+import Pics from '@/static/icons/pics_profile.png'
+import LoadFileModal from '@/entities/modals/LoadFileModal'
 
 interface ProfileType {
   isEdit?: boolean
@@ -28,6 +31,8 @@ interface ProfileType {
     inputs?: InputItem[]
   }
   buttons?: Component[]
+  avatar?: Component
+  avatar_modal?: Component
 }
 type InputItem = { isEdit?: boolean; name?: string; label?: string; text?: string; type?: string }
 
@@ -35,6 +40,12 @@ export default class Profile extends Component<ProfileType> {
   constructor(props: ProfileType) {
     props.isEditAvatar = false
     props.isEdit = false
+    props.avatar = new AvatarForm({
+      onClick: () => {
+        this.setProps({ isEditAvatar: true })
+      },
+      img_src: Pics,
+    })
 
     super(props)
   }
@@ -157,33 +168,42 @@ export default class Profile extends Component<ProfileType> {
     return PasswordForm(this.props.isEdit || false)
   }
 
-  protected render(): HTMLElement {
-    console.log(this.props.form?.state)
+  protected preRender(): void {
+    this.children.formik = new FormConstructor({
+      ref: 'form',
+      state: this.props.form?.state,
+      validate: this.props.form?.validate,
+      onSubmit: () => {},
+      inputs: this.props.form?.inputs?.map((item) => {
+        return new InputProfile({
+          isEdit: this.props.isEdit || false,
+          name: item.name,
+          label: item.label,
+          text: item.text,
+          type: item.type,
+        })
+      }),
+      buttons: Array.isArray(this.children.buttons)
+        ? this.children.buttons
+        : [this.children.buttons],
+    })
 
+    this.children.avatar_modal = new LoadFileModal({
+      isOpen: this.props.isEditAvatar || false,
+      size: { height: '260px' },
+      onClose: () => this.setProps({ isEditAvatar: false }),
+    })
+  }
+
+  protected render(): HTMLElement {
     return (
       <div class={styles.container}>
         <div class={styles.link_back}>{LinkToBack({ href: '/' })}</div>
         <div class={styles.form}>
-          {new FormConstructor({
-            title: 'Редактировать Пользователя',
-            ref: 'form',
-            state: this.props.form?.state,
-            validate: this.props.form?.validate,
-            onSubmit: () => {},
-            inputs: this.props.form?.inputs?.map((item) => {
-              return new InputProfile({
-                isEdit: this.props.isEdit || false,
-                name: item.name,
-                label: item.label,
-                text: item.text,
-                type: item.type,
-              })
-            }),
-            buttons: Array.isArray(this.children.buttons)
-              ? this.children.buttons
-              : [this.children.buttons],
-          }).getContent()}
+          <div class={styles.form__item}>{this.childrenHTML.elements.avatar}</div>
+          <div class={styles.form__item}>{this.childrenHTML.elements.formik}</div>
         </div>
+        {this.childrenHTML.elements.avatar_modal}
       </div>
     )
   }

@@ -1,13 +1,16 @@
-import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
-import Authorization from '@/shared/form/FormConstructor'
-import ModalDefault from '@/shared/modals/ModalDefault'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
+import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
+import ModalDefault from '@/shared/modals/ModalDefault'
+import Component from '@/utils/Component'
+import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
+import ButtonLoadFile from '@/shared/buttons/ButtonLoadFile'
 
-interface LoadFileModal {
+interface LoadFileModalType {
   isOpen: boolean
   size?: Size
-  error: string | undefined | null
+  onClose?: () => void
+  form?: Component
 }
 
 interface Size {
@@ -16,30 +19,74 @@ interface Size {
   borderRadius?: string
 }
 
-export default function LoadFileModal({ isOpen, size }: LoadFileModal) {
-  return (
-    <form>
-      {ModalDefault({
-        background: 'dark',
-        isOpen: isOpen,
-        onOut: () => {},
-        size,
-        children: (
-          <div>
-            {Authorization({
-              title: 'Загрузите файл',
-              inputs: [<input type="file" placeholder="Выберите файл" />],
-              buttons: [
-                new ButtonConstructor({
-                  name: 'Загрузить',
-                  view: 'primary',
-                }).getContent() || <div></div>,
-              ],
-              onSubmit: () => {},
-            })}
-          </div>
-        ),
-      })}
-    </form>
-  )
+export default class LoadFileModal extends Component<LoadFileModalType> {
+  constructor(props: LoadFileModalType) {
+    props.form = new ModalDefault({
+      background: 'dark',
+      isOpen: props.isOpen,
+      onOut: props.onClose,
+      size: props.size,
+      children: new FormConstructorTitle({
+        title: 'Загрузить Файл',
+        inputs: [new ButtonLoadFile({})],
+        buttons: [
+          new ButtonConstructor({
+            name: 'Загрузить',
+            view: 'primary',
+            events: {
+              click: () => {},
+            },
+          }),
+        ],
+      }),
+    })
+    super(props)
+  }
+
+  protected render(): HTMLElement {
+    return <div>{this.childrenHTML.elements.form}</div>
+  }
 }
+
+/*
+{new ModalDefault({
+          background: 'dark',
+          isOpen: this.props.isOpen,
+          onOut: this.props.onClose,
+          size: this.props.size,
+          children: new FormConstructorTitle({
+            title: 'Загрузить Файл',
+            inputs: [new ButtonLoadFile({})],
+            buttons: [
+              new ButtonConstructor({
+                name: 'Загрузить',
+                view: 'primary',
+                events: {
+                  click: () => {},
+                },
+              }),
+            ],
+          }),
+        }).getContent()}
+
+
+        {new ModalDefault({
+          background: 'dark',
+          isOpen: this.props.isOpen,
+          onOut: this.props.onClose,
+          size: this.props.size,
+          children: new FormConstructorTitle({
+            title: 'Загрузить Файл',
+            inputs: [new ButtonLoadFile({})],
+            buttons: [
+              new ButtonConstructor({
+                name: 'Загрузить',
+                view: 'primary',
+                events: {
+                  click: () => {},
+                },
+              }),
+            ],
+          }),
+        }).getContent()}
+*/

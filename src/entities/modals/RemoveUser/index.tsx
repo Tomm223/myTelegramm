@@ -1,10 +1,10 @@
-import FormConstructor from '@/shared/form/FormConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import Component from '@/utils/Component'
+import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 
 interface RemoveUserType {
   onClose: () => void
@@ -28,10 +28,8 @@ export default class RemoveUser extends Component<RemoveUserType> {
           background: 'dark',
           isOpen: this.props.isOpen,
           size: this.props.size,
-          onOut: () => {
-            'setIsOpen'
-          },
-          children: new FormConstructor({
+          onOut: this.props.onClose,
+          children: new FormConstructorTitle({
             title: 'Удалить Пользователя',
             inputs: [
               new InputText({

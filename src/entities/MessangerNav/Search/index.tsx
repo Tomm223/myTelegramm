@@ -6,6 +6,7 @@ import InputSearch from './UI/input'
 import { EventBus } from '@/utils/EventBus'
 import { EVENTS, SearchEventBus } from './eventbus'
 import { debounce } from '@/utils/debounce'
+import { ChatListEventBus, ChatListEVENTS } from '../ChatsList/eventbus'
 
 interface SearchType {
   inputName?: string
@@ -36,7 +37,7 @@ export default class Search extends Component<SearchType> {
       events: {
         keyup: debounce((e) => SearchEventBus.emit(EVENTS.INPUT_ON_CHANGE, e), 300),
         blur: handleBlur,
-      }, //keyup: handleChange
+      },
     })
 
     super(props)
@@ -52,10 +53,8 @@ export default class Search extends Component<SearchType> {
 
   onInputChange(e: Event) {
     let input = e.target as HTMLInputElement
-    alert(input.value)
-    if (this.props.onChange) {
-      this.props.onChange(input.value)
-    }
+    console.log(input)
+    ChatListEventBus.emit(ChatListEVENTS.TO_FILTER, input.value)
   }
 
   protected registerEvents(
@@ -67,7 +66,8 @@ export default class Search extends Component<SearchType> {
 
   toFocus() {
     if (this.props.isFocus && !Array.isArray(this.children.input)) {
-      this.children.input._element?.focus()
+      let input = this._element?.getElementsByTagName('input')[0]
+      input?.focus()
     }
   }
 
@@ -76,15 +76,26 @@ export default class Search extends Component<SearchType> {
   }
 
   protected componentDidUpdate(): void {
+    console.log('open')
     this.toFocus()
   }
 
   protected render(): HTMLElement {
     if (this.props.isFocus) {
-      console.log(this.props.isFocus)
-      return <form class={styles.form_active}>{this.childrenHTML.elements.input}</form>
+      return (
+        <form class={styles.form_active}>
+          {/* {this.childrenHTML.elements.input} */}
+          {new InputSearch({
+            name: this.props.inputName || '',
+            events: {
+              keyup: debounce((e) => SearchEventBus.emit(EVENTS.INPUT_ON_CHANGE, e), 300),
+              blur: handleBlur,
+            }, //keyup: handleChange
+          }).getContent()}
+        </form>
+      )
     }
-    console.log(this.props.isFocus)
+
     return <form class={styles.form}>{this.childrenHTML.elements.button}</form>
   }
 }

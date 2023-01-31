@@ -1,9 +1,9 @@
 import CompileMaster from '@/core/CompileJSX'
 import Component from '@/utils/Component'
-import Profile from '@/entities/Profile'
+import Profile from '@/widgets/Profile'
 
 interface ProfileType {
-  profile: Component
+  profile?: Component
 }
 
 export default class ProfilePage extends Component<ProfileType> {

@@ -1,10 +1,10 @@
 import CompileMaster from '../../core/CompileJSX'
-import FormConstructor from '@/shared/form/FormConstructor'
 import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
 import { StateSingUp, ValidateSingUp } from './constants'
 import Component from '@/utils/Component'
+import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 
 interface SingUpType {
   size: Size
@@ -37,7 +37,7 @@ export default class SingUp extends Component<SingUpType> {
       size: props.size,
       isOpen: true,
       onOut: () => {},
-      children: new FormConstructor({
+      children: new FormConstructorTitle({
         ref: 'form',
         validate: ValidateSingUp,
         title: 'Регистрация',

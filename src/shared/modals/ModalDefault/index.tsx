@@ -37,13 +37,29 @@ export default class ModalDefault extends Component<ModalDefaultType> {
     super(props)
   }
 
+  handleClick(e: MouseEvent) {
+    e.preventDefault()
+    if (e.target === this._element) {
+      if (this.props.onOut) {
+        this.props.onOut()
+      }
+    }
+  }
+
+  protected addEvents(): void {
+    this._element?.addEventListener('click', this.handleClick.bind(this))
+  }
+
+  protected removeEvents(): void {
+    this._element?.removeEventListener('click', this.handleClick.bind(this))
+  }
+
   protected render(): HTMLElement {
     return (
       <div
         class={`${this.props.isOpen ? '' : 'hidden'}  ${styles.back} ${
           styles[this.props.background]
         }`}
-        onclick={this.props.onOut}
       >
         <div class={styles.block}>{this.childrenHTML.elements.window}</div>
       </div>

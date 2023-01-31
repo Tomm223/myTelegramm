@@ -17,6 +17,13 @@
   top: 50%;
   left: 50%;
   width: 500px;
-  height: 500px;
-  transform: translate(-50%, -60%);
+  height: 90vh;
+  max-height: 600px;
+  transform: translate(-50%, -53%); //-38
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 200px 1fr;
+  &__item {
+    width: 100%;
+  }
 }

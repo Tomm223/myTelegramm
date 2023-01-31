@@ -38,7 +38,7 @@ export const PersonForm = (isEdit: boolean) => ({
       isEdit: isEdit,
       label: 'Почта',
       name: 'email',
-      text: 'Dani@mail.ru',
+      text: 'katenkadem1denko@yandex.ru',
       type: 'text',
     },
     { isEdit: isEdit, label: 'Логин', name: 'login', text: 'Dancsgo', type: 'text' },

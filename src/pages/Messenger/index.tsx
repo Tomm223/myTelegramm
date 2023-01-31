@@ -8,11 +8,14 @@ import Component from '@/utils/Component'
 
 interface MessangerType {
   nav?: Component
+  chat?: Component
 }
 
 export default class Messanger extends Component<MessangerType> {
   constructor(props: MessangerType) {
     props.nav = new ChatNav({})
+    props.chat = new Chat({})
+
     super(props)
   }
 
@@ -25,7 +28,8 @@ export default class Messanger extends Component<MessangerType> {
       <div class={styles.main}>
         <div class={styles.container}>
           {this.childrenHTML.elements.nav}
-          {new Chat({}).getContent()}
+          {this.childrenHTML.elements.chat}
+          {/* {new Chat({}).getContent()} */}
         </div>
       </div>
     )

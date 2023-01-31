@@ -155,8 +155,6 @@ class Component<P extends Record<string, any> = any> {
   protected init() {}
 
   private _componentDidMount() {
-    this.componentDidMount()
-
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((ch) => ch.dispatchComponentDidMount())
@@ -164,6 +162,7 @@ class Component<P extends Record<string, any> = any> {
         child.dispatchComponentDidMount()
       }
     })
+    this.componentDidMount()
   }
 
   protected componentDidMount() {}
@@ -201,10 +200,10 @@ class Component<P extends Record<string, any> = any> {
     return this._element
   }
 
-  // protected preRender() {}
+  protected preRender() {}
 
   private _render() {
-    // this.preRender()
+    this.preRender()
 
     //  трансорфмируем child-компоненты в html код для быстрой вставки
     const childrenHTML = this._childrenToHTML(this.children)

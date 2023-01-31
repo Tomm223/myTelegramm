@@ -1,11 +1,11 @@
 import CompileMaster from '../../core/CompileJSX'
-import FormConstructor from '@/shared/form/FormConstructor'
 import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
 import styles from './styles.module.scss'
 import Component from '@/utils/Component'
 import { StateSingIn, ValidateSingIn } from './constants'
+import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 
 interface SingInType {
   size: Size
@@ -32,7 +32,7 @@ export default class SingIn extends Component<SingInType> {
       size: props.size,
       isOpen: true,
       onOut: () => {},
-      children: new FormConstructor({
+      children: new FormConstructorTitle({
         validate: ValidateSingIn,
         title: 'Вход',
         state: StateSingIn,

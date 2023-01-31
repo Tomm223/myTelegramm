@@ -41,11 +41,7 @@ export default class FormSend extends Component<FormSendType> {
     }
     props.isOpen = false
     props.input = new InputMessage({ name: 'message', placeholder: 'Сообщение' })
-    props.btn = new ButtonArrow({
-      onClick: () => {
-        console.log('send')
-      },
-    })
+    props.btn = new ButtonArrow({})
     props.attach_btn = new ButtonAttach({
       events: {
         click: function () {
@@ -76,8 +72,39 @@ export default class FormSend extends Component<FormSendType> {
     super(props)
   }
 
-  protected componentDidMount(): void {
-    alert('didmount')
+  handleSend(e: MouseEvent) {
+    e.preventDefault()
+
+    let value = this.getValue()
+    this.resetValue()
+    console.log(value)
+    alert(value)
+  }
+
+  getValue(): string {
+    let form = this._element?.getElementsByTagName('form')[0] as HTMLFormElement
+    let input = form['message'] as HTMLInputElement
+    return input.value
+  }
+
+  resetValue() {
+    let form = this._element?.getElementsByTagName('form')[0] as HTMLFormElement
+    let input = form['message'] as HTMLInputElement
+    input.value = ''
+  }
+
+  protected addEvents(): void {
+    let form = this._element?.getElementsByTagName('form')[0] as HTMLFormElement
+    let btn = form.getElementsByTagName('button')[0] as HTMLButtonElement
+
+    btn.addEventListener('click', this.handleSend.bind(this))
+  }
+
+  protected removeEvents(): void {
+    let form = this._element?.getElementsByTagName('form')[0] as HTMLFormElement
+    let btn = form.getElementsByTagName('button')[0] as HTMLButtonElement
+
+    btn.removeEventListener('click', this.handleSend.bind(this))
   }
 
   protected init(): void {
@@ -91,15 +118,13 @@ export default class FormSend extends Component<FormSendType> {
   }
 
   protected render(): HTMLElement {
-    FormSendEventBus.log()
-
     return (
       <div class={styles.container}>
         <div class={styles.block}>
           {this.childrenHTML.elements.attach_btn}
           <form class={styles.form}>
             {this.childrenHTML.elements.input}
-            {this.childrenHTML.elements.btn}
+            <div class={styles.form__btn}>{this.childrenHTML.elements.btn}</div>
           </form>
           <div class={this.props.isOpen ? styles.menu_active : styles.menu}>
             {this.childrenHTML.elements.attach}

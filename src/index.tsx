@@ -6,13 +6,14 @@ import '@/styles/reset.css'
 
 import Messanger from './pages/Messenger'
 import SingUp from './pages/SingUpPage'
-import Profile from './pages/Profile'
+import Profile from './pages/ProfilePage'
 import Error from './pages/Error'
 import { renderDOM } from './utils/renderDOM'
 import SingUnPage from './pages/SingUpPage'
 import SingInPage from './pages/SingInPage'
 import Test from './pages/Test'
 import CompileMaster from '@/core/CompileJSX'
+import ProfilePage from './pages/ProfilePage'
 // import NextComp, { Buttonik } from './pages/Component';
 // import CompileMaster from '@/core/CompileJSX'
 // import Nav from './pages/Component/nav';
@@ -40,7 +41,7 @@ if (window.location.pathname.includes('singup')) {
 if (window.location.pathname.includes('profile')) {
   root.innerHTML = ''
 
-  renderDOM('#root', new Profile({}))
+  renderDOM('#root', new ProfilePage({}))
 }
 
 if (window.location.pathname == '/400') {

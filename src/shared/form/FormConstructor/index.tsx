@@ -5,12 +5,11 @@ import { EVENTS, FormConstrEventBus } from './eventbus'
 import styles from './styles.module.scss'
 import { ValidateForm } from './types'
 
-interface FormConstructorType {
+export interface FormConstructorType {
   ref?: string
   state?: Record<string, string>
   inputs?: Component[]
   buttons?: Component[]
-  title?: string
   onSubmit?: (data: Record<string, string>) => void
   validate?: ValidateForm
 }
@@ -113,11 +112,20 @@ export default class FormConstructor extends Component<FormConstructorType> {
     })
   }
 
+  protected shouldComponentUpdate(
+    oldProps: FormConstructorType,
+    newProps: FormConstructorType
+  ): boolean {
+    return true
+  }
+
   protected componentDidMount(): void {
     this.alertError()
   }
 
   protected componentDidUpdate(oldProps: FormConstructorType, newProps: FormConstructorType): void {
+    console.log('update form')
+
     if (!deepEqual(oldProps.state, newProps.state)) {
       this.alertError()
     }

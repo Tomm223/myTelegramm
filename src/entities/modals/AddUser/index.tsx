@@ -1,10 +1,10 @@
-import FormConstructor from '@/shared/form/FormConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import Component from '@/utils/Component'
+import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 
 interface AddUserType {
   onClose: () => void
@@ -30,7 +30,7 @@ export default class AddUser extends Component<AddUserType> {
           isOpen: this.props.isOpen,
           size: this.props.size,
           onOut: this.props.onClose,
-          children: new FormConstructor({
+          children: new FormConstructorTitle({
             title: 'Добавить Пользователя',
             inputs: [
               new InputText({
