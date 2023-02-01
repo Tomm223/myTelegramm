@@ -6,10 +6,15 @@ interface ButtonConstructorType {
   events?: Record<string, (...args: any) => void>
   name: string
   view: 'primary' | 'transparent'
+  type?: string
 }
 
 export default class ButtonConstructor extends Component<ButtonConstructorType> {
   protected render(): HTMLElement {
-    return <button class={`${styles[this.props.view]} ${styles.btn}`}>{this.props.name}</button>
+    return (
+      <button type={this.props.type} class={`${styles[this.props.view]} ${styles.btn}`}>
+        {this.props.name}
+      </button>
+    )
   }
 }

@@ -5,10 +5,6 @@ import { deepEqual } from './deepEqual'
 
 type Handler = (e: MouseEvent) => void
 
-/**
- * @param {Record<string, Handler>} events
- * @param {string} ref
- */
 class Component<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
@@ -38,10 +34,6 @@ class Component<P extends Record<string, any> = any> {
 
   protected _setUpdate: boolean = false
 
-  /** JSDoc
-   * @param {Object} props
-   * @returns {void}
-   */
   constructor(propsWithChildren: P) {
     const eventBus = new EventBus()
 

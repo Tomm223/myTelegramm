@@ -10,11 +10,13 @@ import { ValidateForm } from './types'
 // [0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 //email ^[^@s]+@[^@s]+.[^@s]+$
 
-const RegName = /^[A-zА-яЁё]{2,20}$/
-const RegLogin = /^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$/
-const RegPhone = /^[0-9\s]*$/
-const RegEmail = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][az]{2,4}$/
-const RegPassword = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
+const RegName = RegExp(/^[A-zА-яЁё]{2,20}$/)
+const RegLogin = RegExp(/^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$/)
+const RegPhone = RegExp(/^[0-9\s]{11}$/)
+const RegEmail = RegExp(
+  /^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$/
+)
+const RegPassword = RegExp(/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
 
 function getvalidateFunc(reg: any, messageError: string) {
   console.log(reg)
@@ -33,14 +35,14 @@ function getvalidateFunc(reg: any, messageError: string) {
 }
 
 export const ValidatesForm = {
-  login: getvalidateFunc(RegExp(RegLogin), 'Логин должен содержать латинские буквы, от 6 букв'),
-  first_name: getvalidateFunc(RegExp(RegName), 'Имя от 2 до 20 букв'),
-  second_name: getvalidateFunc(RegExp(RegName), 'Фамилия от 2 до 20 букв'),
+  login: getvalidateFunc(RegLogin, 'Логин должен содержать латинские буквы, от 6 букв'),
+  first_name: getvalidateFunc(RegName, 'Имя от 2 до 20 букв'),
+  second_name: getvalidateFunc(RegName, 'Фамилия от 2 до 20 букв'),
   password: getvalidateFunc(
-    RegExp(RegPassword),
+    RegPassword,
     `Пароль должен содержать: cтрочные и прописные латинские буквы, 
       цифры, спецсимволы. Минимум 8 символов`
   ),
   email: getvalidateFunc(RegExp(RegEmail), 'Не корректный email'),
-  phone: getvalidateFunc(RegExp(RegPhone), 'Не корректный номер телефона'),
+  phone: getvalidateFunc(RegExp(RegPhone), 'Не корректный номер телефона. Пример: 8(999)900-90-90'),
 }

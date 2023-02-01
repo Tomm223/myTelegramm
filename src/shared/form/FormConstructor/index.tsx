@@ -1,140 +1,151 @@
 import Component from '@/utils/Component'
 import { deepEqual } from '@/utils/deepEqual'
+import { EventBus } from '@/utils/EventBus'
 import CompileMaster from '../../../core/CompileJSX'
-import { EVENTS, FormConstrEventBus } from './eventbus'
+import { FormConstrEventBus, FormConstrEVENTS } from './eventbus'
 import styles from './styles.module.scss'
 import { ValidateForm } from './types'
 
 export interface FormConstructorType {
   ref?: string
-  state?: Record<string, string>
   inputs?: Component[]
   buttons?: Component[]
   onSubmit?: (data: Record<string, string>) => void
   validate?: ValidateForm
 }
 
+function handleClick() {
+  FormConstrEventBus.emit(FormConstrEVENTS.SUBMIT)
+}
+function handleBlur(e: Event) {
+  FormConstrEventBus.emit(FormConstrEVENTS.CHECK_VALID, e)
+}
+
 export default class FormConstructor extends Component<FormConstructorType> {
-  handlerBlur(e: FocusEvent) {
+  /**
+   * @param {Component[]} inputs => Component.id ===  Component.TagInput.getAttribute('id)
+   * @param {Component[]} buttons => one child require TagButton.type = 'submit'
+   */
+  constructor(props: FormConstructorType) {
+    let p = ''
+
+    super(props)
+  }
+
+  protected registerEvents(
+    eventBus: EventBus<Record<string, string>, Record<string, any[]>>
+  ): void {
+    FormConstrEventBus.on(FormConstrEVENTS.SUBMIT, this.handlerSubmit.bind(this))
+    FormConstrEventBus.on(FormConstrEVENTS.CHECK_VALID, this.handlerBlur.bind(this))
+  }
+
+  handlerBlur(e: Event) {
     if (!this.props.validate) return
 
     let input = e.target as HTMLInputElement
-    let name = input.name
+    console.log(input.name, this.props.validate)
 
-    let condidateError = this.props.validate[name](input.value)
-    let oldState = this.props.state
+    let condidateError = this.props.validate[input.name](input.value)
 
-    this.setProps({ state: { ...oldState, [name]: condidateError } })
+    let childs = this.children.inputs as Component[]
+
+    childs.forEach((child) => {
+      if (child.id === input.id) {
+        this.removeEventBlurInput(child)
+        child.setProps({ error: condidateError })
+        this.addEventBlurInput(child)
+      }
+    })
   }
 
-  handlerSubmit(e: SubmitEvent) {
-    alert('SUBMIT')
-    if (!this.props.state) return
+  addEventBlurInput(child: Component) {
+    let inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    inp.addEventListener('blur', handleBlur)
+  }
+
+  removeEventBlurInput(child: Component) {
+    let inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    inp.removeEventListener('blur', handleBlur)
+  }
+
+  handlerSubmit(e: Event) {
+    if (!this._element) return
     if (!this.props.onSubmit) return
 
-    let values = Object.values(this.props.state)
-    for (const value in values) {
-      if (value) {
-        return
+    if (!this.isValidForm()) return
+
+    let inputs = this._element.getElementsByTagName('input')
+
+    let result = {} as Record<string, string>
+    for (let i = 0; i < inputs.length; i++) {
+      result[inputs[i].name] = inputs[i].value
+    }
+    this.props.onSubmit(result)
+  }
+
+  isValidForm(): boolean {
+    let childs = this.children.inputs as Component[]
+    for (const i in childs) {
+      if (childs[i].props.error) {
+        return false
       }
     }
-    const form = e.target as HTMLFormElement
-    let result = {} as Record<string, string>
-    Object.keys(this.props.state).forEach((key) => {
-      result[key] = form[key].value
-    })
-    this.props.onSubmit(result)
+    let inputs = this._element?.getElementsByTagName('input')
+
+    for (const i in inputs) {
+      if (typeof inputs[i] === 'object' && !inputs[i].value) {
+        return false
+      }
+    }
+
+    return true
+  }
+
+  public resetFormEvents() {
+    if (this.props.onSubmit) {
+      // onSubmit form
+      let submit = this._element?.querySelector('[type="submit"]')
+
+      submit?.addEventListener('click', handleClick)
+    }
+    if (!Array.isArray(this.children.inputs)) return
+
+    this.children.inputs.forEach((child) => this.removeEventBlurInput(child))
   }
 
   protected addEvents(): void {
     if (this.props.onSubmit) {
       // onSubmit form
-      // let form = this._element?.getElementsByTagName('form')[0] as HTMLFormElement
-      // if (!form) return
-      // form.removeEventListener('submit', this.handleSubmit)
+      let submit = this._element?.querySelector('[type="submit"]')
+
+      submit?.addEventListener('click', handleClick)
     }
-    if (!this.props.state) return
-    if (!this.props.validate) return
-    // onBlur validate input
-    if (!this._element) return
-    let allInputs = [...this._element?.getElementsByTagName('input')]
-    let result = {} as any
-    allInputs.forEach((input) => {
-      let name = input.name
 
-      if (!this.props.state || !this.props.state.hasOwnProperty(name)) {
-        throw new Error(`state and inputs dont match: state dont have '${name}'  properties`)
-      }
+    if (!Array.isArray(this.children.inputs)) return
 
-      result[name] = input
-      input.addEventListener('blur', this.handlerBlur.bind(this))
-    })
+    this.children.inputs.forEach((child) => this.addEventBlurInput(child))
   }
 
   protected removeEvents(): void {
     if (this.props.onSubmit) {
       // onSubmit form
-      // let form = this._element?.getElementsByTagName('form')[0] as HTMLFormElement
-      // if (!form) return
-      // form.removeEventListener('submit', this.handleSubmit)
+      let submit = this._element?.querySelector('[type="submit"]')
+
+      submit?.addEventListener('click', handleClick)
     }
-    if (!this.props.state) return
-    if (!this.props.validate) return
-    // onBlur validate input
-    // const form = this._element?.getElementsByTagName('form')[0] as HTMLFormElement
-    if (!this._element) return
-    let allInputs = [...this._element?.getElementsByTagName('input')]
-    let result = {} as any
-    allInputs.forEach((input) => {
-      let name = input.name
+    if (!Array.isArray(this.children.inputs)) return
 
-      if (!this.props.state || !this.props.state.hasOwnProperty(name)) {
-        console.log(this.props.state)
-
-        throw new Error(`state and inputs dont match: state dont have '${name}'  properties`)
-      }
-      result[name] = input
-      input.removeEventListener('blur', this.handlerBlur.bind(this))
-    })
+    this.children.inputs.forEach((child) => this.removeEventBlurInput(child))
   }
 
-  alertError() {
-    Object.values(this.children).forEach((child) => {
-      if (Array.isArray(child)) {
-        child.forEach((children) => {
-          if (!this.props.state) return
-          children.setProps({ error: this.props.state[children.props.name] })
-        })
-      } else {
-        if (!this.props.state) return
-        child.setProps({ error: this.props.state[child.props.name] })
-      }
-    })
-  }
-
-  protected shouldComponentUpdate(
+  protected componentDidUpdate(
     oldProps: FormConstructorType,
     newProps: FormConstructorType
-  ): boolean {
-    return true
-  }
-
-  protected componentDidMount(): void {
-    this.alertError()
-  }
-
-  protected componentDidUpdate(oldProps: FormConstructorType, newProps: FormConstructorType): void {
-    console.log('update form')
-
-    if (!deepEqual(oldProps.state, newProps.state)) {
-      this.alertError()
-    }
-  }
+  ): void {}
 
   protected render(): HTMLElement {
     return (
       <div class={styles.block}>
-        {/* { <h3 class={styles.title}>{this.props.title}</h3>} */}
         <form class={styles.form}>
           <div class={styles.inputs}>{...this.childrenHTML.lists.inputs}</div>
           <div class={styles.buttons}>{...this.childrenHTML.lists.buttons}</div>

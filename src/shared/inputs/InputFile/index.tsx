@@ -5,7 +5,7 @@ import styles from './styles.module.scss'
 interface InputFileType {
   isOpen: boolean
   name: string
-  accepting: '.png, ' | ' .jpg,' | '.jpeg' | '.png, .jpg, .jpeg' | '.png, .jpg'
+  accepting: '.png, .jpg, .jpeg'
   onChange?: (value: any) => void
 }
 
@@ -26,10 +26,16 @@ export default class InputFile extends Component<InputFileType> {
     this._element?.removeEventListener('change', this.handleChange.bind(this))
   }
 
+  protected componentDidUpdate(oldProps: InputFileType, newProps: InputFileType): void {
+    if (this.props.isOpen) {
+      console.log(this._element)
+
+      this._element?.click()
+    }
+  }
+
   protected render(): HTMLElement {
-    return (
-      <input class="hidden" accept={this.props.accepting} type="file" placeholder="Выберите файл" />
-    )
+    return <input type="file" class="hidden" accept={this.props.accepting} />
   }
 }
 

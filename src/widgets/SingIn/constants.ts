@@ -1,4 +1,4 @@
-import { ValidatesForm } from '@/shared/form/FormConstructor/validates'
+import { ValidatesForm } from '@/shared/form/FormConstructor/validates.reg'
 import { ValidateForm, StateForm } from './../../shared/form/FormConstructor/types'
 
 export const StateSingIn: StateForm = {

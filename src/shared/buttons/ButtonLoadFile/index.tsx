@@ -9,11 +9,24 @@ interface ButtonLoadFileType {
 }
 
 export default class ButtonLoadFile extends Component<ButtonLoadFileType> {
+  constructor(props: ButtonLoadFileType) {
+    props.input = new InputFile({
+      name: 'file',
+      accepting: '.png, .jpg, .jpeg',
+      isOpen: false,
+      onChange: (value: any) => {
+        console.log(value)
+      },
+    })
+    super(props)
+  }
+
   handleClick(e: MouseEvent) {
     e.preventDefault()
+    if (!this.children.input) return
+    if (Array.isArray(this.children.input)) return
 
-    let inp = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
-    inp?.click()
+    this.children.input.setProps({ isOpen: true })
   }
 
   protected addEvents(): void {
@@ -45,15 +58,7 @@ export default class ButtonLoadFile extends Component<ButtonLoadFileType> {
     return (
       <div class={styles.block}>
         <button class={styles.btn}>Выберите файл на компьютере</button>
-        {/* {this.childrenHTML.elements.input} */}
-        {new InputFile({
-          name: 'file',
-          accepting: '.png, .jpg, .jpeg',
-          isOpen: false,
-          onChange: (value: any) => {
-            console.log(value)
-          },
-        }).getContent()}
+        {this.childrenHTML.elements.input}
       </div>
     )
   }

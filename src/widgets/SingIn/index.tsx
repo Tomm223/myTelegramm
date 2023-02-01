@@ -33,6 +33,7 @@ export default class SingIn extends Component<SingInType> {
       isOpen: true,
       onOut: () => {},
       children: new FormConstructorTitle({
+        onSubmit: (e) => console.log(e),
         validate: ValidateSingIn,
         title: 'Вход',
         state: StateSingIn,
@@ -50,12 +51,11 @@ export default class SingIn extends Component<SingInType> {
         buttons: [
           new ButtonConstructor({
             name: 'Войти',
-            events: { click: handle },
+            type: 'submit',
             view: 'primary',
           }),
           new ButtonConstructor({
             name: 'Зарегестрироваться',
-            events: { click: handle },
             view: 'transparent',
           }) || <div></div>,
         ],

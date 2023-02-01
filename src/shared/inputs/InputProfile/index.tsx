@@ -13,29 +13,12 @@ interface InputProfileType {
 }
 
 export default class InputProfile extends Component<InputProfileType> {
-  handleSize() {
-    let inp = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
-
-    let p = this._element?.getElementsByTagName('p')[0] as HTMLParagraphElement
-    p.textContent = inp.value
-
-    this.setProps({ style: `width:${p.clientWidth + 2}px` })
-  }
-
   protected addEvents(): void {
     let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
-
-    input.addEventListener('keyup', this.handleSize.bind(this))
-    input.addEventListener('keypress', this.handleSize.bind(this))
-    // input.addEventListener('change', this.handleSize.bind(this))
   }
 
   protected removeEvents(): void {
     let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
-
-    input.removeEventListener('keyup', this.handleSize.bind(this))
-    input.removeEventListener('keypress', this.handleSize.bind(this))
-    // input.removeEventListener('change', this.handleSize.bind(this))
   }
 
   protected render(): HTMLElement {
@@ -47,6 +30,7 @@ export default class InputProfile extends Component<InputProfileType> {
             {this.props.label}
           </label>
           <input
+            id={this.id}
             class={styles.input}
             type={this.props.type}
             name={this.props.name}

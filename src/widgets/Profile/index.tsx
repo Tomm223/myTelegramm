@@ -1,9 +1,7 @@
 import LinkToBack from '@/shared/links/LinkToBack'
 import CompileMaster from '@/core/CompileJSX'
-import ProfileForm from '@/entities/ProfileForm'
 import styles from './styles.module.scss'
 import Component from '@/utils/Component'
-import { ProfileEventBus, ProfileEVENTS } from './model'
 import FormConstructor from '@/shared/form/FormConstructor'
 import { StateForm, ValidateForm } from '@/shared/form/FormConstructor/types'
 import { PasswordForm, PersonForm, ProfileState, ProfileValidate } from './constants'
@@ -14,6 +12,7 @@ import { EventBus } from '@/utils/EventBus'
 import AvatarForm from './UI/AvatarForm'
 import Pics from '@/static/icons/pics_profile.png'
 import LoadFileModal from '@/entities/modals/LoadFileModal'
+import ProfileForm from './UI/ProfileForm'
 
 interface ProfileType {
   isEdit?: boolean
@@ -33,6 +32,7 @@ interface ProfileType {
   buttons?: Component[]
   avatar?: Component
   avatar_modal?: Component
+  formik?: Component
 }
 type InputItem = { isEdit?: boolean; name?: string; label?: string; text?: string; type?: string }
 
@@ -40,6 +40,9 @@ export default class Profile extends Component<ProfileType> {
   constructor(props: ProfileType) {
     props.isEditAvatar = false
     props.isEdit = false
+
+    props.formik = new ProfileForm({})
+
     props.avatar = new AvatarForm({
       onClick: () => {
         this.setProps({ isEditAvatar: true })
@@ -50,144 +53,7 @@ export default class Profile extends Component<ProfileType> {
     super(props)
   }
 
-  protected registerEvents(
-    eventBus: EventBus<Record<string, string>, Record<string, any[]>>
-  ): void {
-    ProfileEventBus.on(ProfileEVENTS.PERSON_NO_EDIT, this.inceptorPersonNoEdit.bind(this))
-    ProfileEventBus.on(ProfileEVENTS.PERSON_EDIT, this.inceptorPersonEdit.bind(this))
-    ProfileEventBus.on(ProfileEVENTS.PASSWORD_EDIT, this.inceptorPasswordEdit.bind(this))
-    ProfileEventBus.on(ProfileEVENTS.EXIT, this.inceptorExit.bind(this))
-  }
-
-  inceptorPersonNoEdit() {
-    this.children.buttons = this.getNavigateButtons()
-    this.setProps({ isEdit: false, form: this.getInputsPerson() })
-  }
-
-  inceptorPersonEdit() {
-    this.children.buttons = this.getEditButtons()
-    this.setProps({ isEdit: true, form: this.getInputsPerson() })
-  }
-
-  inceptorPasswordEdit() {
-    this.children.buttons = this.getEditButtons()
-    this.setProps({ isEdit: true, form: this.getInputsPassword() })
-  }
-
-  inceptorExit() {
-    alert('КУДА ВЫХОД')
-    // this.setProps({ isEdit: true, form: this.getInputsPassword() })
-  }
-
   protected init(): void {
-    if (this.props.isEdit) {
-      this.children.buttons = this.getEditButtons()
-    } else this.children.buttons = this.getNavigateButtons()
-
-    this.props.form = this.getInputsPerson()
-  }
-
-  getEditButtons(): Component[] {
-    const btns: {
-      name: string
-      view: 'primary' | 'transparent'
-      events: Record<string, (...args: any) => void>
-    }[] = [
-      {
-        name: 'Сохранить',
-        view: 'primary',
-        events: {
-          click: (e: MouseEvent) => {
-            e.preventDefault()
-            ProfileEventBus.emit('form:submit')
-          },
-        },
-      },
-      {
-        name: 'Не сохранять',
-        view: 'transparent',
-        events: {
-          click: (e: MouseEvent) => {
-            e.preventDefault()
-            ProfileEventBus.emit(ProfileEVENTS.PERSON_NO_EDIT)
-          },
-        },
-      },
-    ]
-
-    return [
-      ...btns.map((item) => {
-        return new ButtonConstructor({
-          name: item.name,
-          view: item.view,
-          events: item.events,
-        })
-      }),
-    ]
-  }
-
-  getNavigateButtons(): Component[] {
-    const navbtn: {
-      text: string
-      view: 'primary' | 'red'
-      onClick: (...args: any) => void
-    }[] = [
-      {
-        text: 'Изменить данные',
-        onClick: () => ProfileEventBus.emit(ProfileEVENTS.PERSON_EDIT),
-        view: 'primary',
-      },
-      {
-        text: 'Изменить пароль',
-        onClick: () => ProfileEventBus.emit(ProfileEVENTS.PASSWORD_EDIT),
-        view: 'primary',
-      },
-      {
-        text: 'Выйти',
-        onClick: () => ProfileEventBus.emit(ProfileEVENTS.EXIT),
-        view: 'red',
-      },
-    ]
-
-    return [
-      ...navbtn.map((item) => {
-        return new ButtonProfileNavigate({
-          text: item.text,
-          view: item.view,
-          onClick: item.onClick,
-        })
-      }),
-    ]
-  }
-
-  getInputsPerson() {
-    return PersonForm(this.props.isEdit || false)
-  }
-
-  getInputsPassword() {
-    return PasswordForm(this.props.isEdit || false)
-  }
-
-  protected preRender(): void {
-    this.children.formik = new FormConstructor({
-      ref: 'form',
-      state: this.props.form?.state,
-      validate: this.props.form?.validate,
-      onSubmit: () => {},
-      inputs: this.props.form?.inputs?.map((item) => {
-        return new InputProfile({
-          isEdit: this.props.isEdit || false,
-          name: item.name,
-          label: item.label,
-          text: item.text,
-          type: item.type,
-        })
-      }),
-      buttons: Array.isArray(this.children.buttons)
-        ? this.children.buttons
-        : [this.children.buttons],
-    })
-
     this.children.avatar_modal = new LoadFileModal({
       isOpen: this.props.isEditAvatar || false,
       size: { height: '260px' },
@@ -201,7 +67,7 @@ export default class Profile extends Component<ProfileType> {
         <div class={styles.link_back}>{LinkToBack({ href: '/' })}</div>
         <div class={styles.form}>
           <div class={styles.form__item}>{this.childrenHTML.elements.avatar}</div>
-          <div class={styles.form__item}>{this.childrenHTML.elements.formik}</div>
+          {this.childrenHTML.elements.formik}
         </div>
         {this.childrenHTML.elements.avatar_modal}
       </div>

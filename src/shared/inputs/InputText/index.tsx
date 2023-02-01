@@ -53,7 +53,7 @@ export default class InputText extends Component<InputTextType> {
         </label>
         <input
           value={this.props.value}
-          id={this.props.name}
+          id={this.id}
           name={this.props.name}
           type={this.props.type ? this.props.type : 'text'}
           class={styles.input}

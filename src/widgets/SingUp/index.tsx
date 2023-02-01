@@ -5,6 +5,7 @@ import ModalDefault from '@/shared/modals/ModalDefault'
 import { StateSingUp, ValidateSingUp } from './constants'
 import Component from '@/utils/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
+import FormConstructor from '@/shared/form/FormConstructor'
 
 interface SingUpType {
   size: Size
@@ -38,6 +39,9 @@ export default class SingUp extends Component<SingUpType> {
       isOpen: true,
       onOut: () => {},
       children: new FormConstructorTitle({
+        onSubmit: (e) => {
+          console.log(e)
+        },
         ref: 'form',
         validate: ValidateSingUp,
         title: 'Регистрация',
@@ -55,6 +59,7 @@ export default class SingUp extends Component<SingUpType> {
             name: 'Зарегестрироваться',
             // events: { click: handle },
             view: 'primary',
+            type: 'submit',
           }) || <div></div>,
           new ButtonConstructor({
             name: 'Войти',

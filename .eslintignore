@@ -7,3 +7,4 @@ coverage
 
 .prettierignore
 
+*.reg.ts

@@ -1,5 +1,5 @@
 import { StateForm, ValidateForm } from '@/shared/form/FormConstructor/types'
-import { ValidatesForm } from '@/shared/form/FormConstructor/validates'
+import { ValidatesForm } from '@/shared/form/FormConstructor/validates.reg'
 
 export const StateSingUp: StateForm = {
   email: '',
