@@ -1,0 +1,33 @@
+.block {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+.block:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  color: #999;
+  font-family: Inter, sans-serif;
+}
+
+.input {
+  width: 100%;
+  padding: 7px 0;
+  border-bottom: 1px #3369f3 solid;
+  color: #1e1e1e;
+}
+.input::-moz-placeholder {
+  color: #999;
+}
+.input:-ms-input-placeholder {
+  color: #999;
+}
+.input::placeholder {
+  color: #999;
+}
+
+.error {
+  font-style: 8px;
+  color: #ff2f2f;
+}/*# sourceMappingURL=styles.module.css.map */
