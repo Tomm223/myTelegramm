@@ -1,0 +1,18 @@
+@import '../../../styles/vars.scss';
+
+.block {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: $col_btn_blue;
+  margin: 0;
+}

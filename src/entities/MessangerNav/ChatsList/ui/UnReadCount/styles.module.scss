@@ -1,0 +1,13 @@
+@import '../../../../../styles/vars.scss';
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: $col_blue;
+  color: $font_white;
+  font-size: 11px;
+  border-radius: 50%;
+}
