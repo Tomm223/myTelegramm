@@ -2,7 +2,7 @@ import ButtonArrow from '@/shared/buttons/ButtonArrow'
 import ButtonAttach from '@/shared/buttons/ButtonAttach'
 import InputMessage from '@/shared/inputs/InputMessage'
 import CompileMaster from '@/core/CompileJSX'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import Photo from '@/static/icons/pics_message.svg'
 import File from '@/static/icons/file.svg'
 import Local from '@/static/icons/local.svg'
@@ -23,22 +23,10 @@ interface FormSendType {
   input?: Component
 }
 
+function handlerClick() {}
+
 export default class FormSend extends Component<FormSendType> {
   constructor(props: FormSendType) {
-    props.events = {
-      mousemove: throtlle((e: MouseEvent) => {
-        if (this.refs['menu']) {
-          let rect = this.refs['menu'].getBoundingClientRect()
-          let mouse = `${e.clientX} and ${e.clientY}`
-        }
-      }, 500),
-      mouseout: debounce((e: MouseEvent) => {
-        console.log('close')
-        if (this.props.isOpen) {
-          //this.setProps({ isOpen: false })
-        }
-      }, 500),
-    }
     props.isOpen = false
     props.input = new InputMessage({ name: 'message', placeholder: 'Сообщение' })
     props.btn = new ButtonArrow({})
@@ -76,9 +64,9 @@ export default class FormSend extends Component<FormSendType> {
     e.preventDefault()
 
     let value = this.getValue()
+    if (!value) return
     this.resetValue()
     console.log(value)
-    alert(value)
   }
 
   getValue(): string {

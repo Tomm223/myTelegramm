@@ -3,12 +3,12 @@ import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 
 interface AddUserType {
   onClose: () => void
-  onSubmit: (form: any) => void
+  onSubmit: (form: Record<string, string>) => void
   isOpen: boolean
   size: Size
   modal?: Component
@@ -42,7 +42,7 @@ export default class AddUser extends Component<AddUserType> {
               new ButtonConstructor({
                 name: 'Добавить',
                 view: 'primary',
-                events: { click: this.props.onSubmit },
+                type: 'submit',
               }),
             ],
             onSubmit: this.props.onSubmit,

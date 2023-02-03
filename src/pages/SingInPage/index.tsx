@@ -1,4 +1,4 @@
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import SingIn from '@/widgets/SingIn'
 import CompileMaster from '@/core/CompileJSX'
 

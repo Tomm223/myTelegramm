@@ -3,9 +3,10 @@ import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
 import styles from './styles.module.scss'
-import Component from '@/utils/Component'
-import { StateSingIn, ValidateSingIn } from './constants'
+import Component from '@/core/Component'
+import { ValidateSingIn } from './constants'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
+import { useNavigate } from '@/core/routing'
 
 interface SingInType {
   size: Size
@@ -23,7 +24,10 @@ interface Size {
   borderRadius?: string
 }
 
-const handle = () => alert('work')
+const setLocation = (e: MouseEvent) => {
+  e.preventDefault()
+  useNavigate('/sing-up')
+}
 
 export default class SingIn extends Component<SingInType> {
   constructor(props: SingInType) {
@@ -36,7 +40,6 @@ export default class SingIn extends Component<SingInType> {
         onSubmit: (e) => console.log(e),
         validate: ValidateSingIn,
         title: 'Вход',
-        state: StateSingIn,
         inputs: [
           new InputText({
             name: 'login',
@@ -57,6 +60,9 @@ export default class SingIn extends Component<SingInType> {
           new ButtonConstructor({
             name: 'Зарегестрироваться',
             view: 'transparent',
+            events: {
+              click: setLocation,
+            },
           }) || <div></div>,
         ],
       }),
@@ -68,46 +74,3 @@ export default class SingIn extends Component<SingInType> {
     return <div>{this.childrenHTML.elements.modal}</div>
   }
 }
-
-/*
- {new FormConstructor({
-              validate: {
-                login: (value: string) => {
-                  console.log(value)
-                  return 'тут ошибка'
-                },
-                password: (value: string) => {
-                  console.log(value)
-                  return 'тут ошибка'
-                },
-              },
-              title: 'Регистрация',
-              state: {
-                login: '',
-                password: '',
-              },
-              inputs: [
-                new InputText({
-                  name: 'login',
-                  label: 'Логин',
-                }),
-                new InputText({
-                  name: 'password',
-                  label: 'Пароль',
-                  type: 'password',
-                }),
-              ],
-              buttons: [
-                new ButtonConstructor({
-                  name: 'Войти',
-                  events: { click: handle },
-                  view: 'primary',
-                }),
-                new ButtonConstructor({
-                  name: 'Зарегестрироваться',
-                  events: { click: handle },
-                  view: 'transparent',
-                }) || <div></div>,
-              ],
-            }).getContent()}
-*/

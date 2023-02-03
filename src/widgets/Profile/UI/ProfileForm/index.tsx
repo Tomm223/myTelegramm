@@ -3,8 +3,8 @@ import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ButtonProfileNavigate from '@/shared/buttons/ButtonProfileNavigate'
 import FormConstructor from '@/shared/form/FormConstructor'
 import InputProfile from '@/shared/inputs/InputProfile'
-import Component from '@/utils/Component'
-import { EventBus } from '@/utils/EventBus'
+import Component from '@/core/Component'
+import { EventBus } from '@/core/EventBus'
 import { PasswordForm, PersonForm } from './constants'
 import { ProfileFormEventBus, ProfileFormEVENTS } from './eventbus'
 import styles from './styles.module.scss'
@@ -44,6 +44,7 @@ function getEditButtons(): Component[] {
         name: item.name,
         view: item.view,
         events: item.events,
+        type: item.type,
       })
     }),
   ]
@@ -95,8 +96,8 @@ function getStatePerson(isEdit: boolean) {
     })
   })
   let buttons = isEdit ? getEditButtons() : getNavigateButtons()
-  let onSubmit = (form: Record<string, string>) => {
-    console.log(form)
+  let onSubmit = (data: Record<string, string>) => {
+    console.log(data)
   }
   return { ...state, inputs, buttons, onSubmit }
 }
@@ -138,15 +139,19 @@ export default class ProfileForm extends Component<ProfileFormType> {
   protected registerEvents(
     eventBus: EventBus<Record<string, string>, Record<string, any[]>>
   ): void {
-    ProfileFormEventBus.on(ProfileFormEVENTS.PERSON_NO_EDIT, this.inceptorPersonNoEdit.bind(this))
-    ProfileFormEventBus.on(ProfileFormEVENTS.PERSON_EDIT, this.inceptorPersonEdit.bind(this))
-    ProfileFormEventBus.on(ProfileFormEVENTS.PASSWORD_EDIT, this.inceptorPasswordEdit.bind(this))
+    ProfileFormEventBus.on(
+      ProfileFormEVENTS.PERSON_NO_EDIT,
+      this.interceptorPersonNoEdit.bind(this)
+    )
+    ProfileFormEventBus.on(ProfileFormEVENTS.PERSON_EDIT, this.interceptorPersonEdit.bind(this))
+    ProfileFormEventBus.on(ProfileFormEVENTS.PASSWORD_EDIT, this.interceptorPasswordEdit.bind(this))
     ProfileFormEventBus.on(ProfileFormEVENTS.EXIT, this.inceptorExit.bind(this))
   }
 
-  inceptorPersonNoEdit() {
+  interceptorPersonNoEdit() {
     let state = getStatePerson(false)
     let formik = this.children.form as FormConstructor
+
     formik.setProps({
       validate: state.validate,
       onSubmit: state.onSubmit,
@@ -155,9 +160,10 @@ export default class ProfileForm extends Component<ProfileFormType> {
     })
   }
 
-  inceptorPersonEdit() {
+  interceptorPersonEdit() {
     let state = getStatePerson(true)
     let formik = this.children.form as FormConstructor
+
     formik.setProps({
       validate: state.validate,
       onSubmit: state.onSubmit,
@@ -166,9 +172,10 @@ export default class ProfileForm extends Component<ProfileFormType> {
     })
   }
 
-  inceptorPasswordEdit() {
+  interceptorPasswordEdit() {
     let state = getStatePassword()
     let formik = this.children.form as FormConstructor
+
     formik.setProps({
       validate: state.validate,
       onSubmit: state.onSubmit,
@@ -182,8 +189,6 @@ export default class ProfileForm extends Component<ProfileFormType> {
   }
 
   protected render(): HTMLElement {
-    console.log('render prForm')
-
     return <div class={styles.block}>{this.childrenHTML.elements.form}</div>
   }
 }

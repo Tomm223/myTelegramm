@@ -1,6 +1,6 @@
-import Component from '@/utils/Component'
-import { deepEqual } from '@/utils/deepEqual'
-import { EventBus } from '@/utils/EventBus'
+import Component from '@/core/Component'
+import { deepEqual } from '@/core/deepEqual'
+import { EventBus } from '@/core/EventBus'
 import CompileMaster from '../../../core/CompileJSX'
 import { FormConstrEventBus, FormConstrEVENTS } from './eventbus'
 import styles from './styles.module.scss'
@@ -12,9 +12,11 @@ export interface FormConstructorType {
   buttons?: Component[]
   onSubmit?: (data: Record<string, string>) => void
   validate?: ValidateForm
+  _render?: boolean
 }
 
-function handleClick() {
+function handleClick(e: Event) {
+  e.preventDefault()
   FormConstrEventBus.emit(FormConstrEVENTS.SUBMIT)
 }
 function handleBlur(e: Event) {
@@ -41,10 +43,9 @@ export default class FormConstructor extends Component<FormConstructorType> {
 
   handlerBlur(e: Event) {
     if (!this.props.validate) return
+    console.log(this.props.validate)
 
     let input = e.target as HTMLInputElement
-    console.log(input.name, this.props.validate)
-
     let condidateError = this.props.validate[input.name](input.value)
 
     let childs = this.children.inputs as Component[]
@@ -68,7 +69,7 @@ export default class FormConstructor extends Component<FormConstructorType> {
     inp.removeEventListener('blur', handleBlur)
   }
 
-  handlerSubmit(e: Event) {
+  handlerSubmit() {
     if (!this._element) return
     if (!this.props.onSubmit) return
 
@@ -106,7 +107,7 @@ export default class FormConstructor extends Component<FormConstructorType> {
       // onSubmit form
       let submit = this._element?.querySelector('[type="submit"]')
 
-      submit?.addEventListener('click', handleClick)
+      submit?.removeEventListener('click', handleClick)
     }
     if (!Array.isArray(this.children.inputs)) return
 
@@ -117,7 +118,6 @@ export default class FormConstructor extends Component<FormConstructorType> {
     if (this.props.onSubmit) {
       // onSubmit form
       let submit = this._element?.querySelector('[type="submit"]')
-
       submit?.addEventListener('click', handleClick)
     }
 
@@ -131,7 +131,7 @@ export default class FormConstructor extends Component<FormConstructorType> {
       // onSubmit form
       let submit = this._element?.querySelector('[type="submit"]')
 
-      submit?.addEventListener('click', handleClick)
+      submit?.removeEventListener('click', handleClick)
     }
     if (!Array.isArray(this.children.inputs)) return
 

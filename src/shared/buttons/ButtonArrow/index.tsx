@@ -1,7 +1,7 @@
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Arrow from '@/static/icons/arrow-circle.svg'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 
 interface ButtonArrowType {
   onClick?: () => void | undefined

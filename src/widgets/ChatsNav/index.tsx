@@ -4,9 +4,9 @@ import Search from '@/entities/MessangerNav/Search'
 import ChatsList from '@/entities/MessangerNav/ChatsList'
 import { ChatList } from 'src/types/chats'
 import LinkToProfile from '@/entities/MessangerNav/LinkToProfile'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import { ChatNavEventBus, CHATNAVEVENTS } from './eventbus'
-import { EventBus } from '@/utils/EventBus'
+import { EventBus } from '@/core/EventBus'
 
 interface ChatNavType {
   list?: Component
@@ -43,7 +43,7 @@ export default class ChatNav extends Component<ChatNavType> {
   protected render(): HTMLElement {
     return (
       <nav class={styles.nav}>
-        <div class={styles.nav__link}>{LinkToProfile({ href: '/profile', onClick: () => {} })}</div>
+        <div class={styles.nav__link}>{new LinkToProfile({ href: '/profile' }).getContent()}</div>
         <div class={styles.nav__search}>{this.childrenHTML.elements.search}</div>
         <div class={styles.nav__overflow}>{this.childrenHTML.elements.list}</div>
       </nav>

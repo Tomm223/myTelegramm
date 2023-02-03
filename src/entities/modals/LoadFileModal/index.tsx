@@ -2,7 +2,7 @@ import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 import ButtonLoadFile from '@/shared/buttons/ButtonLoadFile'
 
@@ -29,6 +29,7 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
       children: new FormConstructorTitle({
         title: 'Загрузить Файл',
         inputs: [new ButtonLoadFile({})],
+        validate: {},
         buttons: [
           new ButtonConstructor({
             name: 'Загрузить',

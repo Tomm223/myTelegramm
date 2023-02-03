@@ -4,6 +4,10 @@ coverage
 /node_modules
 
 *.json
+*.ts
+*.tsx
+*.reg.ts
+*.js
 
 .prettierignore
 

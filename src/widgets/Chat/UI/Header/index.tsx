@@ -2,7 +2,7 @@ import Avatar from '@/shared/Avatar'
 import ButtonMore from '@/shared/buttons/ButtonMore'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 
 interface HeaderType {
   img?: string

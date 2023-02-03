@@ -2,31 +2,18 @@ import CompileMaster from '@/core/CompileJSX'
 import { Message } from '@/types/chats'
 import styles from './styles.module.scss'
 import MessageScreenItem from './item'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 
 interface MessageScreenType {
   messages: Message[]
 }
-/*
-setTimeout(() => {
-         itemEnd.current?.scrollIntoView({
-            //behavior: 'smooth'
-         })
-      }, 300)
-      itemEnd.current?.scrollIntoView({
-         behavior: 'smooth'
-      })
-*/
 
 export default class MessageScreen extends Component<MessageScreenType> {
   protected componentDidMount(): void {
-    console.log('end')
-
     if (!this._element?.getElementsByTagName('li').length) return
 
     let lastItem = [...this._element?.getElementsByTagName('li')].pop() as HTMLLIElement
     lastItem.scrollIntoView()
-    console.log('end')
   }
 
   protected render(): HTMLElement {

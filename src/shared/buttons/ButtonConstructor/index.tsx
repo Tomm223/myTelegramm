@@ -1,4 +1,4 @@
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import CompileMaster from 'src/core/CompileJSX'
 import styles from './styles.module.scss'
 

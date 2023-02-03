@@ -90,7 +90,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   vertical-align: baseline;
   font-size: 13px;
   background-color: inherit;
@@ -125,10 +124,10 @@ q {
   quotes: none;
 }
 
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
   content: '';
   content: none;
 }
@@ -152,7 +151,7 @@ a {
 }
 
 input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 textarea:focus,

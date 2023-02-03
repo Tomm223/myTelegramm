@@ -1,7 +1,7 @@
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Attach from 'static/icons/attach.svg'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 
 interface ButtonAttachType {
   events?: any

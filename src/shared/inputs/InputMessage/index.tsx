@@ -1,5 +1,5 @@
 import CompileMaster from '@/core/CompileJSX'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import styles from './styles.module.scss'
 
 interface InputMessageType {

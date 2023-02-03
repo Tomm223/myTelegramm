@@ -1,10 +1,13 @@
 import CompileMaster from '@/core/CompileJSX'
+import Component from '@/core/Component'
 import styles from './styles.module.scss'
 
-interface UnRead {
+interface UnReadType {
   number: number
 }
 
-export default function UnReadCount({ number }: UnRead) {
-  return <div class={styles.circle}>{number}</div>
+export default class UnRead extends Component<UnReadType> {
+  protected render(): HTMLElement {
+    return <div class={this.props.number ? styles.circle : 'hidden'}>{this.props.number}</div>
+  }
 }

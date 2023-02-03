@@ -1,4 +1,4 @@
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import CompileMaster from '@/core/CompileJSX'
 import WindowDefault from '@/shared/modals/ModalDefault/components/WindowDefault'
 import styles from './styles.module.scss'

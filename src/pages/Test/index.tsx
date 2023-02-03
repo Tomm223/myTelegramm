@@ -1,4 +1,4 @@
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import CompileMaster from '@/core/CompileJSX'
 
 interface TestType {

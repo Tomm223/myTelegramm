@@ -1,4 +1,8 @@
 export function deepEqual(obj1: any, obj2: any): boolean {
+  // if (obj2._render && obj2._render === true) {
+  //   return false
+  // }
+
   if (obj1 === obj2) {
     //Same object reference
     return true

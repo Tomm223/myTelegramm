@@ -1,6 +1,7 @@
 @import '../../../styles/vars.scss';
 
 .link_profile {
+  cursor: pointer;
   font-style: 12px;
   color: $font_placoholder;
   width: auto;
@@ -14,7 +15,7 @@
   }
 
   &__img {
-    width: auto; //7px;
-    height: auto; //12px;
+    width: auto;
+    height: auto;
   }
 }

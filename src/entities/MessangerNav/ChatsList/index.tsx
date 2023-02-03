@@ -1,7 +1,7 @@
 import CompileMaster from '@/core/CompileJSX'
 import { ChatList } from '@/types/chats'
-import Component from '@/utils/Component'
-import { EventBus } from '@/utils/EventBus'
+import Component from '@/core/Component'
+import { EventBus } from '@/core/EventBus'
 import { list } from './constants'
 import { ChatListEventBus, ChatListEVENTS } from './eventbus'
 import ChatsListItem from './item'
@@ -40,7 +40,7 @@ export default class ChatsList extends Component<ChatsUl> {
   protected render(): HTMLElement {
     return (
       <ul class={styles.list}>
-        {...this.getFilterList.map((item) => ChatsListItem(item))}
+        {...this.getFilterList.map((item) => new ChatsListItem(item).getContent())}
         <div class="hidden">zero</div>
       </ul>
     )

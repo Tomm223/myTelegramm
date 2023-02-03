@@ -3,9 +3,10 @@ import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
 import { StateSingUp, ValidateSingUp } from './constants'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 import FormConstructor from '@/shared/form/FormConstructor'
+import { useNavigate } from '@/core/routing'
 
 interface SingUpType {
   size: Size
@@ -26,9 +27,9 @@ interface Size {
   borderRadius?: string
 }
 
-function handle(e: Event) {
+const setLocation = (e: MouseEvent) => {
   e.preventDefault()
-  alert('SSS')
+  useNavigate('/sing-in')
 }
 
 export default class SingUp extends Component<SingUpType> {
@@ -45,7 +46,6 @@ export default class SingUp extends Component<SingUpType> {
         ref: 'form',
         validate: ValidateSingUp,
         title: 'Регистрация',
-        state: StateSingUp,
         inputs: [
           new InputText({ name: 'email', label: 'Почта' }),
           new InputText({ name: 'login', label: 'Логин' }),
@@ -63,7 +63,7 @@ export default class SingUp extends Component<SingUpType> {
           }) || <div></div>,
           new ButtonConstructor({
             name: 'Войти',
-            events: { click: handle },
+            events: { click: setLocation },
             view: 'transparent',
           }),
         ],

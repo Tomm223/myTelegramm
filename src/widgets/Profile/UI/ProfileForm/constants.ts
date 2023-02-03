@@ -32,7 +32,7 @@ export const ProfileValidate: { data: ValidateForm; password: ValidateForm } = {
 
 export const PersonForm = (isEdit: boolean) => ({
   state: ProfileState.data,
-  validate: { ...ProfileValidate.data, ...ProfileValidate.password },
+  validate: ProfileValidate.data, //{ ...ProfileValidate.data, ...ProfileValidate.password },
   inputs: [
     {
       isEdit: isEdit,
@@ -75,7 +75,7 @@ export const PersonForm = (isEdit: boolean) => ({
 
 export const PasswordForm = (isEdit: boolean) => ({
   state: ProfileState.password,
-  validate: { ...ProfileValidate.data, ...ProfileValidate.password },
+  validate: ProfileValidate.password, //{ ...ProfileValidate.data, ...ProfileValidate.password },
   inputs: [
     {
       isEdit: isEdit,

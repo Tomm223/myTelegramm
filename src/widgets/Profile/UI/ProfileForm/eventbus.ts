@@ -1,4 +1,4 @@
-import { EventBus } from '@/utils/EventBus'
+import { EventBus } from '@/core/EventBus'
 
 export const ProfileFormEventBus = new EventBus()
 

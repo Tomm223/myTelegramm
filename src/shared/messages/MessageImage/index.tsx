@@ -1,6 +1,6 @@
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
-import Time from '@/components/Time/default'
+import Time from '@/shared/Time/default'
 import flagRead from '../components/FlagRead'
 
 import IMG from '@/static/icons/avatar.jpg'

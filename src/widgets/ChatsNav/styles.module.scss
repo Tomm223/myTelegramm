@@ -3,7 +3,6 @@
 .nav {
   width: 100%;
   height: inherit;
-  padding: 0 10px;
   background-color: $col_nav_white;
   display: grid;
   grid-template-columns: 1fr;
@@ -11,7 +10,7 @@
   border-right: 1px $col_border_gray solid;
 
   &__link {
-    padding: 21px 0;
+    padding: 21px 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -19,6 +18,7 @@
 
   &__search {
     margin-bottom: 14px;
+    padding: 0 10px;
   }
 
   &__overflow {

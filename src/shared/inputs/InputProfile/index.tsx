@@ -1,5 +1,8 @@
 import CompileMaster from '@/core/CompileJSX'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
+import { deepEqual } from '@/core/deepEqual'
+import { EventBus } from '@/core/EventBus'
+import { InputProfileEventBus, InputProfileEVENTS } from './eventbus'
 import styles from './styles.module.scss'
 
 interface InputProfileType {
@@ -12,16 +15,35 @@ interface InputProfileType {
   style?: string
 }
 
+function handleChange(e: Event) {
+  let input = e.target as HTMLInputElement
+  InputProfileEventBus.emit(InputProfileEVENTS.CHANGE(input.id), input.value)
+}
+
 export default class InputProfile extends Component<InputProfileType> {
+  intercaptorChange(value: string) {
+    this.setProps({ text: value })
+  }
+
+  protected registerEvents(
+    eventBus: EventBus<Record<string, string>, Record<string, any[]>>
+  ): void {
+    InputProfileEventBus.on(InputProfileEVENTS.CHANGE(this.id), this.intercaptorChange.bind(this))
+  }
+
   protected addEvents(): void {
     let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    input.addEventListener('change', handleChange)
   }
 
   protected removeEvents(): void {
     let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    input.addEventListener('change', handleChange)
   }
 
   protected render(): HTMLElement {
+    console.log('render input')
+
     return (
       <div class={styles.itemList}>
         <p class={styles.b}>{this.props.text}</p>

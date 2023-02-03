@@ -2,9 +2,7 @@ import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Chat from '@/widgets/Chat'
 import ChatNav from '@/widgets/ChatsNav'
-import AddUser from '@/entities/modals/AddUser'
-import RemoveUser from '@/entities/modals/RemoveUser'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 
 interface MessangerType {
   nav?: Component

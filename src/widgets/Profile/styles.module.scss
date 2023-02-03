@@ -19,10 +19,11 @@
   width: 500px;
   height: 90vh;
   max-height: 600px;
-  transform: translate(-50%, -53%); //-38
+  transform: translate(-50%, -53%);
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 200px 1fr;
+
   &__item {
     width: 100%;
   }

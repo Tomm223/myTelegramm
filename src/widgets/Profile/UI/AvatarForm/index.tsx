@@ -1,6 +1,6 @@
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 
 interface AvatarFormType {
   onClick: () => void

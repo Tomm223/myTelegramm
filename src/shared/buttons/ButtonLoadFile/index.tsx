@@ -1,4 +1,4 @@
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import InputFile from '@/shared/inputs/InputFile'
@@ -30,13 +30,13 @@ export default class ButtonLoadFile extends Component<ButtonLoadFileType> {
   }
 
   protected addEvents(): void {
-    let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
-    btn.addEventListener('click', this.handleClick.bind(this))
+    // let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
+    // btn.addEventListener('click', this.handleClick.bind(this))
   }
 
   protected removeEvents(): void {
-    let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
-    btn.removeEventListener('click', this.handleClick.bind(this))
+    // let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
+    // btn.removeEventListener('click', this.handleClick.bind(this))
   }
 
   protected preRender(): void {
@@ -57,12 +57,16 @@ export default class ButtonLoadFile extends Component<ButtonLoadFileType> {
   protected render(): HTMLElement {
     return (
       <div class={styles.block}>
-        <button class={styles.btn}>Выберите файл на компьютере</button>
-        {this.childrenHTML.elements.input}
+        <input type="file" />
       </div>
     )
   }
 }
+
+/*
+<button class={styles.btn}>Выберите файл на компьютере</button>
+        {this.childrenHTML.elements.input}
+*/
 
 /*
 <div class={styles.block}>

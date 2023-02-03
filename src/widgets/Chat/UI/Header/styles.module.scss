@@ -28,6 +28,7 @@
   from {
     transform: translate(0%, -300%);
   }
+
   to {
     transform: translate(0%, 100%);
   }
@@ -38,6 +39,7 @@
   z-index: 2000;
   position: absolute;
 }
+
 .menu_active {
   transform: translate(0%, 100%);
   bottom: -10px;
@@ -47,6 +49,7 @@
   animation-duration: 200ms, 500ms;
   animation-fill-mode: forwards;
 }
+
 .menu {
   display: none;
   transform: translate(0%, -100%);

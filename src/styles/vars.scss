@@ -1,5 +1,5 @@
 $col_blue: #3369f3;
-$col_white: #ffffff;
+$col_white: #fff;
 $col_gray: #efefef;
 $font_dark: #1e1e1e;
 $font_red: #ff2f2f;
@@ -14,7 +14,7 @@ $col_btn_gray: #f5f5f5;
 $col_btn_gray_hover: #f1f1f1;
 $col_btn_blue: #3369f3;
 $col_btn_blue_hover: #2f61e0;
-$col_btn_red: #ff0000;
+$col_btn_red: #f00;
 $col_btn_red_hover: #e60000;
 $col_chatlist_item_hover: #e4edfd;
 $col_input_gray: #efefef;
@@ -25,8 +25,8 @@ $col_scrollbar_hover: #959595;
 
 @mixin scrollbar_zero {
   &::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     background-color: inherit;
   }
 }

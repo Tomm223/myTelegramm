@@ -1,5 +1,5 @@
-import Component from '@/utils/Component'
-import { EventBus } from '@/utils/EventBus'
+import Component from '@/core/Component'
+import { EventBus } from '@/core/EventBus'
 import CompileMaster from '../../../core/CompileJSX'
 import { EVENTS, InputTextEventBus } from './eventbus'
 import styles from './styles.module.scss'

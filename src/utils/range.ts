@@ -1,5 +1,5 @@
-export function range(start, end, step, isRight) {
-  const isNum = (num) => (typeof num === 'number' ? true : false)
+export function range(start: number, end: number, step: number, isRight: boolean) {
+  const isNum = (num: number) => (typeof num === 'number' ? true : false)
 
   if (!isNum(start)) {
     return []
@@ -20,9 +20,11 @@ export function range(start, end, step, isRight) {
 
   const isBreak = () => {
     if (end > 0) {
-      count >= end ? true : false
+      if (count >= end) return true
+      else return false
     } else {
-      count <= end ? true : false
+      if (count <= end) return true
+      else return false
     }
   }
 
@@ -35,6 +37,6 @@ export function range(start, end, step, isRight) {
   return isRight ? array.reverse() : array
 }
 
-export function rangeRight(start, end, step) {
+export function rangeRight(start: number, end: number, step: number) {
   return range(start, end, step, true)
 }

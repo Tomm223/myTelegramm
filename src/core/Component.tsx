@@ -250,13 +250,20 @@ class Component<P extends Record<string, any> = any> {
     const { children, props } = this._getChildrenAndProps(nextProps)
 
     let oldTarget = { ...this.props }
+    let oldChildren = { ...this.children }
 
     if (Object.values(children).length) {
       Object.assign(this.children, children)
     }
 
     if (Object.values(props).length) {
-      Object.assign(this.props, nextProps)
+      Object.assign(this.props, props)
+    }
+
+    if (Object.values(children).length) {
+      this.eventBus().emit(Component.EVENTS.FLOW_CDU, { a: 1, b: 2 }, { c: '10' })
+
+      this._setUpdate = false
     }
 
     if (this._setUpdate) {

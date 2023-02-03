@@ -9,10 +9,10 @@ import FormSend from './UI/FormSend'
 import MessageScreen from './UI/MessageScreen'
 import AddUser from '@/entities/modals/AddUser'
 import RemoveUser from '@/entities/modals/RemoveUser'
-import Component from '@/utils/Component'
+import Component from '@/core/Component'
 import MenuChat from './UI/MenuChat'
 import ButtonMenu from './UI/MenuChat/ButtonMenu'
-import { EventBus } from '@/utils/EventBus'
+import { EventBus } from '@/core/EventBus'
 import { ChatEventBus, CHATEVENTS } from './eventbus'
 
 interface ChatType {
@@ -23,6 +23,10 @@ interface ChatType {
   removeUser?: Component
   messageList?: Component
   formSend?: Component
+}
+
+function handleSubmit(form: any) {
+  console.log(form)
 }
 
 export default class Chat extends Component<ChatType> {
@@ -84,12 +88,6 @@ export default class Chat extends Component<ChatType> {
     }
   }
 
-  protected componentDidMount(): void {
-    console.log('mount')
-  }
-
-  // <div class={styles.form}>{this.childrenHTML.elements.formSend}</div>
-
   protected render(): HTMLElement {
     return (
       <div class={styles.container}>
@@ -102,13 +100,13 @@ export default class Chat extends Component<ChatType> {
           size: { width: '340px', height: '260px' },
           isOpen: this.props.isAddUser || false,
           onClose: () => this.setProps({ isAddUser: false }),
-          onSubmit: (form) => {},
+          onSubmit: handleSubmit,
         }).getContent()}
         {new RemoveUser({
           size: { width: '340px', height: '260px' },
           isOpen: this.props.isRemoveUser || false,
           onClose: () => this.setProps({ isRemoveUser: false }),
-          onSubmit: (form) => {},
+          onSubmit: handleSubmit,
         }).getContent()}
       </div>
     )

@@ -36,7 +36,7 @@
       "@/entities/*": ["src/entities/*"],
       "@/styles/*": ["src/styles/*"],
       "@/static/*": ["static/*"],
-      "@/routes/*": ["src/routes.tsx"],
+      "@/routes/*": ["src/app/routes.tsx.tsx"],
       "@/types/*": ["src/types/*"],
       "@/widgets/*": ["src/widgets/*"],
       "@/utils/*": ["src/utils/*"],
