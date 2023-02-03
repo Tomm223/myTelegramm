@@ -1,0 +1,37 @@
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.4s ease;
+  z-index: 8000;
+  cursor: pointer;
+}
+
+.dark {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.white {
+  background-color: #fff;
+}
+
+.light_white {
+  background-color: #fff;
+}
+
+.transparent {
+  background-color: transparent;
+}
+
+.block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  background-color: transparent;
+}/*# sourceMappingURL=styles.module.css.map */

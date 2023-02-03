@@ -1,0 +1,34 @@
+.block {
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  padding: 10px 0;
+  border-bottom: 1px #eaeaea solid;
+}
+.block:last-child {
+  border-bottom: none;
+}
+
+.primary,
+.red {
+  cursor: pointer;
+  display: inline-flex;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: inherit;
+}
+
+.primary {
+  color: #3369f3;
+}
+.primary:hover {
+  color: #2f61e0;
+}
+
+.red {
+  color: #f00;
+}
+.red:hover {
+  color: #e60000;
+}/*# sourceMappingURL=styles.module.css.map */

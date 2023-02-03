@@ -1,0 +1,19 @@
+.link {
+  width: auto;
+  height: 100%;
+  padding: 0 20px;
+  background-color: #fbfbfb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px #eaeaea solid;
+  cursor: pointer;
+}
+.link:hover {
+  background-color: #efefef;
+}
+
+.img {
+  width: auto;
+  height: auto;
+}/*# sourceMappingURL=styles.module.css.map */

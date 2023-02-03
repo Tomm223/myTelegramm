@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  height: inherit;
+  padding: 0 20px;
+}
+
+.block {
+  width: 100%;
+  height: inherit;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 55px 1fr 58px;
+  overflow: hidden;
+}
+
+.messages {
+  flex: 1 1 auto;
+}
+
+.form {
+  flex: 0 0 auto;
+  height: 50px;
+}/*# sourceMappingURL=styles.module.css.map */

@@ -1,5 +1,5 @@
 import { EventBus } from './EventBus'
-import { nanoid } from 'nanoid'
+import { v4 as uuidv4 } from 'uuid'
 import CompileMaster from '@/core/CompileJSX'
 import { deepEqual } from './deepEqual'
 
@@ -43,7 +43,7 @@ class Component<P extends Record<string, any> = any> {
     this.props = this._makePropsProxy(props)
     this.ref = ref
 
-    this.id = nanoid()
+    this.id = uuidv4()
 
     this.eventBus = () => eventBus
 

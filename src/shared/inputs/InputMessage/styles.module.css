@@ -1,0 +1,17 @@
+.input {
+  background-color: #efefef;
+  border: 0;
+  border-radius: 30px;
+  font-style: 12px;
+  padding: 10px 20px;
+  color: #1e1e1e;
+}
+.input::-moz-placeholder {
+  color: #999;
+}
+.input:-ms-input-placeholder {
+  color: #999;
+}
+.input::placeholder {
+  color: #999;
+}/*# sourceMappingURL=styles.module.css.map */
