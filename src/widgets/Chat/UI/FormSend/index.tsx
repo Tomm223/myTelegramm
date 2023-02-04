@@ -43,17 +43,23 @@ export default class FormSend extends Component<FormSendType> {
         new ButtonMenu({
           img: Photo,
           text: 'Фото или Видео',
-          events: { click: () => {} },
+          onSelect: () => {},
+          inputName: 'photo/movie',
+          accepting: 'images+videos',
         }),
         new ButtonMenu({
           img: File,
           text: 'Файл',
-          events: { click: () => {} },
+          onSelect: () => {},
+          inputName: 'file',
+          accepting: 'files',
         }),
         new ButtonMenu({
           img: Local,
           text: 'Локация',
-          events: { click: () => {} },
+          onSelect: () => {},
+          inputName: 'location',
+          accepting: 'local',
         }),
       ],
     })
