@@ -1,0 +1,17 @@
+.link_profile {
+  cursor: pointer;
+  font-style: 12px;
+  color: #999;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.link_profile__text {
+  color: inherit;
+  font-size: inherit;
+  margin-right: 8px;
+}
+.link_profile__img {
+  width: auto;
+  height: auto;
+}/*# sourceMappingURL=styles.module.css.map */

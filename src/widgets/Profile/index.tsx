@@ -70,6 +70,8 @@ export default class Profile extends Component<ProfileType> {
         </div>
         {/* {this.childrenHTML.elements.avatar_modal} */}
         {new LoadFileModal({
+          inputName: 'avatar',
+          accepting: 'images',
           isOpen: this.props.isEditAvatar || false,
           size: { height: '260px' },
           onClose: () => this.setProps({ isEditAvatar: false }),
@@ -78,13 +80,3 @@ export default class Profile extends Component<ProfileType> {
     )
   }
 }
-
-/**
- *  {LoadFileModal({ isOpen: isAvatarWindow, size: { height: '260px' }, error: null })}
-         <div class={styles.link_back}>
-            {LinkToBack({ href: '/' })}
-         </div>
-         <div class={styles.form}>
-            {ProfileForm({ isEdit, isPassword })}
-         </div>
- */

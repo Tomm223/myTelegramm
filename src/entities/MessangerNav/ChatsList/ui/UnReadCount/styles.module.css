@@ -1,0 +1,11 @@
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: #3369f3;
+  color: #fff;
+  font-size: 11px;
+  border-radius: 50%;
+}/*# sourceMappingURL=styles.module.css.map */

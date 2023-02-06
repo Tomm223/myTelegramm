@@ -15,12 +15,17 @@ export interface FormConstructorType {
   _render?: boolean
 }
 
-function handleClick(e: Event) {
-  e.preventDefault()
-  FormConstrEventBus.emit(FormConstrEVENTS.SUBMIT)
+function handleClick(id: number | string) {
+  return (e: Event) => {
+    e.preventDefault()
+    FormConstrEventBus.emit(FormConstrEVENTS.SUBMIT(id), e)
+  }
 }
-function handleBlur(e: Event) {
-  FormConstrEventBus.emit(FormConstrEVENTS.CHECK_VALID, e)
+function handleBlur(id: number | string) {
+  return (e: Event) => {
+    e.preventDefault()
+    FormConstrEventBus.emit(FormConstrEVENTS.CHECK_VALID(id), e)
+  }
 }
 
 export default class FormConstructor extends Component<FormConstructorType> {
@@ -37,13 +42,12 @@ export default class FormConstructor extends Component<FormConstructorType> {
   protected registerEvents(
     eventBus: EventBus<Record<string, string>, Record<string, any[]>>
   ): void {
-    FormConstrEventBus.on(FormConstrEVENTS.SUBMIT, this.handlerSubmit.bind(this))
-    FormConstrEventBus.on(FormConstrEVENTS.CHECK_VALID, this.handlerBlur.bind(this))
+    FormConstrEventBus.on(FormConstrEVENTS.SUBMIT(this.id), this.handlerSubmit.bind(this))
+    FormConstrEventBus.on(FormConstrEVENTS.CHECK_VALID(this.id), this.handlerBlur.bind(this))
   }
 
   handlerBlur(e: Event) {
     if (!this.props.validate) return
-    console.log(this.props.validate)
 
     let input = e.target as HTMLInputElement
     let condidateError = this.props.validate[input.name](input.value)
@@ -61,12 +65,12 @@ export default class FormConstructor extends Component<FormConstructorType> {
 
   addEventBlurInput(child: Component) {
     let inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
-    inp.addEventListener('blur', handleBlur)
+    inp.addEventListener('blur', handleBlur(this.id))
   }
 
   removeEventBlurInput(child: Component) {
     let inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
-    inp.removeEventListener('blur', handleBlur)
+    inp.removeEventListener('blur', handleBlur(this.id))
   }
 
   handlerSubmit() {
@@ -107,7 +111,7 @@ export default class FormConstructor extends Component<FormConstructorType> {
       // onSubmit form
       let submit = this._element?.querySelector('[type="submit"]')
 
-      submit?.removeEventListener('click', handleClick)
+      submit?.removeEventListener('click', handleClick(this.id))
     }
     if (!Array.isArray(this.children.inputs)) return
 
@@ -118,7 +122,7 @@ export default class FormConstructor extends Component<FormConstructorType> {
     if (this.props.onSubmit) {
       // onSubmit form
       let submit = this._element?.querySelector('[type="submit"]')
-      submit?.addEventListener('click', handleClick)
+      submit?.addEventListener('click', handleClick(this.id))
     }
 
     if (!Array.isArray(this.children.inputs)) return
@@ -131,7 +135,7 @@ export default class FormConstructor extends Component<FormConstructorType> {
       // onSubmit form
       let submit = this._element?.querySelector('[type="submit"]')
 
-      submit?.removeEventListener('click', handleClick)
+      submit?.removeEventListener('click', handleClick(this.id))
     }
     if (!Array.isArray(this.children.inputs)) return
 

@@ -1,0 +1,32 @@
+.block__time {
+  font-size: 9px;
+  color: #999;
+}
+
+.block_image {
+  padding: 2px 7px;
+  border-radius: 30px;
+  background: rgba(82, 82, 82, 0.5);
+}
+.block_image__time {
+  font-size: 9px;
+  color: #fff;
+}
+
+.blue,
+.gray,
+.white {
+  font-size: 11px;
+}
+
+.gray {
+  color: #999;
+}
+
+.white {
+  color: #fff;
+}
+
+.blue {
+  color: #3369f3;
+}/*# sourceMappingURL=styles.module.css.map */

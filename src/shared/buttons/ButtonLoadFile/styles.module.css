@@ -1,0 +1,17 @@
+.block {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+  color: #3369f3;
+  margin: 0;
+}/*# sourceMappingURL=styles.module.css.map */

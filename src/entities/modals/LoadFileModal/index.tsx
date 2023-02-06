@@ -5,12 +5,15 @@ import ModalDefault from '@/shared/modals/ModalDefault'
 import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 import ButtonLoadFile from '@/shared/buttons/ButtonLoadFile'
+import { AcceptInputChoose } from '@/shared/inputs/InputFile'
 
 interface LoadFileModalType {
   isOpen: boolean
   size?: Size
   onClose?: () => void
   form?: Component
+  inputName: string
+  accepting: AcceptInputChoose
 }
 
 interface Size {
@@ -28,7 +31,12 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
       size: props.size,
       children: new FormConstructorTitle({
         title: 'Загрузить Файл',
-        inputs: [new ButtonLoadFile({})],
+        inputs: [
+          new ButtonLoadFile({
+            name: props.inputName,
+            accepting: props.accepting,
+          }),
+        ],
         validate: {},
         buttons: [
           new ButtonConstructor({

@@ -9,8 +9,9 @@ import { ValidateForm } from './types'
 // email /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.
 // [0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 //email ^[^@s]+@[^@s]+.[^@s]+$
-
-const RegName = RegExp(/^[A-ZА-Я]{1}[a-zа-я-]{2,254}$/) //RegExp(/[а-я]/i) //RegExp(/^\s*(\w+)\s*$/) //RegExp(/[а-яё]/i) // RegExp(/^\w+$/) //RegExp(/^[A-zА-яЁё]{2,20}$/)
+// ^[A-ZА-Я]{1}[a-zа-я\-]{0,254}$
+// /^[A-ZА-Я]{1}[a-zа-я-]{2,254}$/
+const RegName = RegExp(/^[A-ZА-Я]{1}[a-zа-я\-]{0,254}$/) //RegExp(/[а-я]/i) //RegExp(/^\s*(\w+)\s*$/) //RegExp(/[а-яё]/i) // RegExp(/^\w+$/) //RegExp(/^[A-zА-яЁё]{2,20}$/)
 const RegLogin = RegExp(/^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$/)
 const RegPhone = RegExp(/^[0-9\s]{10,15}$/)
 const RegEmail = RegExp(
