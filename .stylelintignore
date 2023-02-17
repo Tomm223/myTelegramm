@@ -1,0 +1,13 @@
+/dist 
+coverage
+*.yaml
+/node_modules
+
+*.json
+*.ts
+*.tsx
+*.reg.ts
+*.js
+
+.prettierignore
+

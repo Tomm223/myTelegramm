@@ -1,0 +1,31 @@
+.btn,
+.btn_active {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
+}
+.btn:hover,
+.btn_active:hover {
+  background-color: #f5f5f5;
+}
+.btn:hover img,
+.btn_active:hover img {
+  fill: #3369f3;
+}
+
+.btn_active {
+  background-color: #f5f5f5;
+}
+.btn_active .img {
+  fill: #3369f3;
+}
+
+.img {
+  width: auto;
+  height: auto;
+}/*# sourceMappingURL=styles.module.css.map */

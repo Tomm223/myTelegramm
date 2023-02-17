@@ -1,0 +1,12 @@
+.btn {
+  width: 28px;
+  height: 28px;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.img {
+  width: auto;
+  height: auto;
+}/*# sourceMappingURL=styles.module.css.map */

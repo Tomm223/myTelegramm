@@ -1,0 +1,56 @@
+@import '../../../styles/vars.scss';
+
+.form,
+.form_active {
+  width: 100%;
+  height: auto;
+}
+
+.form_active {
+  position: relative;
+
+  &::before {
+    content: '';
+    background-image: url('../../../../static/icons/search.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0%, -50%);
+  }
+}
+
+.input,
+.btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  background-color: $col_gray;
+  cursor: pointer;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__p {
+    font-size: inherit;
+    color: $font_placoholder;
+  }
+}
+
+.input {
+  padding-left: 34px;
+  color: $font_dark;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.img {
+  margin-right: 5px;
+}

@@ -1,0 +1,45 @@
+.msg_dont,
+.msg_my {
+  border-radius: 12px;
+  flex-wrap: wrap;
+  padding: 11px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.msg_dont__text,
+.msg_my__text {
+  font-size: 12px;
+  line-height: 15px;
+}
+.msg_dont__time,
+.msg_my__time {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  height: 9px;
+  position: relative;
+}
+
+.msg_my {
+  background-color: #e4edfd;
+}
+.msg_my__flag_read, .msg_my__flag_unread {
+  height: inherit;
+  display: flex;
+  align-items: flex-end;
+}
+.msg_my__flag_read {
+  margin-right: 3px;
+}
+.msg_my__flag_unread {
+  margin: 0;
+}
+
+.msg_dont {
+  background-color: #f8f8f8;
+}
+.msg_dont__flag_zero {
+  margin-right: 4px;
+  opacity: 0;
+}/*# sourceMappingURL=styles.module.css.map */
