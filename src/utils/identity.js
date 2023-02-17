@@ -1,4 +1,3 @@
 export function identity(value) {
-   return value;
+  return value
 }
-

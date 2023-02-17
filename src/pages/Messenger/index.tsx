@@ -1,35 +1,35 @@
-import CompileMaster from "@/core/CompileJSX"
+import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
-import Chat from "@/modules/Chat"
-import ChatNav from "@/modules/ChatNav"
-import AddUser from "@/modules/modals/AddUser"
-import RemoveUser from "@/modules/modals/RemoveUser"
+import Chat from '@/widgets/Chat'
+import ChatNav from '@/widgets/ChatsNav'
+import Component from '@/core/Component'
 
-export default function Messanger() {
-
-   let isAddUserWindow = false
-   let isRemoveUserWindow = false
-
-   const pathname = window.location.pathname
-
-   const [path, category] = pathname.split("/").slice(1)
-
-   if (category === 'add-user') {
-      isAddUserWindow = true
-   }
-   if (category === 'remove-user') {
-      isRemoveUserWindow = true
-   }
-
-   return (
-      <div class={styles.main}>
-         {AddUser({ size: { width: '340px', height: '260px' }, isOpen: isAddUserWindow, onClick: () => { } })}
-         {RemoveUser({ size: { width: '340px', height: '260px' }, isOpen: isRemoveUserWindow, onClick: () => { } })}
-         <div class={styles.container}>
-            {ChatNav()}
-            {Chat()}
-         </div>
-      </div>
-   )
+interface MessangerType {
+  nav?: Component
+  chat?: Component
 }
 
+export default class Messanger extends Component<MessangerType> {
+  constructor(props: MessangerType) {
+    props.nav = new ChatNav({})
+    props.chat = new Chat({})
+
+    super(props)
+  }
+
+  protected componentDidMount(): void {
+    console.log('did')
+  }
+
+  protected render(): HTMLElement {
+    return (
+      <div class={styles.main}>
+        <div class={styles.container}>
+          {this.childrenHTML.elements.nav}
+          {this.childrenHTML.elements.chat}
+          {/* {new Chat({}).getContent()} */}
+        </div>
+      </div>
+    )
+  }
+}
