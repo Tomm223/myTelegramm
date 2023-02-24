@@ -4,8 +4,13 @@ import { EventBus } from '@/core/EventBus'
 import { UserType } from '@/types/user'
 
 export interface InitialStateType {
-  listChats: ChatList[] | []
-  search: string
+  listChats: {
+    limit: number
+    offset: number
+    search: string
+    list: ChatList[] | []
+    loading: boolean
+  }
   chat: {
     messages: Message[] | []
     page: number
@@ -24,8 +29,13 @@ export interface InitialStateType {
 }
 
 const Initialstate: InitialStateType = {
-  listChats: [],
-  search: '',
+  listChats: {
+    limit: 10,
+    offset: 10,
+    search: '',
+    list: [],
+    loading: false,
+  },
   chat: {
     messages: [],
     page: 1,
@@ -57,15 +67,23 @@ export default class Store extends EventBus {
 
     super()
 
+    // localStorage.removeItem(Store.STORE_NAME)
     const savedState = localStorage.getItem(Store.STORE_NAME)
 
-    // this._state = savedState ? JSON.parse(savedState) ?? Initialstate : Initialstate
-    this._state = Initialstate
+    this._state = savedState ? JSON.parse(savedState) ?? Initialstate : Initialstate
+    // this._state = Initialstate
 
     Store._instance = this
 
     this.on(Store.EVENT_UPDATE, () => {
-      localStorage.setItem(Store.STORE_NAME, JSON.stringify(this._state))
+      const saveState: InitialStateType = {
+        ...Initialstate,
+        isAuth: this._state.isAuth,
+        user: this._state.user,
+        chat: this._state.chat,
+      }
+
+      localStorage.setItem(Store.STORE_NAME, JSON.stringify(saveState))
     })
   }
 

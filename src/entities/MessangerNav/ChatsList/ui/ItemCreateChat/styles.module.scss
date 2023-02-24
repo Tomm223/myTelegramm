@@ -1,0 +1,28 @@
+@import '../../../../../styles/vars.scss';
+
+.btn {
+  width: 100%;
+  border-top: 1px $col_border_gray solid;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $font_placoholder;
+  background-color: $col_btn_gray;
+  transition: all 0.3;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $col_btn_gray_hover;
+  }
+}
+
+.content {
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  margin-right: 10px;
+}

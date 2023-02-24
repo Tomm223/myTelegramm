@@ -80,6 +80,17 @@ export default class FormConstructor extends Component<FormConstructorType> {
     inp.removeEventListener('blur', handleBlur(this.id))
   }
 
+  public resetForm() {
+    let childs = this.children.inputs as Component[]
+    for (const i in childs) {
+      childs[i].props.error = ''
+    }
+    for (const i in childs) {
+      const input = childs[i]._element?.getElementsByTagName('input')[0] as HTMLInputElement
+      input.value = ''
+    }
+  }
+
   handlerSubmit() {
     if (!this._element) return
     if (!this.props.onSubmit) return

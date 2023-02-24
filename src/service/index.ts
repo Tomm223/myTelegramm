@@ -77,7 +77,7 @@ myUserForm.addEventListener('submit', (event) => {
 })
 
 // wss
-
+//////////////////////////////wss://ya-praktikum.tech/ws/chats/308636/4054/b2a3de4d397be57498879.........
 const socket = new WebSocket('wss://ya-praktikum.tech/ws/chats/<USER_ID>/<CHAT_ID>/<TOKEN_VALUE>')
 
 // получение токена для подключения к websocket для прослушивания сообщений

@@ -5,6 +5,7 @@ import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
+import FormConstructor from '@/shared/form/FormConstructor'
 
 interface ModalFormType {
   onSubmit?: (form: Record<string, string>) => void
@@ -51,6 +52,14 @@ export default class ModalFormDefault extends Component<ModalFormType> {
 
   protected componentDidUpdate(oldProps: ModalFormType, newProps: ModalFormType): void {
     let modal = this.children.modal as Component
+
+    if (!newProps.isOpen) {
+      const window = modal.children.window as Component
+      const form = window.children.children as FormConstructorTitle
+      const construct = form.children.constructo as FormConstructor
+      construct.resetForm()
+    }
+
     if (oldProps.isOpen !== newProps.isOpen) {
       modal.setProps({ isOpen: newProps.isOpen })
     }

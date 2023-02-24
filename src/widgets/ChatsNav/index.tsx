@@ -8,6 +8,8 @@ import Component from '@/core/Component'
 import { ChatNavEventBus, CHATNAVEVENTS } from './eventbus'
 import { EventBus } from '@/core/EventBus'
 import Actions from '@/store/Actions'
+import { throtlle } from '@/utils/throtlle'
+import { debounce } from '@/utils/debounce'
 
 interface ChatNavType {
   list?: Component
@@ -43,7 +45,8 @@ export default class ChatNav extends Component<ChatNavType> {
       <nav class={styles.nav}>
         <div class={styles.nav__link}>{new LinkToProfile({ href: '/setting' }).getContent()}</div>
         <div class={styles.nav__search}>{this.childrenHTML.elements.search}</div>
-        <div class={styles.nav__overflow}>{this.childrenHTML.elements.list}</div>
+        {/* {<div class={styles.nav__overflow}>{this.childrenHTML.elements.list}</div>} */}
+        {this.childrenHTML.elements.list}
       </nav>
     )
   }
