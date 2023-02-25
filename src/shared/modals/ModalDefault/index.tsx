@@ -69,7 +69,6 @@ export default class ModalDefault extends Component<ModalDefaultType> {
   }
 
   protected componentDidUpdate(oldProps: ModalDefaultType, newProps: ModalDefaultType): void {
-    console.log('update', newProps)
     this.interceptorShow()
   }
 

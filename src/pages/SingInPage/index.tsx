@@ -11,7 +11,6 @@ interface SingInPageType {
 export default class SingInPage extends Component<SingInPageType> {
   constructor(props: SingInPageType) {
     const controller = new SingController()
-    controller.logout()
     props.modal = new SingIn({
       size: { width: '340px', height: '615px' },
       onSubmit: controller.login,

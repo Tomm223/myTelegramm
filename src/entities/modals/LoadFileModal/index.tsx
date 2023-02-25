@@ -34,6 +34,7 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
       onOut: this.handleClose.bind(this),
       size: this.props.size,
       children: new FormConstructorTitle({
+        setting: 'files',
         onSubmit: this.props.onSubmit,
         title: 'Загрузить Файл',
         inputs: [
@@ -45,6 +46,7 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
         validate: {},
         buttons: [
           new ButtonConstructor({
+            type: 'submit',
             name: 'Загрузить',
             view: 'primary',
             events: {

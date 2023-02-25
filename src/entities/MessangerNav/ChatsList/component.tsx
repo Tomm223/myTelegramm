@@ -13,10 +13,12 @@ import InputText from '@/shared/inputs/InputText'
 import ModalCreateChat from '@/entities/modals/ModalCreateChat'
 import Store from '@/store/Store'
 import { debounce } from '@/utils/debounce'
+import { deepEqual } from '@/core/deepEqual'
 
 interface ChatsUl {
   list: ChatList[] | []
   loading?: boolean
+  isAll?: boolean
   loader?: Component
   button?: Component
   modal?: Component
@@ -53,19 +55,29 @@ export default class ChatsList extends Component<ChatsUl> {
     this._element?.addEventListener('scroll', debounce(this.handleScroll.bind(this), 200))
   }
 
+  protected removeEvents(): void {
+    this._element?.addEventListener('scroll', debounce(this.handleScroll.bind(this), 200))
+  }
+
   handleScroll() {
+    if (this.props.isAll) {
+      console.log('isAll')
+      return
+    }
     const ul = this._element?.getElementsByTagName('ul')[0] as HTMLUListElement
 
-    const bottom = this._element?.getElementsByClassName('last')[0].getBoundingClientRect().bottom
+    const bottom = this._element
+      ?.getElementsByClassName(styles.last)[0]
+      .getBoundingClientRect().bottom
     const height = window.screen.height
 
+    if (this.props.loading) return
     if (!bottom) return
-
-    if (bottom <= height) {
-      const nextOffset = Actions.getChatListLimit() || 20
-      const oldOffset = Actions.getChatListOffset() || 20
-      this.pushNewItemsChatList(oldOffset + nextOffset)
-    }
+    if (bottom >= height) return
+    console.log('handle work')
+    const nextOffset = Actions.getChatListLimit() || 20
+    const oldOffset = Actions.getChatListOffset() || 20
+    this.pushNewItemsChatList(oldOffset + nextOffset)
   }
 
   pushNewItemsChatList(number: number) {
@@ -96,6 +108,10 @@ export default class ChatsList extends Component<ChatsUl> {
     }
   }
 
+  protected shouldComponentUpdate(oldProps: ChatsUl, newProps: ChatsUl): boolean {
+    return !deepEqual({ ...oldProps, scroll: null }, { ...newProps, scroll: null })
+  }
+
   protected componentDidUpdate(oldProps: ChatsUl, newProps: ChatsUl): void {
     this.correctedScroll()
   }
@@ -106,6 +122,7 @@ export default class ChatsList extends Component<ChatsUl> {
 
   protected render(): HTMLElement {
     let listItem: Array<any>
+    console.log(this.props.list)
 
     if (this.props.loading && !this.props.list.length) {
       listItem = [this.childrenHTML.elements.loader]
@@ -116,18 +133,15 @@ export default class ChatsList extends Component<ChatsUl> {
         listItem.unshift(this.childrenHTML.elements.button)
       }
     }
+
     return (
       <div class={styles.overflow}>
         <ul class={styles.list}>
           {...listItem}
-          <div class="last" style={this.props.loading && this.props.list ? 'opacity:0;' : ''}>
-            {/* {this.childrenHTML.elements.loader} */}
-            {/* {this.props.loading && this.props.list ? (
-              this.childrenHTML.elements.loader
-            ) : (
-              <div></div>
-            )} */}
-          </div>
+          <div
+            class={styles.last}
+            style={this.props.loading && this.props.list.length ? '' : 'opacity:0;'}
+          ></div>
         </ul>
         {this.childrenHTML.elements.modal}
       </div>

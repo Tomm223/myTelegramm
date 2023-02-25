@@ -7,6 +7,7 @@ import styles from './styles.module.scss'
 import { ValidateForm } from './types'
 
 export interface FormConstructorType {
+  setting?: 'files' | 'string'
   ref?: string
   inputs?: Component[]
   buttons?: Component[]
@@ -99,9 +100,13 @@ export default class FormConstructor extends Component<FormConstructorType> {
 
     let inputs = this._element.getElementsByTagName('input')
 
-    let result = {} as Record<string, string>
+    let result = {} as Record<string, any>
     for (let i = 0; i < inputs.length; i++) {
-      result[inputs[i].name] = inputs[i].value
+      if (this.props.setting === 'files') {
+        result[inputs[i].name] = inputs[i].files
+      } else {
+        result[inputs[i].name] = inputs[i].value
+      }
     }
     this.props.onSubmit(result)
   }

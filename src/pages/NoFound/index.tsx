@@ -1,6 +1,6 @@
 import CompileMaster from '@/core/CompileJSX'
 import Component from '@/core/Component'
-import ErrorScreen from '@/widgets/ErrorScreen'
+import ErrorScreen from '@/entities/ErrorScreen'
 
 interface NoFoundType {
   screen: Component

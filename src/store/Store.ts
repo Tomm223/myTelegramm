@@ -5,6 +5,7 @@ import { UserType } from '@/types/user'
 
 export interface InitialStateType {
   listChats: {
+    isAll: boolean
     limit: number
     offset: number
     search: string
@@ -30,6 +31,7 @@ export interface InitialStateType {
 
 const Initialstate: InitialStateType = {
   listChats: {
+    isAll: false,
     limit: 10,
     offset: 10,
     search: '',

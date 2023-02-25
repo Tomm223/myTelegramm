@@ -3,13 +3,6 @@ import Store from '../Store'
 
 const store = new Store()
 
-// const getUserId = () => {
-//   return store.getState().user.id
-// }
-// const setUserId = (id: number) => {
-//   store.set('user_id', id)
-// }
-
 const getIsAuth = () => {
   return store.getState().isAuth
 }
@@ -34,9 +27,11 @@ export type UserActType = {
   setUser: (user: UserType) => void
   resetUser: () => void
   getUser: () => UserType | null
+  setIsAuth: (bool: boolean) => void
 }
 
 const userAct: UserActType = {
+  setIsAuth,
   resetUser,
   setUser,
   getUser,

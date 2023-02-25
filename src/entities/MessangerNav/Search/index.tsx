@@ -6,7 +6,6 @@ import InputSearch from './UI/input'
 import { EventBus } from '@/core/EventBus'
 import { EVENTS, SearchEventBus } from './eventbus'
 import { debounce } from '@/utils/debounce'
-import { ChatListEventBus, ChatListEVENTS } from '../ChatsList/eventbus'
 
 interface SearchType {
   inputName?: string
@@ -78,7 +77,6 @@ export default class Search extends Component<SearchType> {
   }
 
   protected componentDidUpdate(): void {
-    console.log('open')
     this.toFocus()
   }
 

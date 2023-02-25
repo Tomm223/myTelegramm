@@ -9,6 +9,7 @@ interface OptionsType {
   data?: any
   countRequest?: number
   timeout?: number
+  isFormData?: boolean
 }
 
 type HTTPMethod = (url: string, options?: OptionsType) => Promise<any>
@@ -55,7 +56,7 @@ export class HTTPTransport {
   }
 
   request = (url: string, options: Record<string, any>, timeout = 5000) => {
-    const { headers, method, data } = options
+    let { headers, method, data, isFormData } = options
 
     return new Promise(function (resolve, reject) {
       if (!method) {
@@ -74,7 +75,10 @@ export class HTTPTransport {
         })
       }
       //default headers
-      xhr.setRequestHeader('Content-Type', 'application/json')
+      if (!isFormData) {
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        data = JSON.stringify(data)
+      }
       xhr.withCredentials = true
 
       xhr.onload = function () {
@@ -90,8 +94,7 @@ export class HTTPTransport {
       if (isGet || !data) {
         xhr.send()
       } else {
-        const body = JSON.stringify(data)
-        xhr.send(body)
+        xhr.send(data)
         // xhr.send(body)
       }
     })

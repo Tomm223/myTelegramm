@@ -1,12 +1,12 @@
 import { SingInRequest, SingUpRequest, UserType } from '@/types/user'
 import { HTTP } from '@/http/index'
-import { getStatusCode } from './helpers/getStatusCode'
+import { getBoolOfStatusCode } from './helpers/getBoolOfStatusCode'
 
 const AuthHTTP = HTTP('/auth')
 
 export class SingAPI {
   singin(data: SingInRequest): Promise<boolean> {
-    return AuthHTTP.post('/signin', { data }).then((resp) => getStatusCode(resp.status)) //resp.id)
+    return AuthHTTP.post('/signin', { data }).then((resp) => getBoolOfStatusCode(resp.status))
   }
 
   singup(data: SingUpRequest): Promise<number> {
@@ -14,12 +14,12 @@ export class SingAPI {
   }
 
   singout(): Promise<boolean> {
-    return AuthHTTP.post('/logout').then((resp) => getStatusCode(resp.status))
+    return AuthHTTP.post('/logout').then((resp) => getBoolOfStatusCode(resp.status))
   }
 
   getUser(): Promise<UserType | null> {
     return AuthHTTP.get('/user').then((resp) => {
-      if (!getStatusCode(resp.status)) {
+      if (!getBoolOfStatusCode(resp.status)) {
         return null
       }
       const user = JSON.parse(resp.response)

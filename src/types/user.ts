@@ -28,3 +28,8 @@ export interface SingUpRequest {
   password: 'string'
   phone: 'string'
 }
+
+export interface SetPasswordRequest {
+  oldPassword: string
+  newPassword: string
+}

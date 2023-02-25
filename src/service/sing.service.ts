@@ -21,9 +21,23 @@ export class SingController {
   }
 
   public async logout() {
-    const api = new SingAPI()
-    const status = await api.singout()
-    console.log('logout', status)
+    try {
+      const api = new SingAPI()
+      const status = await api.singout()
+
+      if (!status) {
+        throw new Error('')
+      }
+
+      Actions.setIsAuth(false)
+      Router.go('/sing-in')
+      Actions.resetUser()
+
+      return true
+    } catch {
+      alert('Error Service Frontend')
+      return false
+    }
   }
 
   public async login(data: SingInRequest) {

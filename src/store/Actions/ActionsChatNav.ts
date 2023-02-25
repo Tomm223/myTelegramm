@@ -63,9 +63,17 @@ const getFilterChatList: ActionGetList = () => {
   return list.filter((item) => item.title.toLowerCase().includes(string.toLowerCase()))
 }
 
+const setIsAllChatList = (bool: boolean) => {
+  const oldListState = store.getState().listChats
+
+  store.set('listChats', { ...oldListState, isAll: bool, loading: false })
+}
+
 const setChatList: (list: ChatList[]) => void = (list) => {
   const oldListState = store.getState().listChats
-  store.set('listChats', { ...oldListState, list, loading: false })
+
+  store.set('listChats', { ...oldListState, list, loading: false, isAll: false })
+  console.log(store.getState().listChats)
 }
 
 const pushChatList: (list: ChatList[]) => void = (list) => {
@@ -75,17 +83,21 @@ const pushChatList: (list: ChatList[]) => void = (list) => {
   store.set('listChats', { ...oldListState, list: newList, loading: false })
 }
 
+const setNewChatList = async () => {
+  setChatListOffset(0)
+
+  await api.getNewChatList({
+    limit: getChatListLimit(),
+    offset: getChatListOffset(),
+    title: getChatListSearch(),
+  })
+}
+
 const setSearchChatList: (search: string) => void = (search) => {
   const oldListState = store.getState().listChats
   store.set('listChats', { ...oldListState, search })
-}
 
-const setNewChatList = async () => {
-  await api.getNewChatList({
-    limit: getChatListLimit(),
-    offset: 0,
-    title: getChatListSearch(),
-  })
+  setNewChatList()
 }
 
 export type NavType = {
@@ -101,8 +113,10 @@ export type NavType = {
   setChatListOffset: (offset: number) => void
   setChatListLimit: (limit: number) => void
   getChatListLimit: () => number
+  setIsAllChatList: (bool: boolean) => void
 }
 const nav: NavType = {
+  setIsAllChatList,
   setNewChatList,
   getChatListOffset,
   getChatListLimit,

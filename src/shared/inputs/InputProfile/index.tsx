@@ -42,11 +42,8 @@ export default class InputProfile extends Component<InputProfileType> {
   }
 
   protected render(): HTMLElement {
-    console.log('render input')
-
     return (
       <div class={styles.itemList}>
-        <p class={styles.b}>{this.props.text}</p>
         <div class={styles.block}>
           <label class={styles.label} for={this.props.name}>
             {this.props.label}
