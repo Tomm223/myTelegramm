@@ -1,19 +1,17 @@
 import CompileMaster from '@/core/CompileJSX'
 import { ChatList } from '@/types/chats'
 import Component from '@/core/Component'
-import { EventBus } from '@/core/EventBus'
 import ChatsListItem from './ui/ListItem'
 import styles from './styles.module.scss'
 import Actions from '@/store/Actions'
 import ItemCreateChat from './ui/ItemCreateChat'
 import LoaderDefault from '@/shared/Loaders/LoaderDefault/defualt'
-import { ChatListController } from '@/service/chats.service'
+import { ChatsController } from '@/service/chats.service'
 import ModalFormDefault from '@/shared/modals/ModalFormDefault'
 import InputText from '@/shared/inputs/InputText'
-import ModalCreateChat from '@/entities/modals/ModalCreateChat'
-import Store from '@/store/Store'
 import { debounce } from '@/utils/debounce'
 import { deepEqual } from '@/core/deepEqual'
+import { ChatAPI } from '@/api/chats.api'
 
 interface ChatsUl {
   list: ChatList[] | []
@@ -28,9 +26,10 @@ interface ChatsUl {
 }
 
 export default class ChatsList extends Component<ChatsUl> {
-  public API = new ChatListController()
+  // public API: ChatListController
 
   constructor(props: ChatsUl) {
+    // this.API = new ChatListController()
     props.loader = new LoaderDefault({})
     super(props)
   }
@@ -56,14 +55,12 @@ export default class ChatsList extends Component<ChatsUl> {
   }
 
   protected removeEvents(): void {
-    this._element?.addEventListener('scroll', debounce(this.handleScroll.bind(this), 200))
+    this._element?.removeEventListener('scroll', debounce(this.handleScroll.bind(this), 200))
   }
 
   handleScroll() {
-    if (this.props.isAll) {
-      console.log('isAll')
-      return
-    }
+    if (this.props.isAll) return
+
     const ul = this._element?.getElementsByTagName('ul')[0] as HTMLUListElement
 
     const bottom = this._element
@@ -74,18 +71,16 @@ export default class ChatsList extends Component<ChatsUl> {
     if (this.props.loading) return
     if (!bottom) return
     if (bottom >= height) return
-    console.log('handle work')
-    const nextOffset = Actions.getChatListLimit() || 20
-    const oldOffset = Actions.getChatListOffset() || 20
-    this.pushNewItemsChatList(oldOffset + nextOffset)
+
+    const offset = Actions.getChatListOffset()
+    this.pushNewItemsChatList(offset)
   }
 
   pushNewItemsChatList(number: number) {
     //save scrollTop pos
     const top = this._element?.scrollTop
     this.setProps({ scroll: { top: Number(top) }, list: this.props.list })
-    //
-    Actions.setChatListOffset(number)
+    Actions.pushNewItemsChat()
   }
 
   setIsOpenModal(bool: boolean) {
@@ -94,9 +89,10 @@ export default class ChatsList extends Component<ChatsUl> {
   }
 
   async createChat(data: Record<string, any>) {
+    const api = new ChatsController()
     const title = data.create_chat
 
-    await this.API.createChat(title)
+    await api.createChat(title)
     this.setIsOpenModal(false)
     await Actions.setNewChatList()
   }
@@ -106,6 +102,33 @@ export default class ChatsList extends Component<ChatsUl> {
       const div = this._element as HTMLDivElement
       div.scrollTop = this.props.scroll.top
     }
+  }
+
+  createChatList() {
+    const api = new ChatsController()
+
+    const appi = new ChatAPI()
+
+    // this.props.list.map((item) => {
+    //   console.log(appi.getChatById(item.id))
+    // })
+
+    let listItem = this.props.list?.map((item) =>
+      new ChatsListItem({
+        chat: item,
+        onClick: async (id: number) => {
+          try {
+            const result = await api.getChatToken(id)
+            Actions.setTitleAndAvatarChat(item.title, item.avatar)
+          } catch {}
+        },
+      }).getContent()
+    )
+    // add to first btn createChat
+    if (listItem) {
+      listItem.unshift(this.childrenHTML.elements.button)
+    }
+    return listItem
   }
 
   protected shouldComponentUpdate(oldProps: ChatsUl, newProps: ChatsUl): boolean {
@@ -122,16 +145,11 @@ export default class ChatsList extends Component<ChatsUl> {
 
   protected render(): HTMLElement {
     let listItem: Array<any>
-    console.log(this.props.list)
 
     if (this.props.loading && !this.props.list.length) {
       listItem = [this.childrenHTML.elements.loader]
     } else {
-      listItem = this.props.list?.map((item) => new ChatsListItem(item).getContent())
-      // add to first btn createChat
-      if (listItem) {
-        listItem.unshift(this.childrenHTML.elements.button)
-      }
+      listItem = this.createChatList()
     }
 
     return (
@@ -141,10 +159,26 @@ export default class ChatsList extends Component<ChatsUl> {
           <div
             class={styles.last}
             style={this.props.loading && this.props.list.length ? '' : 'opacity:0;'}
-          ></div>
+          >
+            {this.props.loading && this.props.list.length ? (
+              this.childrenHTML.elements.loader
+            ) : (
+              <div></div>
+            )}
+          </div>
         </ul>
         {this.childrenHTML.elements.modal}
       </div>
     )
   }
 }
+
+// доделал передачу переменных title+avatar В state.chat  для пользования ChatHeader
+// проверь как работает?
+//
+// + работа очистки при переходе и выходе их чатов не работает корректно!!
+//
+// + сделать загрузку следующих сообщений если видна 5 с конца,
+// в методах mount + didUpdata такую штуку запускать
+//
+// + я наверное написал николаю узнать как делать add/remove user in chat

@@ -1,12 +1,16 @@
-import { ChatListController } from '@/service/chats.service'
+import { ChatsController } from '@/service/chats.service'
 import { ChatList } from '@/types/chats'
 import Store from '../Store'
 
 const store = new Store()
 
-const api = new ChatListController()
+const api = new ChatsController()
 
 type ActionGetList = () => ChatList[] | []
+
+const getChatListOffset = () => {
+  return store.getState().listChats.list.length + 1
+}
 
 const setChatListLimit = (limit: number) => {
   const oldListState = store.getState().listChats
@@ -14,18 +18,13 @@ const setChatListLimit = (limit: number) => {
 }
 
 const pushNewItemsChat = async () => {
-  const { limit, offset, search } = store.getState().listChats
+  const { limit, search } = store.getState().listChats
+  const offset = getChatListOffset()
   await api.pushNewChats({
     limit,
     offset,
     title: search,
   })
-}
-
-const setChatListOffset = (offset: number) => {
-  const oldListState = store.getState().listChats
-  store.set('listChats', { ...oldListState, offset, loading: true })
-  pushNewItemsChat()
 }
 
 const startChatListLoading = () => {
@@ -40,10 +39,6 @@ const getChatList: ActionGetList = () => {
 }
 const getChatListLimit = () => {
   return store.getState().listChats.limit
-}
-
-const getChatListOffset = () => {
-  return store.getState().listChats.offset
 }
 
 const getChatListSearch = () => {
@@ -84,11 +79,9 @@ const pushChatList: (list: ChatList[]) => void = (list) => {
 }
 
 const setNewChatList = async () => {
-  setChatListOffset(0)
-
   await api.getNewChatList({
     limit: getChatListLimit(),
-    offset: getChatListOffset(),
+    offset: 0,
     title: getChatListSearch(),
   })
 }
@@ -101,6 +94,7 @@ const setSearchChatList: (search: string) => void = (search) => {
 }
 
 export type NavType = {
+  pushNewItemsChat: () => Promise<void>
   setNewChatList: () => Promise<void>
   getChatListOffset: () => number
   getFilterChatList: ActionGetList
@@ -110,18 +104,17 @@ export type NavType = {
   setSearchChatList: (string: string) => void
   startChatListLoading: () => void
   pushChatList: (list: ChatList[]) => void
-  setChatListOffset: (offset: number) => void
   setChatListLimit: (limit: number) => void
   getChatListLimit: () => number
   setIsAllChatList: (bool: boolean) => void
 }
 const nav: NavType = {
+  pushNewItemsChat,
   setIsAllChatList,
   setNewChatList,
   getChatListOffset,
   getChatListLimit,
   setChatListLimit,
-  setChatListOffset,
   pushChatList,
   startChatListLoading,
   setSearchChatList,

@@ -19,9 +19,8 @@ interface FormSendType {
   attach?: Component
   btn?: Component
   input?: Component
+  onSubmit?: (data: string) => void
 }
-
-function handlerClick() {}
 
 export default class FormSend extends Component<FormSendType> {
   constructor(props: FormSendType) {
@@ -70,8 +69,11 @@ export default class FormSend extends Component<FormSendType> {
 
     let value = this.getValue()
     if (!value) return
+
+    if (this.props.onSubmit) {
+      this.props.onSubmit(value)
+    }
     this.resetValue()
-    console.log(value)
   }
 
   getValue(): string {

@@ -4,6 +4,7 @@ import styles from './styles.module.scss'
 import MessageText from '@/shared/messages/MessageText'
 import MessageImage from '@/shared/messages/MessageImage'
 import Component from '@/core/Component'
+import Actions from '@/store/Actions'
 
 interface MessageScreenItem {
   message: Message
@@ -22,11 +23,11 @@ export class NotMessege extends Component {
 }
 
 export default function MessageScreenItem({ message }: MessageScreenItem) {
-  const { content, time, user } = message
+  const { content, time, user_id: userID, is_read: isRead } = message
 
+  const myID = Actions.getUser()?.id
+  const isMy = myID === userID
   const isTextFormat = true
-  const isMy = Math.random() * 10 < 5 ? true : false
-  const isRead = Math.random() * 10 < 5 ? true : false
 
   if (!isTextFormat) {
     return 'MessageImage'

@@ -41,7 +41,8 @@ export default class AddUser extends Component<AddUserType> {
         inputs: [
           new InputText({
             name: 'add_name',
-            label: 'Имя',
+            label: 'ID пользователя',
+            type: 'number',
           }),
         ],
         buttons: [

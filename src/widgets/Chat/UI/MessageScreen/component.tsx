@@ -6,6 +6,7 @@ import Component from '@/core/Component'
 import Actions from '@/store/Actions'
 import { messages } from './constants.reg'
 import LoaderDefault from '@/shared/Loaders/LoaderDefault/defualt'
+import Store from '@/store/Store'
 
 interface MessageScreenType {
   messages?: Message[]
@@ -44,8 +45,7 @@ export default class MessageScreen extends Component<MessageScreenType> {
 
   protected render(): HTMLElement {
     let msgs
-    console.log(this.props.messages)
-    console.log('load', this.props.loading)
+    // Actions.setChatMessages([])
     if (this.props.messages?.length) {
       msgs = this.props.messages.map((message) => MessageScreenItem({ message }))
     } else if (this.props.loading) {
@@ -53,7 +53,6 @@ export default class MessageScreen extends Component<MessageScreenType> {
     } else {
       msgs = [new NotMessege({}).getContent()]
     }
-    console.log(msgs)
 
     return (
       <div class={styles.container}>

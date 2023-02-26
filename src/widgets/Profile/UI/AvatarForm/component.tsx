@@ -41,7 +41,7 @@ export default class AvatarForm extends Component<AvatarFormType> {
           />
           <button class={styles.avatar__hover}>Поменять аватар</button>
         </div>
-        <h3 class={styles.avatar__name}>Даниил</h3>
+        <h3 class={styles.avatar__name}>{this.props.user?.first_name}</h3>
       </div>
     )
   }

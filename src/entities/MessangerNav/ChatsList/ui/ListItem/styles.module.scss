@@ -2,10 +2,10 @@
   width: 100%;
   border-top: 1px #eaeaea solid;
   height: 71px;
-}
 
-.item:last-child {
-  border-bottom: 1px #eaeaea solid;
+  &:last-child {
+    border-bottom: 1px #eaeaea solid;
+  }
 }
 
 .link {

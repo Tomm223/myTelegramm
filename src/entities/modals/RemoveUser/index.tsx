@@ -35,8 +35,9 @@ export default class RemoveUser extends Component<RemoveUserType> {
         inputs: [
           new InputText({
             name: 'remove_name',
-            label: 'Имя',
             error: null,
+            label: 'ID пользователя',
+            type: 'number',
           }),
         ],
         buttons: [

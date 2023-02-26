@@ -3,10 +3,10 @@ export interface ChatList {
   title: string //name chat
   avatar: string //"/123/avatar1.jpg"
   unread_count: number // колличество непрочитанных
-  last_message?: Message
+  last_message?: ChatListMessage
 }
 
-export interface Message {
+export interface ChatListMessage {
   user: {
     first_name: string
     second_name: string
@@ -17,6 +17,16 @@ export interface Message {
   }
   time: string //"2020-01-02T14:22:22.000Z"
   content: string
+}
+export interface Message {
+  id: number
+  user_id: number
+  chat_id: number
+  type: string
+  time: string
+  content: string
+  is_read: boolean
+  file: any | null
 }
 
 export interface CreateChatRequest {

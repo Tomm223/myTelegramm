@@ -3,9 +3,7 @@ import { connect } from 'src/store/connect'
 import ChatsList from './component'
 
 function Map(state: any) {
-  const { list, loading, isAll, offset } = state.listChats
-  console.log('offset', offset)
-
+  const { list, loading, isAll } = state.listChats
   return { list, loading, isAll }
 }
 export default connect(ChatsList, Map)

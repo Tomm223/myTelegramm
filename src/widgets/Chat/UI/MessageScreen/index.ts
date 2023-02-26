@@ -1,12 +1,9 @@
-import Store from '@/store/Store'
 import { connect } from 'src/store/connect'
 import MessageScreen from './component'
 
 function map(state: any) {
-  return {
-    messages: state.chat.messages,
-    loading: state.chat.loading,
-  }
+  const { messages, loading } = state.chat
+  return { messages, loading }
 }
 
 export default connect(MessageScreen, map)

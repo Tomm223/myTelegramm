@@ -7,14 +7,16 @@ export interface InitialStateType {
   listChats: {
     isAll: boolean
     limit: number
-    offset: number
     search: string
     list: ChatList[] | []
     loading: boolean
   }
   chat: {
+    title: string
+    avatar: string | null
+    chatID: number | null
+    token: string | null
     messages: Message[] | []
-    page: number
     loading: boolean
   }
   sing_in: {
@@ -33,14 +35,16 @@ const Initialstate: InitialStateType = {
   listChats: {
     isAll: false,
     limit: 10,
-    offset: 10,
     search: '',
     list: [],
     loading: false,
   },
   chat: {
+    title: '',
+    avatar: null,
+    chatID: null,
+    token: null,
     messages: [],
-    page: 1,
     loading: false,
   },
   sing_in: {
@@ -82,7 +86,12 @@ export default class Store extends EventBus {
         ...Initialstate,
         isAuth: this._state.isAuth,
         user: this._state.user,
-        chat: this._state.chat,
+        chat: {
+          chatID: this._state.chat.chatID,
+          token: this._state.chat.token,
+          loading: false,
+          messages: [],
+        },
       }
 
       localStorage.setItem(Store.STORE_NAME, JSON.stringify(saveState))
