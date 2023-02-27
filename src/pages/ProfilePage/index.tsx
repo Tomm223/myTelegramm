@@ -18,11 +18,7 @@ export default class ProfilePage extends Component<ProfileType> {
   protected render(): HTMLElement {
     return (
       <div class={styles.container}>
-<<<<<<< HEAD
-        <div class={styles.link_back}>{new LinkToBack({ href: '/messanger' }).getContent()}</div>
-=======
         <div class={styles.link_back}>{new LinkToBack({ href: '/messenger' }).getContent()}</div>
->>>>>>> sprint_3
         {this.childrenHTML.elements.profile}
       </div>
     )
