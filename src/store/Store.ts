@@ -75,7 +75,7 @@ export default class Store extends EventBus {
 
     // localStorage.removeItem(Store.STORE_NAME)
     const savedState = localStorage.getItem(Store.STORE_NAME)
-    // console.log('saves_state', savedState)
+    console.log('saves_state', savedState)
     this._state = savedState ? JSON.parse(savedState) ?? Initialstate : Initialstate
     // this._state = Initialstate
 
