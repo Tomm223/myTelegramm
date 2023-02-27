@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Avatar from '@/shared/Avatar'
 import ButtonMore from '@/shared/buttons/ButtonMore'
 import CompileMaster from '@/core/CompileJSX'
@@ -49,3 +50,14 @@ export default class Header extends Component<HeaderType> {
     )
   }
 }
+=======
+import { connect } from '@/store/connect'
+import Header from './component'
+
+function map(state: any) {
+  const { avatar, title } = state.chat
+  return { avatar, title }
+}
+
+export default connect(Header, map)
+>>>>>>> sprint_3

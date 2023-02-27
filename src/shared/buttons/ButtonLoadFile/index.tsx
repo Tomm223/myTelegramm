@@ -1,24 +1,30 @@
 import Component from '@/core/Component'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
-import InputFile from '@/shared/inputs/InputFile'
+import InputFile, { AcceptInputChoose } from '@/shared/inputs/InputFile'
 
 interface ButtonLoadFileType {
+  label?: string
   isOpen?: boolean
   input?: Component
+  name: string
+  accepting: AcceptInputChoose
 }
 
 export default class ButtonLoadFile extends Component<ButtonLoadFileType> {
   constructor(props: ButtonLoadFileType) {
-    props.input = new InputFile({
-      name: 'file',
-      accepting: '.png, .jpg, .jpeg',
-      isOpen: false,
-      onChange: (value: any) => {
-        console.log(value)
-      },
-    })
+    props.label = 'Выберите файл на компьютере'
+
     super(props)
+  }
+
+  handleChange(value: any) {
+    if (this.props.label !== 'Выберите файл на компьютере') return
+    this.setProps({
+      label: 'вы выбрали файл',
+      accepting: this.props.accepting,
+      name: this.props.name,
+    })
   }
 
   handleClick(e: MouseEvent) {
@@ -26,56 +32,35 @@ export default class ButtonLoadFile extends Component<ButtonLoadFileType> {
     if (!this.children.input) return
     if (Array.isArray(this.children.input)) return
 
-    this.children.input.setProps({ isOpen: true })
+    this.children.input.setProps({ isOpen: !this.children.input.props.isOpen })
   }
 
   protected addEvents(): void {
-    // let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
-    // btn.addEventListener('click', this.handleClick.bind(this))
+    let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
+    btn.addEventListener('click', this.handleClick.bind(this))
   }
 
   protected removeEvents(): void {
-    // let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
-    // btn.removeEventListener('click', this.handleClick.bind(this))
+    let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
+    btn.removeEventListener('click', this.handleClick.bind(this))
   }
 
-  protected preRender(): void {
+  protected init(): void {
     this.children.input = new InputFile({
-      name: 'file',
-      accepting: '.png, .jpg, .jpeg',
-      isOpen: this.props.isOpen || false,
-      onChange: (value: any) => {
-        console.log(value)
-      },
+      name: this.props.name,
+      accepting: this.props.accepting,
+      isOpen: false,
+      onChange: this.handleChange.bind(this),
+      multiple: false,
     })
-  }
-
-  protected componentDidUpdate(oldProps: ButtonLoadFileType, newProps: ButtonLoadFileType): void {
-    console.log('update')
   }
 
   protected render(): HTMLElement {
     return (
       <div class={styles.block}>
-        <input type="file" />
+        <button class={styles.btn}>{this.props.label}</button>
+        {this.childrenHTML.elements.input}
       </div>
     )
   }
 }
-
-/*
-<button class={styles.btn}>Выберите файл на компьютере</button>
-        {this.childrenHTML.elements.input}
-*/
-
-/*
-<div class={styles.block}>
-        <button class={styles.btn}>Выберите файл на компьютере</button>
-        <input
-          class="hidden"
-          accept={this.props.accepting}
-          type="file"
-          placeholder="Выберите файл"
-        />
-      </div>
-*/

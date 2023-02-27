@@ -6,7 +6,10 @@ import InputSearch from './UI/input'
 import { EventBus } from '@/core/EventBus'
 import { EVENTS, SearchEventBus } from './eventbus'
 import { debounce } from '@/utils/debounce'
+<<<<<<< HEAD
 import { ChatListEventBus, ChatListEVENTS } from '../ChatsList/eventbus'
+=======
+>>>>>>> sprint_3
 
 interface SearchType {
   inputName?: string
@@ -53,8 +56,15 @@ export default class Search extends Component<SearchType> {
 
   onInputChange(e: Event) {
     let input = e.target as HTMLInputElement
+<<<<<<< HEAD
     console.log(input)
     ChatListEventBus.emit(ChatListEVENTS.TO_FILTER, input.value)
+=======
+
+    if (this.props.onChange) {
+      this.props.onChange(input.value)
+    }
+>>>>>>> sprint_3
   }
 
   protected registerEvents(
@@ -76,7 +86,10 @@ export default class Search extends Component<SearchType> {
   }
 
   protected componentDidUpdate(): void {
+<<<<<<< HEAD
     console.log('open')
+=======
+>>>>>>> sprint_3
     this.toFocus()
   }
 

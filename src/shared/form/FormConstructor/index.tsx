@@ -7,12 +7,15 @@ import styles from './styles.module.scss'
 import { ValidateForm } from './types'
 
 export interface FormConstructorType {
+  setting?: 'files' | 'string'
   ref?: string
   inputs?: Component[]
   buttons?: Component[]
-  onSubmit?: (data: Record<string, string>) => void
+  onSubmit?: (data: any) => void
   validate?: ValidateForm
   _render?: boolean
+  disable?: boolean
+  error?: string
 }
 
 function handleClick(id: number | string) {
@@ -34,7 +37,12 @@ export default class FormConstructor extends Component<FormConstructorType> {
    * @param {Component[]} buttons => one child require TagButton.type = 'submit'
    */
   constructor(props: FormConstructorType) {
-    let p = ''
+    if (typeof props.error !== 'string') {
+      props.error = ''
+    }
+    if (typeof props.disable !== 'boolean') {
+      props.disable = false
+    }
 
     super(props)
   }
@@ -73,6 +81,17 @@ export default class FormConstructor extends Component<FormConstructorType> {
     inp.removeEventListener('blur', handleBlur(this.id))
   }
 
+  public resetForm() {
+    let childs = this.children.inputs as Component[]
+    for (const i in childs) {
+      childs[i].props.error = ''
+    }
+    for (const i in childs) {
+      const input = childs[i]._element?.getElementsByTagName('input')[0] as HTMLInputElement
+      input.value = ''
+    }
+  }
+
   handlerSubmit() {
     if (!this._element) return
     if (!this.props.onSubmit) return
@@ -81,9 +100,13 @@ export default class FormConstructor extends Component<FormConstructorType> {
 
     let inputs = this._element.getElementsByTagName('input')
 
-    let result = {} as Record<string, string>
+    let result = {} as Record<string, any>
     for (let i = 0; i < inputs.length; i++) {
-      result[inputs[i].name] = inputs[i].value
+      if (this.props.setting === 'files') {
+        result[inputs[i].name] = inputs[i].files
+      } else {
+        result[inputs[i].name] = inputs[i].value
+      }
     }
     this.props.onSubmit(result)
   }
@@ -118,6 +141,19 @@ export default class FormConstructor extends Component<FormConstructorType> {
     this.children.inputs.forEach((child) => this.removeEventBlurInput(child))
   }
 
+  handleDisable() {
+    const submit = this._element?.querySelector('[type="submit"]')
+
+    if (!this.props.disable) {
+      if (submit?.hasAttribute('disable')) {
+        submit?.removeAttribute('disable')
+      }
+      return
+    }
+
+    submit?.setAttribute('disable', 'true')
+  }
+
   protected addEvents(): void {
     if (this.props.onSubmit) {
       // onSubmit form
@@ -142,17 +178,23 @@ export default class FormConstructor extends Component<FormConstructorType> {
     this.children.inputs.forEach((child) => this.removeEventBlurInput(child))
   }
 
-  protected componentDidUpdate(
-    oldProps: FormConstructorType,
-    newProps: FormConstructorType
-  ): void {}
+  protected componentDidMount(): void {
+    this.handleDisable()
+  }
+
+  protected componentDidUpdate(oldProps: FormConstructorType, newProps: FormConstructorType): void {
+    this.handleDisable()
+  }
 
   protected render(): HTMLElement {
     return (
       <div class={styles.block}>
         <form class={styles.form}>
           <div class={styles.inputs}>{...this.childrenHTML.lists.inputs}</div>
-          <div class={styles.buttons}>{...this.childrenHTML.lists.buttons}</div>
+          <div class={styles.buttons}>
+            <p class={this.props.error ? styles.error : 'hidden'}>{this.props.error}</p>
+            {...this.childrenHTML.lists.buttons}
+          </div>
         </form>
       </div>
     )

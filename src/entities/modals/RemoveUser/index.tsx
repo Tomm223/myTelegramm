@@ -7,10 +7,9 @@ import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 
 interface RemoveUserType {
-  onClose: () => void
-  onSubmit: (form: Record<string, string>) => void
-  isOpen: boolean
-  size: Size
+  onSubmit?: (form: Record<string, string>) => void
+  isOpen?: boolean
+  size?: Size
   modal?: Component
 }
 
@@ -21,34 +20,46 @@ interface Size {
 }
 
 export default class RemoveUser extends Component<RemoveUserType> {
-  protected render(): HTMLElement {
-    return (
-      <div>
-        {new ModalDefault({
-          background: 'dark',
-          isOpen: this.props.isOpen,
-          size: this.props.size,
-          onOut: this.props.onClose,
-          children: new FormConstructorTitle({
-            title: 'Удалить Пользователя',
-            inputs: [
-              new InputText({
-                name: 'remove_name',
-                label: 'Имя',
-                error: null,
-              }),
-            ],
-            buttons: [
-              new ButtonConstructor({
-                name: 'Удалить',
-                view: 'primary',
-                type: 'submit',
-              }),
-            ],
-            onSubmit: this.props.onSubmit,
+  handleClose() {
+    this.setProps({ isOpen: false })
+  }
+
+  protected init(): void {
+    this.children.modal = new ModalDefault({
+      background: 'dark',
+      isOpen: !!this.props.isOpen,
+      size: this.props.size,
+      onOut: this.handleClose.bind(this),
+      children: new FormConstructorTitle({
+        title: 'Удалить Пользователя',
+        inputs: [
+          new InputText({
+            name: 'remove_name',
+            error: null,
+            label: 'ID пользователя',
+            type: 'number',
           }),
-        }).getContent()}
-      </div>
-    )
+        ],
+        buttons: [
+          new ButtonConstructor({
+            name: 'Удалить',
+            view: 'primary',
+            type: 'submit',
+          }),
+        ],
+        onSubmit: this.props.onSubmit,
+      }),
+    })
+  }
+
+  protected componentDidUpdate(oldProps: RemoveUserType, newProps: RemoveUserType): void {
+    let modal = this.children.modal as Component
+    if (oldProps.isOpen !== newProps.isOpen) {
+      modal.setProps({ isOpen: newProps.isOpen })
+    }
+  }
+
+  protected render(): HTMLElement {
+    return <div>{this.childrenHTML.elements.modal}</div>
   }
 }

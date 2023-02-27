@@ -1,3 +1,4 @@
+import { validate } from 'uuid'
 import { ValidateForm } from './types'
 
 //login ^[a-zA-Z][a-zA-Z0-9-_\.]{6,20}$ ^[a-zA-Z0-9]+$
@@ -35,8 +36,14 @@ function getvalidateFunc(reg: any, messageError: string) {
 
 export const ValidatesForm = {
   login: getvalidateFunc(RegLogin, 'Логин должен содержать латинские буквы, от 6 букв'),
-  first_name: getvalidateFunc(RegName, 'Имя от 2 до 20 букв'),
-  second_name: getvalidateFunc(RegName, 'Фамилия от 2 до 20 букв'),
+  first_name: getvalidateFunc(
+    RegName,
+    'Имя от 2 до 20 букв, с заглавной буквы, кириллица или латиница'
+  ),
+  second_name: getvalidateFunc(
+    RegName,
+    'Фамилия от 2 до 20 букв, с заглавной буквы, кириллица или латиница'
+  ),
   password: getvalidateFunc(
     RegPassword,
     `Пароль должен содержать: cтрочные и прописные латинские буквы, 
@@ -44,4 +51,23 @@ export const ValidatesForm = {
   ),
   email: getvalidateFunc(RegExp(RegEmail), 'Не корректный email'),
   phone: getvalidateFunc(RegExp(RegPhone), 'Не корректный номер телефона. Пример: 8(999)900-90-90'),
+}
+
+export const useValidation = (
+  form: Record<string, any>,
+  validations: Record<string, (str: string) => string>
+) => {
+  let isValid = true
+  for (const key in form) {
+    if (
+      Object.prototype.hasOwnProperty.call(form, key) &&
+      Object.prototype.hasOwnProperty.call(validations, key)
+    ) {
+      isValid = !validations[key](form[key])
+    } else {
+      throw new Error('validations record dont valid for formData')
+    }
+  }
+
+  return isValid
 }

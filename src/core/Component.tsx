@@ -185,7 +185,8 @@ class Component<P extends Record<string, any> = any> {
   protected componentDidUpdate(oldProps: P, newProps: P) {}
 
   protected shouldComponentUpdate(oldProps: P, newProps: P): boolean {
-    return !deepEqual(oldProps, newProps)
+    let isEqual = deepEqual(oldProps, newProps)
+    return !isEqual
   }
 
   get element() {
@@ -293,6 +294,18 @@ class Component<P extends Record<string, any> = any> {
         throw new Error('Нет доступа')
       },
     })
+  }
+
+  show() {
+    let html = this.getContent()
+    if (!html) return
+    html.style.display = 'block'
+  }
+
+  hide() {
+    let html = this.getContent()
+    if (!html) return
+    html.style.display = 'none'
   }
 }
 

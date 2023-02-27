@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Component from '@/core/Component'
@@ -39,3 +40,13 @@ export default class AvatarForm extends Component<AvatarFormType> {
     )
   }
 }
+=======
+import { connect } from '@/store/connect'
+import AvatarForm from './component'
+
+function map(state: any) {
+  return { user: state.user }
+}
+
+export default connect(AvatarForm, map)
+>>>>>>> sprint_3

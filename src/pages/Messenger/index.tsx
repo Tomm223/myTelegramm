@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Chat from '@/widgets/Chat'
@@ -33,3 +34,17 @@ export default class Messanger extends Component<MessangerType> {
     )
   }
 }
+=======
+import { connect } from '@/store/connect'
+import Messenger from './component'
+
+function map(state: any) {
+  const { chatID, token } = state.chat
+  return {
+    chatID,
+    token,
+  }
+}
+
+export default connect(Messenger, map)
+>>>>>>> sprint_3

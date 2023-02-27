@@ -49,11 +49,16 @@
     transform: translate(0%, -100%);
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> sprint_3
 .menu_active {
   opacity: 1;
   top: 0;
   left: -10px;
   -webkit-animation-name: menu;
+<<<<<<< HEAD
           animation-name: menu;
   -webkit-animation-iteration-count: 1;
           animation-iteration-count: 1;
@@ -61,6 +66,15 @@
           animation-duration: 200ms, 500ms;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+=======
+  animation-name: menu;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-animation-duration: 200ms, 500ms;
+  animation-duration: 200ms, 500ms;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+>>>>>>> sprint_3
 }
 
 .menu {
@@ -69,4 +83,8 @@
   transform: translate(0%, 100%);
   bottom: 1000px;
   left: -10px;
+<<<<<<< HEAD
 }/*# sourceMappingURL=styles.module.css.map */
+=======
+} /*# sourceMappingURL=styles.module.css.map */
+>>>>>>> sprint_3

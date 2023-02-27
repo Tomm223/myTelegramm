@@ -2,7 +2,7 @@ import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Arrow from '@/static/icons/arrow-circle.svg'
 import Component from '@/core/Component'
-import { useNavigate } from '@/core/routing'
+import Router from 'src/app/router'
 
 interface LinkToBackType {
   onClick?: () => void
@@ -16,7 +16,7 @@ export default class LinkToBack extends Component<LinkToBackType> {
     let pathname = tag.getAttribute('route') as string | null
 
     if (!pathname) return
-    useNavigate(pathname)
+    Router.go(pathname)
   }
 
   protected addEvents(): void {

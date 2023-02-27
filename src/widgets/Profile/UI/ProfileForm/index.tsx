@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import CompileMaster from '@/core/CompileJSX'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ButtonProfileNavigate from '@/shared/buttons/ButtonProfileNavigate'
@@ -192,3 +193,15 @@ export default class ProfileForm extends Component<ProfileFormType> {
     return <div class={styles.block}>{this.childrenHTML.elements.form}</div>
   }
 }
+=======
+import { connect } from '@/store/connect'
+import ProfileForm from './component'
+
+function map(state: any) {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(ProfileForm, map)
+>>>>>>> sprint_3
