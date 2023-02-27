@@ -16,6 +16,7 @@ export class SingController {
       }
       return user
     } catch {
+      alert('Error GetUser Service Frontend')
       throw new Error()
     }
   }
@@ -35,7 +36,7 @@ export class SingController {
 
       return true
     } catch {
-      alert('Error Service Frontend')
+      alert('Error Logout Service Frontend')
       return false
     }
   }

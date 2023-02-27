@@ -21,7 +21,8 @@ export class UserController {
 
       return true
     } catch {
-      alert('Error Frontend Service')
+      alert('Error SetProfile Service Frontend')
+
       return false
     }
   }
@@ -37,7 +38,7 @@ export class UserController {
       Actions.setUser(userData)
       return true
     } catch {
-      alert('Error Frontend Service')
+      alert('Error SetAvatar Service Frontend')
       return false
     }
   }
@@ -52,7 +53,7 @@ export class UserController {
       }
       return true
     } catch {
-      alert('Error Frontend Service')
+      alert('Error SetPass Service Frontend')
       return false
     }
   }
