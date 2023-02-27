@@ -14,7 +14,7 @@ export class ChatAPI {
       users: [param.userID],
       chatId: param.chatID,
     }
-    return ChatHTTP.put('', { data }).then((resp) => getBoolOfStatusCode(resp.status))
+    return ChatHTTP.put('/users', { data }).then((resp) => getBoolOfStatusCode(resp.status))
   }
 
   removeUser(param: { chatID: number; userID: number }) {
@@ -22,7 +22,7 @@ export class ChatAPI {
       users: [param.userID],
       chatId: param.chatID,
     }
-    return ChatHTTP.delete('', { data }).then((resp) => getBoolOfStatusCode(resp.status))
+    return ChatHTTP.delete('/users', { data }).then((resp) => getBoolOfStatusCode(resp.status))
   }
 
   createChat(title: string): Promise<boolean> {

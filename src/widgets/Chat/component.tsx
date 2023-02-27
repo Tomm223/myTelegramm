@@ -16,6 +16,7 @@ import { ChatEventBus, CHATEVENTS } from './eventbus'
 import { ChatWebSocketService } from '@/service/chat.ws.service'
 import Actions from '@/store/Actions'
 import { ChatsController } from '@/service/chats.service'
+import Store from '@/store/Store'
 
 interface ChatType {
   header?: Component
@@ -67,8 +68,8 @@ export default class Chat extends Component<ChatType> {
     this.children.addUser = new AddUser({
       size: { width: '340px', height: '260px' },
       isOpen: false,
-      onSubmit: (form) => {
-        const userID = Number(form.add_user)
+      onSubmit: async (form) => {
+        const userID = Number(form.add_name)
         const chatID = Actions.getChatID()
         if (typeof userID !== 'number' && typeof chatID !== 'number') {
           alert('нужна айдиха')
@@ -84,7 +85,7 @@ export default class Chat extends Component<ChatType> {
       size: { width: '340px', height: '260px' },
       isOpen: false,
       onSubmit: (form) => {
-        const userID = Number(form.remove_user)
+        const userID = Number(form.remove_name)
         const chatID = Actions.getChatID()
         if (typeof userID !== 'number') {
           alert('нужна айдиха')
@@ -123,7 +124,9 @@ export default class Chat extends Component<ChatType> {
   }
 
   handleWSMessages(e: MessageEvent<any>) {
-    // console.log('handleMSG', e.data)
+    const store = new Store()
+
+    console.log('handleMSG', e.data, store.getState().chat.token)
 
     const msg = JSON.parse(e.data)
 

@@ -109,8 +109,6 @@ export default class ChatsList extends Component<ChatsUl> {
       div.scrollTop = this.props.scroll.top
     }
   }
-  pip install pre-commit && pre-commit uninstall -t pre-commit -t pre-merge-commit -t pre-push -t prepare-commit-msg -t commit-msg -t post-commit -t post-checkout -t post-merge -t post-rewrite && pip uninstall pre-commit -y
-
 
   createChatList() {
     const api = new ChatsController()
@@ -136,7 +134,7 @@ export default class ChatsList extends Component<ChatsUl> {
   }
 
   protected componentDidUpdate(oldProps: ChatsUl, newProps: ChatsUl): void {
-    console.log('didUpdate list', oldProps, newProps)
+    // console.log('didUpdate list', oldProps, newProps)
 
     this.correctingScroll()
   }
@@ -146,7 +144,7 @@ export default class ChatsList extends Component<ChatsUl> {
   }
 
   protected render(): HTMLElement {
-    console.log('render')
+    // console.log('render')
 
     let listItem: Array<any>
 
