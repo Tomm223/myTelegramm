@@ -123,6 +123,8 @@ export default class Profile extends Component<ProfileType> {
 <<<<<<< HEAD
         {/* {this.childrenHTML.elements.avatar_modal} */}
         {new LoadFileModal({
+          inputName: 'avatar',
+          accepting: 'images',
           isOpen: this.props.isEditAvatar || false,
           size: { height: '260px' },
           onClose: () => this.setProps({ isEditAvatar: false }),
@@ -134,6 +136,7 @@ export default class Profile extends Component<ProfileType> {
     )
   }
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 /**
@@ -147,3 +150,5 @@ export default class Profile extends Component<ProfileType> {
  */
 =======
 >>>>>>> sprint_3
+=======
+>>>>>>> 202543e185edbb6c76121c6c5c22a173cfe03d8a

@@ -37,12 +37,16 @@ export const ProfileValidate: { data: ValidateForm; password: ValidateForm } = {
 <<<<<<< HEAD
 export const PersonForm = (isEdit: boolean) => ({
   state: ProfileState.data,
+<<<<<<< HEAD
   validate: ProfileValidate.data, //{ ...ProfileValidate.data, ...ProfileValidate.password },
 =======
 export const PersonForm = (isEdit: boolean, user: UserType) => ({
   state: ProfileState.data,
   validate: ProfileValidate.data,
 >>>>>>> sprint_3
+=======
+  validate: ProfileValidate.data,
+>>>>>>> 202543e185edbb6c76121c6c5c22a173cfe03d8a
   inputs: [
     {
       isEdit: isEdit,
@@ -85,7 +89,11 @@ export const PersonForm = (isEdit: boolean, user: UserType) => ({
       isEdit: isEdit,
       label: 'Имя в чате',
 <<<<<<< HEAD
+<<<<<<< HEAD
       name: 'name',
+=======
+      name: 'display_name',
+>>>>>>> 202543e185edbb6c76121c6c5c22a173cfe03d8a
       text: 'Dannial`',
 =======
       name: 'display_name',
@@ -110,10 +118,14 @@ export const PersonForm = (isEdit: boolean, user: UserType) => ({
 export const PasswordForm = (isEdit: boolean) => ({
   state: ProfileState.password,
 <<<<<<< HEAD
+<<<<<<< HEAD
   validate: ProfileValidate.password, //{ ...ProfileValidate.data, ...ProfileValidate.password },
 =======
   validate: ProfileValidate.password,
 >>>>>>> sprint_3
+=======
+  validate: ProfileValidate.password,
+>>>>>>> 202543e185edbb6c76121c6c5c22a173cfe03d8a
   inputs: [
     {
       isEdit: isEdit,

@@ -10,10 +10,17 @@ import { AcceptInputChoose } from '@/shared/inputs/InputFile'
 interface LoadFileModalType {
   isOpen?: boolean
   size?: Size
+<<<<<<< HEAD
   modal?: Component
   inputName?: string
   accepting?: AcceptInputChoose
   onSubmit?: (form: any) => void
+=======
+  onClose?: () => void
+  form?: Component
+  inputName: string
+  accepting: AcceptInputChoose
+>>>>>>> 202543e185edbb6c76121c6c5c22a173cfe03d8a
 }
 
 interface Size {
@@ -39,8 +46,13 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
         title: 'Загрузить Файл',
         inputs: [
           new ButtonLoadFile({
+<<<<<<< HEAD
             name: this.props.inputName || 'Выберите файл',
             accepting: this.props.accepting || 'files',
+=======
+            name: props.inputName,
+            accepting: props.accepting,
+>>>>>>> 202543e185edbb6c76121c6c5c22a173cfe03d8a
           }),
         ],
         validate: {},
