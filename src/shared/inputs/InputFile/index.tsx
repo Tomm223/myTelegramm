@@ -22,7 +22,7 @@ export type AcceptInputChoose = 'videos' | 'images' | 'files' | 'images+videos' 
 interface InputFileType {
   isOpen: boolean
   name: string
-  accepting: '.png, .jpg, .jpeg'
+  accepting: AcceptInputChoose
   onChange?: (value: any) => void
   multiple: boolean
 }
@@ -62,18 +62,15 @@ export default class InputFile extends Component<InputFileType> {
   }
 
   protected render(): HTMLElement {
-    return <input type="file" class="hidden" accept={this.props.accepting} />
-  }
-}
-
-/*
-<div class={styles.block}>
-        <button class={styles.btn}>Выберите файл на компьютере</button>
+    return (
+      <div class="hidden">
         <input
-          class="hidden"
-          accept={this.props.accepting}
           type="file"
-          placeholder="Выберите файл"
+          name={this.props.name}
+          accept={AcceptInput[this.props.accepting]}
+          multiple={this.props.multiple}
         />
       </div>
-*/
+    )
+  }
+}
