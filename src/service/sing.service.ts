@@ -16,7 +16,6 @@ export class SingController {
       }
       return user
     } catch {
-      alert('Error GetUser Service Frontend')
       throw new Error()
     }
   }
@@ -99,7 +98,6 @@ export class SingController {
       Actions.setUser(userData)
       Actions.clearDataSingUpPage()
       Router.go('/messenger')
-      console.log(Actions.getUser())
     } catch (error) {
       // Логика обработки ошибок
       console.log(error)

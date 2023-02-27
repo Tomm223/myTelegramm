@@ -12,10 +12,21 @@ const setIsAuth = (bool: boolean) => {
 
 const setUser = (user: UserType) => {
   store.set('user', user)
+
   setIsAuth(true)
 }
 const resetUser = () => {
-  store.set('user', null)
+  store.set('user', {
+    id: 0,
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    login: '',
+    email: '',
+    phone: '',
+    avatar: '',
+  })
+
   setIsAuth(false)
 }
 const getUser = () => {

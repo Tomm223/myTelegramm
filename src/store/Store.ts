@@ -111,6 +111,7 @@ export default class Store extends EventBus {
 
   set(id: string, value: any) {
     this._state[id] = value
+
     this.emit(Store.EVENT_UPDATE)
     return this
   }

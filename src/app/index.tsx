@@ -14,7 +14,7 @@ import TestModal from 'src/pages/TestModal'
 
 Router.use('/', Nagivation)
   .use('/messenger', Messanger)
-  .use('/setting', NoFound)
+  .use('/setting', ProfilePage)
   .use('/sing-in', SingInPage)
   .use('/sing-up', SingUpPage)
   .use('/no-found', NoFound)
