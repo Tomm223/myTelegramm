@@ -64,19 +64,16 @@ export default class Profile extends Component<ProfileType> {
   }
 
   protected init(): void {
-    console.log('tyt error if not next log')
-
-    // this.children.avatar = new AvatarForm({
-    //   onClick: this.handleShowModal.bind(this),
-    // })
-    console.log('not tyt error')
+    this.children.avatar = new AvatarForm({
+      onClick: this.handleShowModal.bind(this),
+    })
   }
 
   protected render(): HTMLElement {
     return (
       <div>
         <div class={styles.form}>
-          <div class={styles.form__item}>{/* {this.childrenHTML.elements.avatar} */}</div>
+          <div class={styles.form__item}>{this.childrenHTML.elements.avatar}</div>
           {this.childrenHTML.elements.formik}
         </div>
         {this.childrenHTML.elements.avatar_modal}
