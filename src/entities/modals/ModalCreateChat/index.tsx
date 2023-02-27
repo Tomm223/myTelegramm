@@ -2,7 +2,6 @@ import Component from '@/core/Component'
 import CompileMaster from '@/core/CompileJSX'
 import ModalFormDefault from '@/shared/modals/ModalFormDefault'
 import InputText from '@/shared/inputs/InputText'
-import { ChatListController } from '@/service/chats.service'
 
 interface ModalCreateChatType {
   isOpen?: boolean

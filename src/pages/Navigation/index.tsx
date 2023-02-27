@@ -1,10 +1,6 @@
 import Component from '@/core/Component'
 import CompileMaster from '@/core/CompileJSX'
-<<<<<<< HEAD
-import { useNavigate } from '@/core/routing'
-=======
 import Router from 'src/app/router'
->>>>>>> sprint_3
 
 export default class Nagivation extends Component {
   handleHref(e: MouseEvent) {
@@ -13,11 +9,7 @@ export default class Nagivation extends Component {
     let pathname = tag.getAttribute('route') as string | null
 
     if (!pathname) return
-<<<<<<< HEAD
-    useNavigate(pathname)
-=======
     Router.go(pathname)
->>>>>>> sprint_3
   }
 
   protected addEvents(): void {
@@ -38,38 +30,22 @@ export default class Nagivation extends Component {
     return (
       <nav class="nav_test">
         <div class="item_test">
-<<<<<<< HEAD
-          <a class="link_test" route="/profile">
-=======
           <a class="link_test" route="/setting">
->>>>>>> sprint_3
             /Profile
           </a>
         </div>
         <div class="item_test">
-<<<<<<< HEAD
-          <a class="link_test" route="/sing-in">
-=======
           <a class="link_test" route="/sing-up">
->>>>>>> sprint_3
             /SingUp
           </a>
         </div>
         <div class="item_test">
-<<<<<<< HEAD
-          <a class="link_test" route="/sing-up">
-=======
           <a class="link_test" route="/sing-in">
->>>>>>> sprint_3
             /SingIn
           </a>
         </div>
         <div class="item_test">
-<<<<<<< HEAD
-          <a class="link_test" route="/messanger">
-=======
           <a class="link_test" route="/messenger">
->>>>>>> sprint_3
             /Messanger
           </a>
         </div>

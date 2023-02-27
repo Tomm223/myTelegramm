@@ -2,11 +2,7 @@ import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Polygon1 from '@/static/icons/Polygon1.svg'
 import Component from '@/core/Component'
-<<<<<<< HEAD
-import { useNavigate } from '@/core/routing'
-=======
 import Router from 'src/app/router'
->>>>>>> sprint_3
 
 interface LinkToProfileType {
   onClick?: () => void
@@ -20,11 +16,7 @@ export default class LinkToProfile extends Component<LinkToProfileType> {
     let pathname = tag.getAttribute('route') as string | null
 
     if (!pathname) return
-<<<<<<< HEAD
-    useNavigate(pathname)
-=======
     Router.go(pathname)
->>>>>>> sprint_3
   }
 
   protected addEvents(): void {

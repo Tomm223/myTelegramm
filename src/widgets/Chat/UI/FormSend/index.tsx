@@ -7,17 +7,9 @@ import Photo from '@/static/icons/pics_message.svg'
 import File from '@/static/icons/file.svg'
 import Local from '@/static/icons/local.svg'
 import styles from './styles.module.scss'
-<<<<<<< HEAD
-import { throtlle } from '@/utils/throtlle'
-import { FormSendEventBus } from './eventbus'
-import { debounce } from '@/utils/debounce'
-import MenuChat from '../MenuChat'
-import ButtonMenu from '../MenuChat/ButtonMenu'
-=======
 import { FormSendEventBus } from './eventbus'
 import MenuChat from '../MenuChat'
 import ButtonFile from '../MenuChat/ButtonFile'
->>>>>>> sprint_3
 
 interface FormSendType {
   events?: any
@@ -27,16 +19,9 @@ interface FormSendType {
   attach?: Component
   btn?: Component
   input?: Component
-<<<<<<< HEAD
-}
-
-function handlerClick() {}
-
-=======
   onSubmit?: (data: string) => void
 }
 
->>>>>>> sprint_3
 export default class FormSend extends Component<FormSendType> {
   constructor(props: FormSendType) {
     props.isOpen = false
@@ -52,31 +37,6 @@ export default class FormSend extends Component<FormSendType> {
     props.attach = new MenuChat({
       ref: 'menu',
       buttons: [
-<<<<<<< HEAD
-        new ButtonMenu({
-          img: Photo,
-          text: 'Фото или Видео',
-          onSelect: () => {},
-          inputName: 'photo/movie',
-          accepting: 'images+videos',
-        }),
-        new ButtonMenu({
-          img: File,
-          text: 'Файл',
-          onSelect: () => {},
-          inputName: 'file',
-          accepting: 'files',
-        }),
-        new ButtonMenu({
-          img: Local,
-          text: 'Локация',
-          onSelect: () => {},
-          inputName: 'location',
-          accepting: 'local',
-        }),
-      ],
-    })
-=======
         new ButtonFile({
           img: Photo,
           text: 'Фото или Видео',
@@ -101,7 +61,6 @@ export default class FormSend extends Component<FormSendType> {
       ],
     })
 
->>>>>>> sprint_3
     super(props)
   }
 
@@ -110,16 +69,11 @@ export default class FormSend extends Component<FormSendType> {
 
     let value = this.getValue()
     if (!value) return
-<<<<<<< HEAD
-    this.resetValue()
-    console.log(value)
-=======
 
     if (this.props.onSubmit) {
       this.props.onSubmit(value)
     }
     this.resetValue()
->>>>>>> sprint_3
   }
 
   getValue(): string {
