@@ -64,9 +64,12 @@ export default class Profile extends Component<ProfileType> {
   }
 
   protected init(): void {
+    console.log('tyt error if not next log')
+
     this.children.avatar = new AvatarForm({
       onClick: this.handleShowModal.bind(this),
     })
+    console.log('not tyt error')
   }
 
   protected render(): HTMLElement {
