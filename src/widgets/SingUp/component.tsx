@@ -78,9 +78,9 @@ export default class SingUp extends Component<SingUpType> {
 
   protected componentDidUpdate(oldProps: SingUpType, newProps: SingUpType): void {
     if (newProps.error) {
-      alert(newProps.error)
-      // const modal = this.children.modal as Component
-      // modal.setProps({ error: newProps.error })
+      this.children?.modal?.children?.window?.children?.children.children.constructo?.setProps({
+        error: newProps.error,
+      })
     }
   }
 

@@ -78,9 +78,9 @@ export default class SingIn extends Component<SingInType> {
 
   protected componentDidUpdate(oldProps: SingInType, newProps: SingInType): void {
     if (newProps.error) {
-      alert(`newError SingIn:  ${newProps.error}`)
-      // const modal = this.children.modal as Component
-      // modal.setProps({ error: newProps.error })
+      this.children?.modal?.children?.window?.children?.children.children.constructo?.setProps({
+        error: newProps.error,
+      })
     }
   }
 
