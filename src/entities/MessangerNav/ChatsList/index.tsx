@@ -4,6 +4,7 @@ import ChatsList from './component'
 
 function Map(state: any) {
   const { list, loading, isAll } = state.listChats
-  return { list, loading, isAll }
+  const { chatID } = state.chat
+  return { list, loading, isAll, chatIDSelected: chatID }
 }
 export default connect(ChatsList, Map)

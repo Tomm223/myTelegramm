@@ -5,11 +5,14 @@ const store = new Store()
 
 const setChatIDAndToken = (id: number, token: string) => {
   let oldChat = store.getState().chat
-  store.set('chat', { ...oldChat, token, chatID: id })
+  const { chatID: oldID } = oldChat
+  if (oldID === id) return
+  store.set('chat', { ...oldChat, token, chatID: id, messages: [] })
 }
 
 const setTitleAndAvatarChat = (title: string, avatar: string | null) => {
   let oldChat = store.getState().chat
+
   store.set('chat', { ...oldChat, title, avatar })
 }
 
@@ -45,13 +48,8 @@ const startLoadingChatMessages: () => void = () => {
   store.set('chat', { ...oldChat, loading: true })
 }
 
-const logoutOfChat = () => {
-  store.set('chat', { chatID: null, token: null, messages: [], page: 0, loading: false })
-}
-
 export type ActionChat = {
   resetChat: () => void
-  logoutOfChat: () => void
   setChatMessages: (msgs: Message[]) => void
   pushChatMessages: (msgs: Message[]) => void
   startLoadingChatMessages: () => void
@@ -64,7 +62,6 @@ const actions: ActionChat = {
   setTitleAndAvatarChat,
   getChatID,
   resetChat,
-  logoutOfChat,
   setChatIDAndToken,
   setChatMessages,
   pushChatMessages,

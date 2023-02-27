@@ -10,10 +10,9 @@ import { ChatsController } from '@/service/chats.service'
 import ModalFormDefault from '@/shared/modals/ModalFormDefault'
 import InputText from '@/shared/inputs/InputText'
 import { debounce } from '@/utils/debounce'
-import { deepEqual } from '@/core/deepEqual'
-import { ChatAPI } from '@/api/chats.api'
 
 interface ChatsUl {
+  chatIDSelected?: number | null
   list: ChatList[] | []
   loading?: boolean
   isAll?: boolean
@@ -58,7 +57,7 @@ export default class ChatsList extends Component<ChatsUl> {
     this._element?.removeEventListener('scroll', debounce(this.handleScroll.bind(this), 200))
   }
 
-  handleScroll() {
+  handleScroll(e: Event) {
     if (this.props.isAll) return
 
     const ul = this._element?.getElementsByTagName('ul')[0] as HTMLUListElement
@@ -78,8 +77,7 @@ export default class ChatsList extends Component<ChatsUl> {
 
   pushNewItemsChatList(number: number) {
     //save scrollTop pos
-    const top = this._element?.scrollTop
-    this.setProps({ scroll: { top: Number(top) }, list: this.props.list })
+    this.saveScroll()
     Actions.pushNewItemsChat()
   }
 
@@ -97,7 +95,15 @@ export default class ChatsList extends Component<ChatsUl> {
     await Actions.setNewChatList()
   }
 
-  correctedScroll() {
+  saveScroll() {
+    const top = this._element?.scrollTop
+    // console.log('save scroll = ', top)
+
+    const oldScroll = this.props.scroll
+    this.props.scroll = { ...oldScroll, top: Number(top) }
+  }
+
+  correctingScroll() {
     if (this.props.scroll) {
       const div = this._element as HTMLDivElement
       div.scrollTop = this.props.scroll.top
@@ -107,17 +113,13 @@ export default class ChatsList extends Component<ChatsUl> {
   createChatList() {
     const api = new ChatsController()
 
-    const appi = new ChatAPI()
-
-    // this.props.list.map((item) => {
-    //   console.log(appi.getChatById(item.id))
-    // })
-
     let listItem = this.props.list?.map((item) =>
       new ChatsListItem({
+        chatID_selected: this.props.chatIDSelected || null,
         chat: item,
         onClick: async (id: number) => {
           try {
+            this.saveScroll()
             const result = await api.getChatToken(id)
             Actions.setTitleAndAvatarChat(item.title, item.avatar)
           } catch {}
@@ -131,12 +133,10 @@ export default class ChatsList extends Component<ChatsUl> {
     return listItem
   }
 
-  protected shouldComponentUpdate(oldProps: ChatsUl, newProps: ChatsUl): boolean {
-    return !deepEqual({ ...oldProps, scroll: null }, { ...newProps, scroll: null })
-  }
-
   protected componentDidUpdate(oldProps: ChatsUl, newProps: ChatsUl): void {
-    this.correctedScroll()
+    console.log('didUpdate list', oldProps, newProps)
+
+    this.correctingScroll()
   }
 
   protected componentDidMount(): void {
@@ -144,6 +144,8 @@ export default class ChatsList extends Component<ChatsUl> {
   }
 
   protected render(): HTMLElement {
+    console.log('render')
+
     let listItem: Array<any>
 
     if (this.props.loading && !this.props.list.length) {
@@ -173,12 +175,13 @@ export default class ChatsList extends Component<ChatsUl> {
   }
 }
 
-// доделал передачу переменных title+avatar В state.chat  для пользования ChatHeader
-// проверь как работает?
-//
-// + работа очистки при переходе и выходе их чатов не работает корректно!!
-//
 // + сделать загрузку следующих сообщений если видна 5 с конца,
 // в методах mount + didUpdata такую штуку запускать
+//(можно сделать проверку типо если число нечетное некратное 20ти то отмена и ставим флаг isAll)
 //
 // + я наверное написал николаю узнать как делать add/remove user in chat
+// Попровобовать поиск по логину сделать с параметрами offset  а потом с limit
+// Попробовать закидывать эти параметры и в body и в url
+// СДЕЛАТЬ В ОБЩИЙ ПОИСК ЧАТОВ КАК ТОЛЬКО ЗАКОНЧИЛИСЬ ВСЕ ЧАТЫ ЗАПРАШИВАТЬ ЛЮДЕЙ???
+// ИЛИ В ФОРМЕ ДОБАВЛЕНИЕ СДЕЛАТЬ КАСТОМНЫЙ СЕЛЕКТ КУДА БУДУТ ПАДАТЬ ЮЗЕРЫ
+// А ПОЛЯ ДЛЯ ИМЕНИ БУДЕТ ФУНКЦИОНАЛОМ СЕРЧА??

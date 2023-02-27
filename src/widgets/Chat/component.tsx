@@ -1,10 +1,9 @@
 import CompileMaster from '@/core/CompileJSX'
-import Header from './UI/Header/component'
+import Header from './UI/Header'
 import styles from './styles.module.scss'
 
 import Plus from '@/static/icons/plus.svg'
 import Krest from '@/static/icons/krest.svg'
-import Img from 'static/icons/pics_message.png'
 import FormSend from './UI/FormSend'
 import MessageScreen from './UI/MessageScreen'
 import AddUser from '@/entities/modals/AddUser'
@@ -14,7 +13,6 @@ import MenuChat from './UI/MenuChat'
 import ButtonMenu from './UI/MenuChat/ButtonMenu'
 import { EventBus } from '@/core/EventBus'
 import { ChatEventBus, CHATEVENTS } from './eventbus'
-import { Message } from '@/types/chats'
 import { ChatWebSocketService } from '@/service/chat.ws.service'
 import Actions from '@/store/Actions'
 import { ChatsController } from '@/service/chats.service'
@@ -26,14 +24,11 @@ interface ChatType {
   messageList?: Component
   formSend?: Component
   chat?: {
+    avatar: string | null
     chatID: number | null
     token: string | null
     loading: boolean
   }
-}
-
-function handleSubmit(form: any) {
-  console.log(form)
 }
 
 export default class Chat extends Component<ChatType> {
@@ -41,8 +36,6 @@ export default class Chat extends Component<ChatType> {
 
   constructor(props: ChatType) {
     props.header = new Header({
-      img: Img,
-      title: 'Вадим Яшин',
       menu: new MenuChat({
         ref: 'menu',
         buttons: [
@@ -63,7 +56,7 @@ export default class Chat extends Component<ChatType> {
         ],
       }),
     })
-    props.messageList = new MessageScreen()
+    props.messageList = new MessageScreen({})
     props.formSend = new FormSend({})
     super(props)
   }
@@ -91,12 +84,15 @@ export default class Chat extends Component<ChatType> {
       size: { width: '340px', height: '260px' },
       isOpen: false,
       onSubmit: (form) => {
-        const number = Number(form.remove_user)
-        if (typeof number !== 'number') {
+        const userID = Number(form.remove_user)
+        const chatID = Actions.getChatID()
+        if (typeof userID !== 'number') {
           alert('нужна айдиха')
           return
         }
-        api.removeUser(number)
+        if (typeof chatID !== 'number') return
+
+        api.removeUser({ chatID, userID })
       },
     })
   }
@@ -127,6 +123,8 @@ export default class Chat extends Component<ChatType> {
   }
 
   handleWSMessages(e: MessageEvent<any>) {
+    // console.log('handleMSG', e.data)
+
     const msg = JSON.parse(e.data)
 
     if (Array.isArray(msg)) {
@@ -134,6 +132,12 @@ export default class Chat extends Component<ChatType> {
     } else {
       Actions.pushChatMessages([msg])
     }
+  }
+
+  handleOpen() {
+    // console.log('open connect')
+
+    this.WS?.getMessages(0)
   }
 
   // не ресетит нормально
@@ -153,7 +157,8 @@ export default class Chat extends Component<ChatType> {
         token,
         userID,
       },
-      this.handleWSMessages
+      this.handleWSMessages,
+      this.handleOpen.bind(this)
     )
 
     const form = this.children.formSend as Component
@@ -162,7 +167,6 @@ export default class Chat extends Component<ChatType> {
 
   resetChat() {
     this.WS?.closeWebsocket()
-    Actions.resetUser()
   }
 
   protected componentDidUpdate(oldProps: ChatType, newProps: ChatType): void {
@@ -188,6 +192,8 @@ export default class Chat extends Component<ChatType> {
   }
 
   protected render(): HTMLElement {
+    // console.log('render chat', this.props.chat)
+
     return (
       <div class={styles.container}>
         <div class={styles.block}>

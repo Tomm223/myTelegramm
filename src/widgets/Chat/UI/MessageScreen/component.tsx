@@ -3,10 +3,7 @@ import { Message } from '@/types/chats'
 import styles from './styles.module.scss'
 import MessageScreenItem, { NotMessege } from './item'
 import Component from '@/core/Component'
-import Actions from '@/store/Actions'
-import { messages } from './constants.reg'
 import LoaderDefault from '@/shared/Loaders/LoaderDefault/defualt'
-import Store from '@/store/Store'
 
 interface MessageScreenType {
   messages?: Message[]
@@ -32,10 +29,6 @@ export default class MessageScreen extends Component<MessageScreenType> {
   }
 
   protected componentDidMount(): void {
-    // Actions.startLoadingChatMessages()
-    // setTimeout(() => {
-    //   Actions.setChatMessages(messages)
-    // }, 3000)
     this.dropDown()
   }
 

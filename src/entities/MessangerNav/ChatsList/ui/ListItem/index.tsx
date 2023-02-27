@@ -5,10 +5,13 @@ import Time from '@/shared/Time/default'
 import styles from './styles.module.scss'
 import UnRead from '../UnReadCount'
 import Component from '@/core/Component'
+import Img from '@/static/icons/pics_profile.png'
+import { API_BASE_RESOURCES } from '@/http/index'
 
 interface ChatListItem {
   onClick: (id: number) => void
   chat: ChatList
+  chatID_selected: number | null
 }
 
 export default class ChatsListItem extends Component<ChatListItem> {
@@ -27,7 +30,7 @@ export default class ChatsListItem extends Component<ChatListItem> {
   }
 
   protected render(): HTMLElement {
-    const defaultSrcImg = ''
+    const defaultSrcImg = Img
 
     const content = this.props.chat.last_message
       ? this.props.chat.last_message.content
@@ -45,11 +48,17 @@ export default class ChatsListItem extends Component<ChatListItem> {
       <div></div>
     )
 
+    const isActive = this.props.chatID_selected === this.props.chat.id
+
     return (
       <li class={styles.item}>
-        <a class={styles.link} href="#">
+        <a class={isActive ? styles.link_active : styles.link} href="#">
           <div class={styles.avatar}>
-            {Avatar({ link: this.props.chat.last_message?.user.avatar || defaultSrcImg })}
+            {Avatar({
+              link: this.props.chat.avatar
+                ? `${API_BASE_RESOURCES}` + `${this.props.chat.avatar}`
+                : defaultSrcImg,
+            })}
           </div>
           <div class={styles.body}>
             <p class={styles.body__title}>{this.props.chat.title}</p>

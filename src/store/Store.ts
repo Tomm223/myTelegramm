@@ -75,7 +75,7 @@ export default class Store extends EventBus {
 
     // localStorage.removeItem(Store.STORE_NAME)
     const savedState = localStorage.getItem(Store.STORE_NAME)
-
+    // console.log('saves_state', savedState)
     this._state = savedState ? JSON.parse(savedState) ?? Initialstate : Initialstate
     // this._state = Initialstate
 
@@ -87,6 +87,8 @@ export default class Store extends EventBus {
         isAuth: this._state.isAuth,
         user: this._state.user,
         chat: {
+          title: this._state.chat.title,
+          avatar: this._state.chat.avatar,
           chatID: this._state.chat.chatID,
           token: this._state.chat.token,
           loading: false,

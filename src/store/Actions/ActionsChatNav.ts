@@ -68,7 +68,6 @@ const setChatList: (list: ChatList[]) => void = (list) => {
   const oldListState = store.getState().listChats
 
   store.set('listChats', { ...oldListState, list, loading: false, isAll: false })
-  console.log(store.getState().listChats)
 }
 
 const pushChatList: (list: ChatList[]) => void = (list) => {

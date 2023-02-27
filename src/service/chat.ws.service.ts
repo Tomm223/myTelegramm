@@ -18,7 +18,8 @@ export class ChatWebSocketService {
 
   constructor(
     params: ChatWebSocketServiceType,
-    handleMessages: (event: MessageEvent<any>) => void
+    handleMessages: (event: MessageEvent<any>) => void,
+    handleOpen: () => void
   ) {
     const { chatID, token, userID } = params
 
@@ -27,6 +28,7 @@ export class ChatWebSocketService {
     this.userID = userID
 
     this.handlerMessages = handleMessages
+    this.handlerOpen = handleOpen
 
     this.subscribe()
   }
@@ -51,6 +53,8 @@ export class ChatWebSocketService {
   }
 
   handlerOpen() {
+    console.log('addevent OPEN')
+
     this.getMessages(0)
   }
 

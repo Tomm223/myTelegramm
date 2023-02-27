@@ -3,9 +3,11 @@ import ButtonMore from '@/shared/buttons/ButtonMore'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Component from '@/core/Component'
+import Img from 'static/icons/pics_profile.png'
 
 interface HeaderType {
-  img?: string
+  chatID?: number
+  avatar?: string
   title?: string
   isAddUserWindow?: boolean
   isRemoveUserWindow?: boolean
@@ -32,11 +34,10 @@ export default class Header extends Component<HeaderType> {
   }
 
   protected render(): HTMLElement {
-    console.log('header')
     return (
       <div class={styles.header}>
-        {Avatar({ link: this.props.img || '' })}
-        <h3 class={styles.title}>{this.props.title}</h3>
+        {Avatar({ link: this.props.avatar || Img })}
+        <h3 class={styles.title}>{this.props.title || ''}</h3>
         <div class={styles.btn}>
           {new ButtonMore({
             isActive: this.props.isOpen || false,

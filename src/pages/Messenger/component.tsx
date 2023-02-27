@@ -36,7 +36,7 @@ export default class Messenger extends Component<MessangerType> {
 
   handleKeyEscape(e: KeyboardEvent) {
     if (e.key === 'Escape') {
-      Actions.logoutOfChat()
+      Actions.resetChat()
     }
   }
 

@@ -30,7 +30,6 @@ export class ChatAPI {
   }
 
   getChats(data: GetChatsRequest): Promise<ChatList[]> {
-    // ?offset=12&limit=12&title=dfdf
     if (!data.title) {
       data = { offset: data.offset, limit: data.limit }
     }
