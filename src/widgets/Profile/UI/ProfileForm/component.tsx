@@ -98,8 +98,6 @@ export default class ProfileForm extends Component<ProfileFormType> {
   }
 
   protected render(): HTMLElement {
-    console.log(this.props.user)
-
     return <div class={styles.block}>{this.childrenHTML.elements.form}</div>
   }
 }

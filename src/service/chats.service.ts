@@ -37,7 +37,6 @@ export class ChatsController {
     try {
       const api = new ChatAPI()
       const token = await api.getChatToken(id)
-      console.log('getToken', token, id)
 
       if (!token) {
         throw new Error('')
@@ -54,7 +53,7 @@ export class ChatsController {
       const status = await api.createChat(title)
       return status
     } catch {
-      alert('Error Fronted Service')
+      alert('Error CreateChat Fronted Service')
     }
   }
 
@@ -69,7 +68,7 @@ export class ChatsController {
         Actions.setIsAllChatList(true)
       }
     } catch {
-      alert('Error Frontend Service')
+      alert('Error PushNewChatList Frontend Service')
     }
   }
 
@@ -80,7 +79,7 @@ export class ChatsController {
 
       Actions.setChatList(list)
     } catch {
-      alert('Error Frontend Service')
+      alert('Error GetNewChatList Frontend Service')
     }
   }
 }

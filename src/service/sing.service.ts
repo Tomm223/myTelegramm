@@ -29,13 +29,12 @@ export class SingController {
         throw new Error('')
       }
 
-      Actions.setIsAuth(false)
+      Actions.resetStore()
       Router.go('/sing-in')
-      Actions.resetUser()
 
       return true
-    } catch {
-      alert('Error Service Frontend')
+    } catch (e) {
+      alert('Error Logout Service Frontend')
       return false
     }
   }
@@ -98,7 +97,6 @@ export class SingController {
       Actions.setUser(userData)
       Actions.clearDataSingUpPage()
       Router.go('/messenger')
-      console.log(Actions.getUser())
     } catch (error) {
       // Логика обработки ошибок
       console.log(error)

@@ -1,3 +1,4 @@
+import { SingController } from '@/service/sing.service'
 import { UserType } from '@/types/user'
 import Store from '../Store'
 
@@ -12,6 +13,7 @@ const setIsAuth = (bool: boolean) => {
 
 const setUser = (user: UserType) => {
   store.set('user', user)
+
   setIsAuth(true)
 }
 const resetUser = () => {
@@ -31,7 +33,22 @@ const getUser = () => {
   return store.getState().user
 }
 
+const authorizationUser = async () => {
+  try {
+    const api = new SingController()
+
+    const user = await api.getUser()
+
+    setUser(user)
+    return true
+  } catch {
+    console.log('пользователь не авторизован')
+    return false
+  }
+}
+
 export type UserActType = {
+  authorizationUser: () => Promise<boolean>
   getIsAuth: () => boolean
   setUser: (user: UserType) => void
   resetUser: () => void
@@ -40,6 +57,7 @@ export type UserActType = {
 }
 
 const userAct: UserActType = {
+  authorizationUser,
   setIsAuth,
   resetUser,
   setUser,

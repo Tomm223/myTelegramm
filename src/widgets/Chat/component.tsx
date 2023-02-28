@@ -17,6 +17,8 @@ import { ChatWebSocketService } from '@/service/chat.ws.service'
 import Actions from '@/store/Actions'
 import { ChatsController } from '@/service/chats.service'
 import Store from '@/store/Store'
+import { Message } from '@/types/chats'
+import { deepEqual } from '@/core/deepEqual'
 
 interface ChatType {
   header?: Component
@@ -124,35 +126,37 @@ export default class Chat extends Component<ChatType> {
   }
 
   handleWSMessages(e: MessageEvent<any>) {
+    console.log('send msg', e)
+
     const store = new Store()
-
-    console.log('handleMSG', e.data, store.getState().chat.token)
-
-    const msg = JSON.parse(e.data)
+    const msg = JSON.parse(e.data) as Message[] | Message
 
     if (Array.isArray(msg)) {
       Actions.pushChatMessages(msg.reverse())
     } else {
-      Actions.pushChatMessages([msg])
+      if (msg.type !== 'message') {
+        console.log(msg)
+      } else {
+        Actions.pushChatMessages([msg])
+      }
     }
   }
 
   handleOpen() {
-    // console.log('open connect')
+    console.log('open connect')
 
     this.WS?.getMessages(0)
   }
 
-  // не ресетит нормально
-
-  protected componentDidMount(): void {
+  createSocket() {
     if (!this.props.chat) return
     const { loading, chatID, token } = this.props.chat
     const userID = Actions.getUser()?.id
-
+    console.log('ne bilo', chatID, userID, token)
     if (!chatID) return
     if (!userID) return
     if (!token) return
+    console.log('bilo', chatID, userID, token)
 
     this.WS = new ChatWebSocketService(
       {
@@ -163,9 +167,13 @@ export default class Chat extends Component<ChatType> {
       this.handleWSMessages,
       this.handleOpen.bind(this)
     )
-
     const form = this.children.formSend as Component
     form.props.onSubmit = this.WS.sendMessage.bind(this.WS)
+  }
+
+  // не ресетит нормально
+  protected componentDidMount(): void {
+    this.createSocket()
   }
 
   resetChat() {
@@ -173,6 +181,11 @@ export default class Chat extends Component<ChatType> {
   }
 
   protected componentDidUpdate(oldProps: ChatType, newProps: ChatType): void {
+    if (!this.WS) {
+      this.createSocket()
+      return
+    }
+
     if (oldProps.chat && newProps.chat) {
       const { chatID, token } = oldProps.chat
       const { chatID: newId, token: newToken } = newProps.chat
@@ -195,7 +208,7 @@ export default class Chat extends Component<ChatType> {
   }
 
   protected render(): HTMLElement {
-    // console.log('render chat', this.props.chat)
+    console.log('render chat', this.props)
 
     return (
       <div class={styles.container}>
