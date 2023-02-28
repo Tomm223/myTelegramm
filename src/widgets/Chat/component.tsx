@@ -138,7 +138,7 @@ export default class Chat extends Component<ChatType> {
   }
 
   handleOpen() {
-    // console.log('open connect')
+    console.log('open connect')
 
     this.WS?.getMessages(0)
   }

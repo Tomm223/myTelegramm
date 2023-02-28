@@ -37,7 +37,6 @@ export class ChatsController {
     try {
       const api = new ChatAPI()
       const token = await api.getChatToken(id)
-      console.log('getToken', token, id)
 
       if (!token) {
         throw new Error('')

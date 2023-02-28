@@ -25,6 +25,7 @@ const pushChatMessages: (msgs: Message[]) => void = (msgs) => {
   const newMessage = [...oldChat.messages, ...msgs]
 
   store.set('chat', { ...oldChat, messages: newMessage, loading: false })
+  console.log('push msgs', msgs)
 }
 
 const setChatMessages: (msgs: Message[]) => void = (msgs) => {
