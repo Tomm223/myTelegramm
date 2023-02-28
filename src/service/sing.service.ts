@@ -29,12 +29,11 @@ export class SingController {
         throw new Error('')
       }
 
-      Actions.setIsAuth(false)
+      Actions.resetStore()
       Router.go('/sing-in')
-      Actions.resetUser()
 
       return true
-    } catch {
+    } catch (e) {
       alert('Error Logout Service Frontend')
       return false
     }

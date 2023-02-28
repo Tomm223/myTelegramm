@@ -27,7 +27,7 @@ export interface InitialStateType {
     loading: boolean
     error: string
   }
-  user: UserType | null
+  user: UserType
   isAuth: boolean
 }
 
@@ -55,7 +55,16 @@ const Initialstate: InitialStateType = {
     loading: false,
     error: '',
   },
-  user: null,
+  user: {
+    id: 0,
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    login: '',
+    email: '',
+    phone: '',
+    avatar: '',
+  },
   isAuth: false,
 }
 
@@ -75,7 +84,7 @@ export default class Store extends EventBus {
 
     // localStorage.removeItem(Store.STORE_NAME)
     const savedState = localStorage.getItem(Store.STORE_NAME)
-    console.log('saves_state', savedState)
+    // console.log('saves_state', savedState)
     this._state = savedState ? JSON.parse(savedState) ?? Initialstate : Initialstate
     // this._state = Initialstate
 

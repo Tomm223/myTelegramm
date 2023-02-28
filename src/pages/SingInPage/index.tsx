@@ -3,6 +3,7 @@ import SingIn from '@/widgets/SingIn'
 import CompileMaster from '@/core/CompileJSX'
 import TestModal from '../TestModal'
 import { SingController } from '@/service/sing.service'
+import Store from '@/store/Store'
 
 interface SingInPageType {
   modal?: Component
@@ -19,6 +20,7 @@ export default class SingInPage extends Component<SingInPageType> {
   }
 
   protected render(): HTMLElement {
+    const store = new Store()
     return <div>{this.childrenHTML.elements.modal}</div>
   }
 }
