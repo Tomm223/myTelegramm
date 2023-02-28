@@ -94,13 +94,13 @@ class RouterInst {
 
   // }
 
-  isValidUser() {
-    const isAuth = Actions.getIsAuth()
+  async isValidUser() {
+    const isAuth = await Actions.authorizationUser()
     return isAuth
   }
 
-  isRedirected(pathname: string): boolean {
-    const isValidUser = this.isValidUser()
+  async isRedirected(pathname: string): Promise<boolean> {
+    const isValidUser = await this.isValidUser()
     let isRedirect = false
     if (isValidUser) {
       if (pathname !== '/messenger' && pathname !== '/setting') {
@@ -118,12 +118,12 @@ class RouterInst {
     return isRedirect
   }
 
-  _onRoute(pathname: string, props: Record<string, any> = {}) {
+  async _onRoute(pathname: string, props: Record<string, any> = {}) {
     let route: Route
     const routeOfPath = this.getRoute(pathname)
 
     if (routeOfPath) {
-      const isRedirected = this.isRedirected(pathname)
+      const isRedirected = await this.isRedirected(pathname)
 
       if (isRedirected) {
         return

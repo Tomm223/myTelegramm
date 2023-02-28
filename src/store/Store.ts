@@ -84,8 +84,8 @@ export default class Store extends EventBus {
     this.on(Store.EVENT_UPDATE, () => {
       const saveState: InitialStateType = {
         ...Initialstate,
-        isAuth: this._state.isAuth,
-        user: this._state.user,
+        isAuth: false,
+        user: null,
         chat: {
           title: this._state.chat.title,
           avatar: this._state.chat.avatar,
@@ -105,7 +105,7 @@ export default class Store extends EventBus {
   }
 
   removeState() {
-    this._state = {}
+    this._state = Initialstate
     this.emit(Store.EVENT_UPDATE)
   }
 
