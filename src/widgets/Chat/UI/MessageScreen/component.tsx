@@ -50,6 +50,7 @@ export default class MessageScreen extends Component<MessageScreenType> {
     return (
       <div class={styles.container}>
         <ul class={styles.list}>
+          <li style="opacity:0;">zero</li>
           {...msgs}
           <li style="opacity:0;">zero</li>
         </ul>

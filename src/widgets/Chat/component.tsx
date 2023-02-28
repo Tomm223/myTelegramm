@@ -18,7 +18,6 @@ import Actions from '@/store/Actions'
 import { ChatsController } from '@/service/chats.service'
 import Store from '@/store/Store'
 import { Message } from '@/types/chats'
-import { deepEqual } from '@/core/deepEqual'
 
 interface ChatType {
   header?: Component
