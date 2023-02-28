@@ -29,7 +29,7 @@ class Route {
 
   leave() {
     if (this._block) {
-      this._block.hide()
+      this._block._hide()
     }
   }
 
@@ -45,7 +45,7 @@ class Route {
       return
     }
 
-    this._block.show()
+    this._block._show()
   }
 }
 

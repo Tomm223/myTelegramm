@@ -2,6 +2,7 @@ import { EventBus } from './EventBus'
 import { v4 as uuidv4 } from 'uuid'
 import CompileMaster from '@/core/CompileJSX'
 import { deepEqual } from './deepEqual'
+import { EVENTS } from '@/shared/inputs/InputText/eventbus'
 
 type Handler = (e: MouseEvent) => void
 
@@ -296,16 +297,18 @@ class Component<P extends Record<string, any> = any> {
     })
   }
 
-  show() {
+  _show() {
     let html = this.getContent()
     if (!html) return
     html.style.display = 'block'
+    this.eventBus().emit(Component.EVENTS.FLOW_CDM)
   }
 
-  hide() {
+  _hide() {
     let html = this.getContent()
     if (!html) return
     html.style.display = 'none'
+    // this.eventBus().emit(Component.EVENTS.FLOW_CDM)
   }
 }
 
