@@ -17,6 +17,7 @@ import { ChatWebSocketService } from '@/service/chat.ws.service'
 import Actions from '@/store/Actions'
 import { ChatsController } from '@/service/chats.service'
 import Store from '@/store/Store'
+import { Message } from '@/types/chats'
 
 interface ChatType {
   header?: Component
@@ -125,12 +126,16 @@ export default class Chat extends Component<ChatType> {
 
   handleWSMessages(e: MessageEvent<any>) {
     const store = new Store()
-    const msg = JSON.parse(e.data)
+    const msg = JSON.parse(e.data) as Message[] | Message
 
     if (Array.isArray(msg)) {
       Actions.pushChatMessages(msg.reverse())
     } else {
-      Actions.pushChatMessages([msg])
+      if (msg.type !== 'message') {
+        console.log(msg)
+      } else {
+        Actions.pushChatMessages([msg])
+      }
     }
   }
 

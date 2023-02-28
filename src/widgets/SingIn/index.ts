@@ -1,4 +1,3 @@
-import { InitialStateType } from '@/store/Store'
 import { connect } from 'src/store/connect'
 import SingIn from './component'
 

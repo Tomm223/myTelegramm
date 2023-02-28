@@ -92,7 +92,7 @@ export default class FormConstructor extends Component<FormConstructorType> {
     }
   }
 
-  handlerSubmit() {
+  async handlerSubmit() {
     if (!this._element) return
     if (!this.props.onSubmit) return
 
@@ -108,7 +108,8 @@ export default class FormConstructor extends Component<FormConstructorType> {
         result[inputs[i].name] = inputs[i].value
       }
     }
-    this.props.onSubmit(result)
+    await this.props.onSubmit(result)
+    this.resetForm()
   }
 
   isValidForm(): boolean {
