@@ -125,9 +125,6 @@ export default class Chat extends Component<ChatType> {
 
   handleWSMessages(e: MessageEvent<any>) {
     const store = new Store()
-
-    console.log('handleMSG', e.data, store.getState().chat.token)
-
     const msg = JSON.parse(e.data)
 
     if (Array.isArray(msg)) {
@@ -138,8 +135,6 @@ export default class Chat extends Component<ChatType> {
   }
 
   handleOpen() {
-    console.log('open connect')
-
     this.WS?.getMessages(0)
   }
 

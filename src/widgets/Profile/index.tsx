@@ -34,8 +34,19 @@ export default class Profile extends Component<ProfileType> {
 
     props.formik = new ProfileForm({})
 
+    super(props)
+  }
+
+  handleShowModal() {
+    let modal = this.children.avatar_modal
+    if (Array.isArray(modal)) return
+
+    modal.setProps({ isOpen: !modal.props.isOpen })
+  }
+
+  protected init(): void {
     const api = new UserController()
-    props.avatar_modal = new LoadFileModal({
+    this.children.avatar_modal = new LoadFileModal({
       inputName: 'avatar',
       accepting: 'images',
       isOpen: false,
@@ -53,17 +64,6 @@ export default class Profile extends Component<ProfileType> {
       },
     })
 
-    super(props)
-  }
-
-  handleShowModal() {
-    let modal = this.children.avatar_modal
-    if (Array.isArray(modal)) return
-
-    modal.setProps({ isOpen: !modal.props.isOpen })
-  }
-
-  protected init(): void {
     this.children.avatar = new AvatarForm({
       onClick: this.handleShowModal.bind(this),
     })
