@@ -87,12 +87,17 @@ export default class ChatsList extends Component<ChatsUl> {
   }
 
   async createChat(data: Record<string, any>) {
-    const api = new ChatsController()
-    const title = data.create_chat
+    try {
+      const api = new ChatsController()
+      const title = data.create_chat
 
-    await api.createChat(title)
-    this.setIsOpenModal(false)
-    await Actions.setNewChatList()
+      await api.createChat(title)
+      this.setIsOpenModal(false)
+      await Actions.setNewChatList()
+      return true
+    } catch {
+      return false
+    }
   }
 
   saveScroll() {

@@ -7,7 +7,7 @@ import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 
 interface RemoveUserType {
-  onSubmit?: (form: Record<string, string>) => void
+  onSubmit?: (form: Record<string, string>) => Promise<boolean>
   isOpen?: boolean
   size?: Size
   modal?: Component
@@ -47,7 +47,14 @@ export default class RemoveUser extends Component<RemoveUserType> {
             type: 'submit',
           }),
         ],
-        onSubmit: this.props.onSubmit,
+        onSubmit: async (data: any) => {
+          if (!this.props.onSubmit) return
+          const resp = await this.props.onSubmit(data)
+          if (resp) {
+            const modal = this.children.modal as Component
+            modal.setProps({ isOpen: false })
+          }
+        },
       }),
     })
   }

@@ -52,14 +52,21 @@ export default class Profile extends Component<ProfileType> {
       isOpen: false,
       size: { height: '260px' },
       onSubmit: async (form: any) => {
-        const formData = new FormData()
-        const fileList = form.avatar as FileList
-        const img = fileList[0]
-        formData.append('avatar', img, img.name)
+        try {
+          const formData = new FormData()
+          const fileList = form.avatar as FileList
+          const img = fileList[0]
+          formData.append('avatar', img, img.name)
 
-        const status = await api.setAvatar(formData)
-        if (status) {
-          this.handleShowModal()
+          const status = await api.setAvatar(formData)
+          if (status) {
+            // this.handleShowModal()
+            return true
+          } else {
+            return false
+          }
+        } catch {
+          return false
         }
       },
     })

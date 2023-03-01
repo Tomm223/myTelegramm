@@ -9,7 +9,7 @@ import ModalFormDefault from '@/shared/modals/ModalFormDefault'
 import { InputTextEventBus } from '@/shared/inputs/InputText/eventbus'
 
 interface AddUserType {
-  onSubmit?: (form: Record<string, string>) => void
+  onSubmit?: (form: Record<string, string>) => Promise<boolean>
   isOpen?: boolean
   size?: Size
   modal?: Component
@@ -52,7 +52,17 @@ export default class AddUser extends Component<AddUserType> {
             type: 'submit',
           }),
         ],
-        onSubmit: this.props.onSubmit,
+        onSubmit: async (data: any) => {
+          if (!this.props.onSubmit) return
+          const resp = await this.props.onSubmit(data)
+          console.log('resp', resp)
+
+          if (resp) {
+            const modal = this.children.modal as Component
+            modal.setProps({ isOpen: false })
+            console.log('close', modal.props)
+          }
+        },
       }),
     })
   }

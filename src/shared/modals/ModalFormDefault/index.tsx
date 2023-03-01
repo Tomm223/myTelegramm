@@ -8,7 +8,7 @@ import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 import FormConstructor from '@/shared/form/FormConstructor'
 
 interface ModalFormType {
-  onSubmit?: (form: Record<string, string>) => void
+  onSubmit?: (form: Record<string, string>) => Promise<boolean>
   isOpen?: boolean
   size?: Size
   modal?: Component
@@ -45,7 +45,14 @@ export default class ModalFormDefault extends Component<ModalFormType> {
             type: 'submit',
           }),
         ],
-        onSubmit: this.props.onSubmit,
+        onSubmit: async (data: any) => {
+          if (!this.props.onSubmit) return
+          const resp = await this.props.onSubmit(data)
+          if (resp) {
+            const modal = this.children.modal as Component
+            modal.setProps({ isOpen: false })
+          }
+        },
       }),
     })
   }

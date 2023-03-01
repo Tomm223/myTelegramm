@@ -13,7 +13,7 @@ interface LoadFileModalType {
   modal?: Component
   inputName?: string
   accepting?: AcceptInputChoose
-  onSubmit?: (form: any) => void
+  onSubmit?: (form: any) => Promise<boolean>
 }
 
 interface Size {
@@ -35,7 +35,14 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
       size: this.props.size,
       children: new FormConstructorTitle({
         setting: 'files',
-        onSubmit: this.props.onSubmit,
+        onSubmit: async (data: any) => {
+          if (!this.props.onSubmit) return
+          const resp = await this.props.onSubmit(data)
+          if (resp) {
+            const modal = this.children.modal as Component
+            modal.setProps({ isOpen: false })
+          }
+        },
         title: 'Загрузить Файл',
         inputs: [
           new ButtonLoadFile({

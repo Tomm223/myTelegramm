@@ -8,8 +8,6 @@ import Component from '@/core/Component'
 import { ChatNavEventBus, CHATNAVEVENTS } from './eventbus'
 import { EventBus } from '@/core/EventBus'
 import Actions from '@/store/Actions'
-import { throtlle } from '@/utils/throtlle'
-import { debounce } from '@/utils/debounce'
 
 interface ChatNavType {
   list?: Component

@@ -74,27 +74,29 @@ export default class Chat extends Component<ChatType> {
         const chatID = Actions.getChatID()
         if (typeof userID !== 'number' && typeof chatID !== 'number') {
           alert('нужна айдиха')
-          return
+          return false
         }
-        if (typeof chatID !== 'number') return
+        if (typeof chatID !== 'number') return false
 
         api.addUser({ chatID, userID })
+        return true
       },
     })
 
     this.children.removeUser = new RemoveUser({
       size: { width: '340px', height: '260px' },
       isOpen: false,
-      onSubmit: (form) => {
+      onSubmit: async (form) => {
         const userID = Number(form.remove_name)
         const chatID = Actions.getChatID()
         if (typeof userID !== 'number') {
           alert('нужна айдиха')
-          return
+          return false
         }
-        if (typeof chatID !== 'number') return
+        if (typeof chatID !== 'number') return false
 
-        api.removeUser({ chatID, userID })
+        await api.removeUser({ chatID, userID })
+        return true
       },
     })
   }
@@ -125,8 +127,6 @@ export default class Chat extends Component<ChatType> {
   }
 
   handleWSMessages(e: MessageEvent<any>) {
-    console.log('send msg', e)
-
     const store = new Store()
     const msg = JSON.parse(e.data) as Message[] | Message
 
@@ -142,8 +142,6 @@ export default class Chat extends Component<ChatType> {
   }
 
   handleOpen() {
-    console.log('open connect')
-
     this.WS?.getMessages(0)
   }
 
@@ -151,11 +149,10 @@ export default class Chat extends Component<ChatType> {
     if (!this.props.chat) return
     const { loading, chatID, token } = this.props.chat
     const userID = Actions.getUser()?.id
-    console.log('ne bilo', chatID, userID, token)
+
     if (!chatID) return
     if (!userID) return
     if (!token) return
-    console.log('bilo', chatID, userID, token)
 
     this.WS = new ChatWebSocketService(
       {
@@ -207,8 +204,6 @@ export default class Chat extends Component<ChatType> {
   }
 
   protected render(): HTMLElement {
-    console.log('render chat', this.props)
-
     return (
       <div class={styles.container}>
         <div class={styles.block}>
