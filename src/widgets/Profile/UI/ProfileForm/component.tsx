@@ -54,6 +54,10 @@ export default class ProfileForm extends Component<ProfileFormType> {
     }
   }
 
+  protected componentDidMount(): void {
+    ProfileFormEventBus.emit(ProfileFormEVENTS.PERSON_NO_EDIT)
+  }
+
   protected registerEvents(
     eventBus: EventBus<Record<string, string>, Record<string, any[]>>
   ): void {
