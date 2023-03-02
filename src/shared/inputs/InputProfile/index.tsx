@@ -57,7 +57,7 @@ export default class InputProfile extends Component<InputProfileType> {
             value={this.props.text}
           />
 
-          <span class={this.props.isEdit ? 'hidden' : styles.text}>{this.props.text}</span>
+          <span class={this.props.isEdit ? 'hidden' : styles.text}>{this.props.text || ''}</span>
         </div>
         <div class={`${this.props.error ? '' : 'hidden'}  ${styles.error}`}>
           {this.props.error ? this.props.error : ''}
