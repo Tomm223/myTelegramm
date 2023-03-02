@@ -73,10 +73,6 @@ export default class ProfileForm extends Component<ProfileFormType> {
     let state = getStatePerson(isEdit, this.props.user, this.API.setProfile)
     let formik = this.children.form as FormConstructor
 
-    state.inputs.map((item) => {
-      console.log(item.props.text)
-    })
-
     formik.setProps({
       validate: state.validate,
       onSubmit: state.onSubmit,

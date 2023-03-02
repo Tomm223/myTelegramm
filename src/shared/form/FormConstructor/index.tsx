@@ -211,8 +211,6 @@ export default class FormConstructor extends Component<FormConstructorType> {
     //   ? this.childrenHTML.lists.buttons
     //   : [<div></div>]
 
-    console.log(this.props.validate)
-
     return (
       <div class={styles.block}>
         <form class={styles.form}>

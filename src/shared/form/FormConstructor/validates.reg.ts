@@ -58,7 +58,6 @@ export const useValidation = (
   validations: Record<string, (str: string) => string>
 ) => {
   let isValid = true
-  console.log(form, validations)
 
   for (const key in form) {
     if (
