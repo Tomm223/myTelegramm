@@ -8,7 +8,7 @@ type Images = '.png, .jpg, .jpeg'
 type Doc = `.doc,.docx,.xml,application/msword,
   application/vnd.openxmlformats-officedocument.wordprocessingml.document`
 
-let AcceptInput = {
+const AcceptInput = {
   videos: 'video/*',
   images: '.png, .jpg, .jpeg',
   files: `.doc,.docx,.xml,application/msword,

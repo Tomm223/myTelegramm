@@ -1,4 +1,4 @@
-import { ChatList, GetChatsRequest } from '@/types/chats'
+import { ChatList, DeleteChatResponse, GetChatsRequest } from '@/types/chats'
 import { HTTP } from '@/http/index'
 import { getBoolOfStatusCode } from './helpers/getBoolOfStatusCode'
 
@@ -27,6 +27,22 @@ export class ChatAPI {
 
   createChat(title: string): Promise<boolean> {
     return ChatHTTP.post('', { data: { title } }).then((resp) => getBoolOfStatusCode(resp.status))
+  }
+
+  removeChat(id: number): Promise<boolean | DeleteChatResponse> {
+    return ChatHTTP.delete('', {
+      data: {
+        chatId: id,
+      },
+    }).then((resp) => {
+      const isGood = getBoolOfStatusCode(resp.status)
+
+      if (isGood) {
+        return JSON.parse(resp.response)
+      } else {
+        return false
+      }
+    })
   }
 
   getChats(data: GetChatsRequest): Promise<ChatList[]> {

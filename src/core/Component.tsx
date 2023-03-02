@@ -60,7 +60,7 @@ class Component<P extends Record<string, any> = any> {
   } {
     const props: Record<string, unknown> = {}
     const children: Record<string, Component | Component[]> = {}
-    let ref: string | null = null
+    const ref: string | null = null
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (key === 'ref') {
         ref = value
@@ -88,7 +88,7 @@ class Component<P extends Record<string, any> = any> {
     }
 
     Object.keys(children).forEach((key) => {
-      let codidate = children[key]
+      const codidate = children[key]
       if (Array.isArray(codidate)) {
         childrenHTML.lists[key] = codidate.map((child) => {
           return child.getContent() as HTMLElement
@@ -171,7 +171,7 @@ class Component<P extends Record<string, any> = any> {
   private _componentDidUpdate(oldProps: P, newProps: P) {
     if (this.shouldComponentUpdate(oldProps, newProps)) {
       Object.keys(this.children).forEach((key) => {
-        let condidate = this.children[key]
+        const condidate = this.children[key]
         if (Array.isArray(condidate)) {
           condidate.forEach((child) => child.dispatchComponentDidUpdate())
         } else {
@@ -186,7 +186,7 @@ class Component<P extends Record<string, any> = any> {
   protected componentDidUpdate(oldProps: P, newProps: P) {}
 
   protected shouldComponentUpdate(oldProps: P, newProps: P): boolean {
-    let isEqual = deepEqual(oldProps, newProps)
+    const isEqual = deepEqual(oldProps, newProps)
     return !isEqual
   }
 
@@ -251,8 +251,8 @@ class Component<P extends Record<string, any> = any> {
 
     const { children, props } = this._getChildrenAndProps(nextProps)
 
-    let oldTarget = { ...this.props }
-    let oldChildren = { ...this.children }
+    const oldTarget = { ...this.props }
+    const oldChildren = { ...this.children }
 
     if (Object.values(children).length) {
       Object.assign(this.children, children)
@@ -298,14 +298,14 @@ class Component<P extends Record<string, any> = any> {
   }
 
   _show() {
-    let html = this.getContent()
+    const html = this.getContent()
     if (!html) return
     html.style.display = 'block'
     this.eventBus().emit(Component.EVENTS.FLOW_CDM)
   }
 
   _hide() {
-    let html = this.getContent()
+    const html = this.getContent()
     if (!html) return
     html.style.display = 'none'
     // this.eventBus().emit(Component.EVENTS.FLOW_CDM)

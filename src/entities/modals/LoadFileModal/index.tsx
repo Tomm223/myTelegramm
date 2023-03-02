@@ -66,7 +66,7 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
   }
 
   protected componentDidUpdate(oldProps: LoadFileModalType, newProps: LoadFileModalType): void {
-    let modal = this.children.modal as Component
+    const modal = this.children.modal as Component
     if (oldProps.isOpen !== newProps.isOpen) {
       modal.setProps({ isOpen: newProps.isOpen })
     }

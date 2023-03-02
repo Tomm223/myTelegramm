@@ -18,11 +18,14 @@ import Actions from '@/store/Actions'
 import { ChatsController } from '@/service/chats.service'
 import Store from '@/store/Store'
 import { Message } from '@/types/chats'
+import ModalFormDefault from '@/shared/modals/ModalFormDefault'
+import InputText from '@/shared/inputs/InputText'
 
 interface ChatType {
   header?: Component
   addUser?: Component
   removeUser?: Component
+  removeChat?: Component
   messageList?: Component
   formSend?: Component
   chat?: {
@@ -55,6 +58,13 @@ export default class Chat extends Component<ChatType> {
               ChatEventBus.emit(CHATEVENTS.REMOVEUSER)
             },
           }),
+          new ButtonMenu({
+            img: Krest,
+            text: 'Удалить чат',
+            onClick: () => {
+              ChatEventBus.emit(CHATEVENTS.REMOVECHAT)
+            },
+          }),
         ],
       }),
     })
@@ -65,6 +75,21 @@ export default class Chat extends Component<ChatType> {
 
   protected init(): void {
     const api = new ChatsController()
+
+    this.children.removeChat = new ModalFormDefault({
+      title: 'Удалить чат',
+      buttonName: 'Удалить',
+      size: { width: '340px', height: '260px' },
+      isOpen: false,
+      onSubmit: async (form) => {
+        const chatID = Actions.getChatID()
+
+        if (typeof chatID !== 'number') return false
+
+        api.removeChat(chatID)
+        return true
+      },
+    })
 
     this.children.addUser = new AddUser({
       size: { width: '340px', height: '260px' },
@@ -106,6 +131,14 @@ export default class Chat extends Component<ChatType> {
   ): void {
     ChatEventBus.on(CHATEVENTS.ADDUSER, this.handleAddUser.bind(this))
     ChatEventBus.on(CHATEVENTS.REMOVEUSER, this.handleRemoveUser.bind(this))
+    ChatEventBus.on(CHATEVENTS.REMOVECHAT, this.handleRemoveChat.bind(this))
+  }
+
+  handleRemoveChat() {
+    let modal = this.children.removeChat
+    if (Array.isArray(modal)) return
+
+    modal.setProps({ isOpen: !modal.props.isOpen })
   }
 
   handleAddUser() {
@@ -213,6 +246,7 @@ export default class Chat extends Component<ChatType> {
         </div>
         {this.childrenHTML.elements.addUser}
         {this.childrenHTML.elements.removeUser}
+        {this.childrenHTML.elements.removeChat}
       </div>
     )
   }

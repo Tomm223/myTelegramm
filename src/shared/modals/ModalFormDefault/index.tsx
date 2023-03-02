@@ -14,6 +14,7 @@ interface ModalFormType {
   modal?: Component
   inputs?: Component[]
   title?: string
+  buttonName?: string
 }
 
 interface Size {
@@ -40,7 +41,7 @@ export default class ModalFormDefault extends Component<ModalFormType> {
         inputs: inputs,
         buttons: [
           new ButtonConstructor({
-            name: 'Добавить',
+            name: this.props.buttonName || 'Отправить',
             view: 'primary',
             type: 'submit',
           }),

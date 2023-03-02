@@ -42,6 +42,7 @@ export default class ChatsList extends Component<ChatsUl> {
     })
 
     this.children.modal = new ModalFormDefault({
+      buttonName: 'Создать',
       inputs: [new InputText({ label: 'Имя чата', name: 'create_chat' })],
       isOpen: false,
       onSubmit: this.createChat.bind(this),
@@ -118,7 +119,7 @@ export default class ChatsList extends Component<ChatsUl> {
   createChatList() {
     const api = new ChatsController()
 
-    let listItem = this.props.list?.map((item) =>
+    const listItem = this.props.list?.map((item) =>
       new ChatsListItem({
         chatID_selected: this.props.chatIDSelected || null,
         chat: item,

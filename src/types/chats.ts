@@ -38,3 +38,8 @@ export interface GetChatsRequest {
   limit: number
   title?: string
 }
+
+export interface DeleteChatResponse {
+  result: { id: number; title: string; avatar: string | null; created_by: number }
+  userId: number
+}

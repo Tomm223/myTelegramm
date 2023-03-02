@@ -16,7 +16,7 @@ interface InputProfileType {
 }
 
 function handleChange(e: Event) {
-  let input = e.target as HTMLInputElement
+  const input = e.target as HTMLInputElement
   InputProfileEventBus.emit(InputProfileEVENTS.CHANGE(input.id), input.value)
 }
 
@@ -32,12 +32,12 @@ export default class InputProfile extends Component<InputProfileType> {
   }
 
   protected addEvents(): void {
-    let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    const input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
     input.addEventListener('change', handleChange)
   }
 
   protected removeEvents(): void {
-    let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    const input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
     input.addEventListener('change', handleChange)
   }
 
@@ -50,12 +50,14 @@ export default class InputProfile extends Component<InputProfileType> {
           </label>
           <input
             id={this.id}
-            class={styles.input}
+            class={`${this.props.isEdit ? '' : 'hidden'}  ${styles.input}`}
             type={this.props.type}
             name={this.props.name}
             disabled={!this.props.isEdit}
             value={this.props.text}
           />
+
+          <span class={this.props.isEdit ? 'hidden' : styles.text}>{this.props.text}</span>
         </div>
         <div class={`${this.props.error ? '' : 'hidden'}  ${styles.error}`}>
           {this.props.error ? this.props.error : ''}

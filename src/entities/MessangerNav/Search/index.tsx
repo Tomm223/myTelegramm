@@ -21,7 +21,7 @@ function handleVisible(e: MouseEvent) {
 }
 
 function handleBlur(e: FocusEvent) {
-  let input = e.target as HTMLInputElement
+  const input = e.target as HTMLInputElement
   if (!input.value) {
     SearchEventBus.emit(EVENTS.VISIBLE, e)
   }
@@ -51,7 +51,7 @@ export default class Search extends Component<SearchType> {
   }
 
   onInputChange(e: Event) {
-    let input = e.target as HTMLInputElement
+    const input = e.target as HTMLInputElement
 
     if (this.props.onChange) {
       this.props.onChange(input.value)
@@ -67,7 +67,7 @@ export default class Search extends Component<SearchType> {
 
   toFocus() {
     if (this.props.isFocus && !Array.isArray(this.children.input)) {
-      let input = this._element?.getElementsByTagName('input')[0]
+      const input = this._element?.getElementsByTagName('input')[0]
       input?.focus()
     }
   }

@@ -16,8 +16,6 @@ export default class ButtonProfileNavigate extends Component<ButtonsProfileNavig
   }
 
   protected addEvents(): void {
-    // let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
-
     this._element?.addEventListener('click', this.handler.bind(this))
   }
 

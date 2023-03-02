@@ -68,7 +68,7 @@ export default class AddUser extends Component<AddUserType> {
   }
 
   protected componentDidUpdate(oldProps: AddUserType, newProps: AddUserType): void {
-    let modal = this.children.modal as Component
+    const modal = this.children.modal as Component
     if (oldProps.isOpen !== newProps.isOpen) {
       modal.setProps({ isOpen: newProps.isOpen })
     }

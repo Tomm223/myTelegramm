@@ -36,12 +36,12 @@ export default class ButtonLoadFile extends Component<ButtonLoadFileType> {
   }
 
   protected addEvents(): void {
-    let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
+    const btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
     btn.addEventListener('click', this.handleClick.bind(this))
   }
 
   protected removeEvents(): void {
-    let btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
+    const btn = this._element?.getElementsByTagName('button')[0] as HTMLButtonElement
     btn.removeEventListener('click', this.handleClick.bind(this))
   }
 

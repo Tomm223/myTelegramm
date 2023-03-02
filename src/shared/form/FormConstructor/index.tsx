@@ -1,5 +1,4 @@
 import Component from '@/core/Component'
-import { deepEqual } from '@/core/deepEqual'
 import { EventBus } from '@/core/EventBus'
 import CompileMaster from '../../../core/CompileJSX'
 import { FormConstrEventBus, FormConstrEVENTS } from './eventbus'
@@ -22,6 +21,13 @@ function handleClick(id: number | string) {
   return (e: Event) => {
     e.preventDefault()
     FormConstrEventBus.emit(FormConstrEVENTS.SUBMIT(id), e)
+  }
+}
+function handleKeyDown(id: number | string) {
+  return (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleClick(id)
+    }
   }
 }
 function handleBlur(id: number | string) {
@@ -57,10 +63,10 @@ export default class FormConstructor extends Component<FormConstructorType> {
   handlerBlur(e: Event) {
     if (!this.props.validate) return
 
-    let input = e.target as HTMLInputElement
-    let condidateError = this.props.validate[input.name](input.value)
+    const input = e.target as HTMLInputElement
+    const condidateError = this.props.validate[input.name](input.value)
 
-    let childs = this.children.inputs as Component[]
+    const childs = this.children.inputs as Component[]
 
     childs.forEach((child) => {
       if (child.id === input.id) {
@@ -72,17 +78,17 @@ export default class FormConstructor extends Component<FormConstructorType> {
   }
 
   addEventBlurInput(child: Component) {
-    let inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    const inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
     inp.addEventListener('blur', handleBlur(this.id))
   }
 
   removeEventBlurInput(child: Component) {
-    let inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    const inp = child._element?.getElementsByTagName('input')[0] as HTMLInputElement
     inp.removeEventListener('blur', handleBlur(this.id))
   }
 
   public resetForm() {
-    let childs = this.children.inputs as Component[]
+    const childs = this.children.inputs as Component[]
     for (const i in childs) {
       childs[i].props.error = ''
     }
@@ -98,10 +104,10 @@ export default class FormConstructor extends Component<FormConstructorType> {
 
     if (!this.isValidForm()) return
 
-    let inputs = this._element.getElementsByTagName('input')
+    const inputs = this._element.getElementsByTagName('input')
 
-    let result = {} as Record<string, any>
-    for (let i = 0; i < inputs.length; i++) {
+    const result = {} as Record<string, any>
+    for (const i in inputs) {
       if (this.props.setting === 'files') {
         result[inputs[i].name] = inputs[i].files
       } else {
@@ -113,27 +119,29 @@ export default class FormConstructor extends Component<FormConstructorType> {
   }
 
   isValidForm(): boolean {
-    let childs = this.children.inputs as Component[]
+    const childs = this.children.inputs as Component[]
     for (const i in childs) {
       if (childs[i].props.error) {
         return false
       }
     }
-    let inputs = this._element?.getElementsByTagName('input')
+    const inputs = this._element?.getElementsByTagName('input')
 
+    let isValid = true
     for (const i in inputs) {
       if (typeof inputs[i] === 'object' && !inputs[i].value) {
-        return false
+        this.handlerBlur({ target: inputs[i] } as Event)
+        isValid = false
       }
     }
 
-    return true
+    return isValid
   }
 
   public resetFormEvents() {
     if (this.props.onSubmit) {
       // onSubmit form
-      let submit = this._element?.querySelector('[type="submit"]')
+      const submit = this._element?.querySelector('[type="submit"]')
 
       submit?.removeEventListener('click', handleClick(this.id))
     }
@@ -158,8 +166,11 @@ export default class FormConstructor extends Component<FormConstructorType> {
   protected addEvents(): void {
     if (this.props.onSubmit) {
       // onSubmit form
-      let submit = this._element?.querySelector('[type="submit"]')
+      const submit = this._element?.querySelector('[type="submit"]')
       submit?.addEventListener('click', handleClick(this.id))
+      const form = this._element?.querySelector('.' + styles.form) as HTMLFormElement
+      form.addEventListener('submit', handleClick(this.id))
+      form.addEventListener('keydown', handleKeyDown(this.id))
     }
 
     if (!Array.isArray(this.children.inputs)) return
@@ -170,9 +181,12 @@ export default class FormConstructor extends Component<FormConstructorType> {
   protected removeEvents(): void {
     if (this.props.onSubmit) {
       // onSubmit form
-      let submit = this._element?.querySelector('[type="submit"]')
+      const submit = this._element?.querySelector('[type="submit"]')
 
       submit?.removeEventListener('click', handleClick(this.id))
+      const form = this._element?.querySelector('.' + styles.form) as HTMLFormElement
+      form.removeEventListener('submit', handleClick(this.id))
+      form.removeEventListener('keydown', handleKeyDown(this.id))
     }
     if (!Array.isArray(this.children.inputs)) return
 
@@ -188,15 +202,22 @@ export default class FormConstructor extends Component<FormConstructorType> {
   }
 
   protected render(): HTMLElement {
+    const inputs = this.childrenHTML.lists.inputs || [<div></div>]
+    const submit = this.childrenHTML.lists.buttons.shift()
+    const buttons = this.childrenHTML.lists.buttons.length
+      ? this.childrenHTML.lists.buttons
+      : [<div></div>]
+
     return (
       <div class={styles.block}>
         <form class={styles.form}>
-          <div class={styles.inputs}>{...this.childrenHTML.lists.inputs}</div>
-          <div class={styles.buttons}>
-            <p class={this.props.error ? styles.error : 'hidden'}>{this.props.error}</p>
-            {...this.childrenHTML.lists.buttons}
+          <div class={styles.form__inputs}>{...inputs}</div>
+          <div class={styles.form__buttons}>
+            <p class={this.props.error ? styles.form__error : 'hidden'}>{this.props.error}</p>
+            {submit}
           </div>
         </form>
+        <div class={styles.buttons}>{...buttons}</div>
       </div>
     )
   }

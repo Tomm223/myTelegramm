@@ -51,7 +51,31 @@ export class ChatsController {
     try {
       const api = new ChatAPI()
       const status = await api.createChat(title)
+      if (!status) {
+        alert('Вы не можете удалять этот чат')
+        return status
+      }
+      Actions.setNewChatList()
+      alert(`Вы создали чат "${title}"`)
       return status
+    } catch {
+      alert('Error CreateChat Fronted Service')
+    }
+  }
+
+  public async removeChat(id: number) {
+    try {
+      const api = new ChatAPI()
+      const status = await api.removeChat(id)
+      if (typeof status === 'boolean') {
+        alert('Вы не можете удалять этот чат')
+        return status
+      }
+
+      Actions.setNewChatList()
+      Actions.resetChat()
+      alert(`Вы удалили чат ${status.result.title}`)
+      return true
     } catch {
       alert('Error CreateChat Fronted Service')
     }

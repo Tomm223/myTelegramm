@@ -60,7 +60,7 @@ export default class RemoveUser extends Component<RemoveUserType> {
   }
 
   protected componentDidUpdate(oldProps: RemoveUserType, newProps: RemoveUserType): void {
-    let modal = this.children.modal as Component
+    const modal = this.children.modal as Component
     if (oldProps.isOpen !== newProps.isOpen) {
       modal.setProps({ isOpen: newProps.isOpen })
     }

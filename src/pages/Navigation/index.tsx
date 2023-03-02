@@ -5,8 +5,8 @@ import Router from 'src/app/router'
 export default class Nagivation extends Component {
   handleHref(e: MouseEvent) {
     e.preventDefault()
-    let tag = e.target as HTMLAnchorElement
-    let pathname = tag.getAttribute('route') as string | null
+    const tag = e.target as HTMLAnchorElement
+    const pathname = tag.getAttribute('route') as string | null
 
     if (!pathname) return
     Router.go(pathname)
