@@ -10,7 +10,6 @@ import SingInPage from 'src/pages/SingInPage'
 import SingUpPage from 'src/pages/SingUpPage'
 import NoFound from 'src/pages/NoFound'
 import ServerError from 'src/pages/ServerError'
-import TestModal from 'src/pages/TestModal'
 
 Router.use('/', Nagivation)
   .use('/messenger', Messanger)
@@ -19,5 +18,4 @@ Router.use('/', Nagivation)
   .use('/sing-up', SingUpPage)
   .use('/no-found', NoFound)
   .use('/server-error', ServerError)
-  .use('/test', TestModal)
   .start()
