@@ -10,6 +10,8 @@ export class SingAPI {
   }
 
   singup(data: SingUpRequest): Promise<number> {
+    console.log(data)
+
     return AuthHTTP.post('/signup', { data }).then((resp) => resp)
   }
 

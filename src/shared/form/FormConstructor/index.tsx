@@ -63,10 +63,10 @@ export default class FormConstructor extends Component<FormConstructorType> {
   handlerBlur(e: Event) {
     if (!this.props.validate) return
 
-    const input = e.target as HTMLInputElement
-    const condidateError = this.props.validate[input.name](input.value)
+    let input = e.target as HTMLInputElement
+    let condidateError = this.props.validate[input.name](input.value)
 
-    const childs = this.children.inputs as Component[]
+    let childs = this.children.inputs as Component[]
 
     childs.forEach((child) => {
       if (child.id === input.id) {
@@ -104,10 +104,13 @@ export default class FormConstructor extends Component<FormConstructorType> {
 
     if (!this.isValidForm()) return
 
-    const inputs = this._element.getElementsByTagName('input')
+    const inputs = this._element.getElementsByTagName('input') as HTMLCollectionOf<HTMLInputElement>
 
     const result = {} as Record<string, any>
     for (const i in inputs) {
+      if (typeof inputs[i] === 'number' || typeof inputs[i] === 'function') {
+        continue
+      }
       if (this.props.setting === 'files') {
         result[inputs[i].name] = inputs[i].files
       } else {
@@ -203,10 +206,12 @@ export default class FormConstructor extends Component<FormConstructorType> {
 
   protected render(): HTMLElement {
     const inputs = this.childrenHTML.lists.inputs || [<div></div>]
-    const submit = this.childrenHTML.lists.buttons.shift()
-    const buttons = this.childrenHTML.lists.buttons.length
-      ? this.childrenHTML.lists.buttons
-      : [<div></div>]
+    // const submit = this.childrenHTML.lists.buttons.shift()
+    // const buttons = this.childrenHTML.lists.buttons.length
+    //   ? this.childrenHTML.lists.buttons
+    //   : [<div></div>]
+
+    console.log(this.props.validate)
 
     return (
       <div class={styles.block}>
@@ -214,10 +219,10 @@ export default class FormConstructor extends Component<FormConstructorType> {
           <div class={styles.form__inputs}>{...inputs}</div>
           <div class={styles.form__buttons}>
             <p class={this.props.error ? styles.form__error : 'hidden'}>{this.props.error}</p>
-            {submit}
+            {...this.childrenHTML.lists.buttons}
           </div>
         </form>
-        <div class={styles.buttons}>{...buttons}</div>
+        {/* {<div class={styles.buttons}>{...buttons}</div>} */}
       </div>
     )
   }
