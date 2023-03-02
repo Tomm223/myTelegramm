@@ -12,8 +12,8 @@ interface LinkToBackType {
 export default class LinkToBack extends Component<LinkToBackType> {
   handleHref(e: MouseEvent) {
     e.preventDefault()
-    let tag = e.currentTarget as HTMLAnchorElement
-    let pathname = tag.getAttribute('route') as string | null
+    const tag = e.currentTarget as HTMLAnchorElement
+    const pathname = tag.getAttribute('route') as string | null
 
     if (!pathname) return
     Router.go(pathname)

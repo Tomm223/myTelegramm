@@ -1,11 +1,11 @@
 const CompileMaster = {
   createElement: function (tag: string, attrs: any) {
-    const node = document.createElement(tag)
+    let node = document.createElement(tag)
 
-    for (const key in attrs) {
+    for (let key in attrs) {
       if (!key && !attrs.hasOwnProperty(key)) break
 
-      const value = attrs[key]
+      let value = attrs[key]
 
       if (value === true) {
         node.setAttribute(key, key)
@@ -14,8 +14,8 @@ const CompileMaster = {
       }
     }
 
-    for (const i = 2; i < arguments.length; i++) {
-      const childNode =
+    for (let i = 2; i < arguments.length; i++) {
+      let childNode =
         arguments[i].nodeType == null
           ? document.createTextNode(arguments[i].toString())
           : arguments[i]

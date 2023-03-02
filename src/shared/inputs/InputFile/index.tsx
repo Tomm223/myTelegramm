@@ -29,20 +29,20 @@ interface InputFileType {
 
 export default class InputFile extends Component<InputFileType> {
   handleChange(e: Event) {
-    let inp = e.target as HTMLInputElement
+    const inp = e.target as HTMLInputElement
     if (this.props.onChange) {
       this.props.onChange(inp.value)
     }
   }
 
   protected addEvents(): void {
-    let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    const input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
 
     input.addEventListener('change', this.handleChange.bind(this))
   }
 
   protected removeEvents(): void {
-    let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    const input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
 
     input.removeEventListener('change', this.handleChange.bind(this))
   }
@@ -52,12 +52,12 @@ export default class InputFile extends Component<InputFileType> {
       this.handleClick()
       return false
     }
-    let isEqual = deepEqual(oldProps, newProps)
+    const isEqual = deepEqual(oldProps, newProps)
     return !isEqual
   }
 
   handleClick() {
-    let input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
+    const input = this._element?.getElementsByTagName('input')[0] as HTMLInputElement
     input?.showPicker()
   }
 

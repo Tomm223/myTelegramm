@@ -33,7 +33,7 @@ const startChatListLoading = () => {
 }
 
 const getChatList: ActionGetList = () => {
-  let list = store.getState().listChats.list
+  const list = store.getState().listChats.list
 
   return list
 }
@@ -46,8 +46,8 @@ const getChatListSearch = () => {
 }
 
 const getFilterChatList: ActionGetList = () => {
-  let string = getChatListSearch()
-  let list = getChatList()
+  const string = getChatListSearch()
+  const list = getChatList()
 
   if (!list.length) {
     return []

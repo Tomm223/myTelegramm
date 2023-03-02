@@ -29,7 +29,7 @@ export default class ModalFormDefault extends Component<ModalFormType> {
   }
 
   protected init(): void {
-    let inputs = this.children.inputs as Component[]
+    const inputs = this.children.inputs as Component[]
 
     this.children.modal = new ModalDefault({
       background: 'dark',
@@ -59,7 +59,7 @@ export default class ModalFormDefault extends Component<ModalFormType> {
   }
 
   protected componentDidUpdate(oldProps: ModalFormType, newProps: ModalFormType): void {
-    let modal = this.children.modal as Component
+    const modal = this.children.modal as Component
 
     if (!newProps.isOpen) {
       const window = modal.children.window as Component

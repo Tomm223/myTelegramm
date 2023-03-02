@@ -60,7 +60,7 @@ class Component<P extends Record<string, any> = any> {
   } {
     const props: Record<string, unknown> = {}
     const children: Record<string, Component | Component[]> = {}
-    const ref: string | null = null
+    let ref: string | null = null
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (key === 'ref') {
         ref = value
