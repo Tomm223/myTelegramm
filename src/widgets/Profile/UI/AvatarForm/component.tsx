@@ -1,14 +1,14 @@
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Component from '@/core/Component'
-import { UserType } from '@/types/user'
 import Pics from '@/static/icons/pics_profile.png'
 import { API_BASE_RESOURCES } from '@/http/index'
 
 interface AvatarFormType {
   onClick: () => void
   img_src?: string
-  user?: UserType
+  avatar: string | null
+  first_name: string
 }
 
 export default class AvatarForm extends Component<AvatarFormType> {
@@ -36,12 +36,12 @@ export default class AvatarForm extends Component<AvatarFormType> {
       <div class={styles.avatar}>
         <div class={styles.avatar__img}>
           <img
-            src={this.props.user?.avatar ? API_BASE_RESOURCES + this.props.user.avatar : Pics}
+            src={this.props.avatar ? API_BASE_RESOURCES + this.props.avatar : Pics}
             alt="setAvatar"
           />
           <button class={styles.avatar__hover}>Поменять аватар</button>
         </div>
-        <h3 class={styles.avatar__name}>{this.props.user?.first_name}</h3>
+        <h3 class={styles.avatar__name}>{this.props.first_name || 'User'}</h3>
       </div>
     )
   }
