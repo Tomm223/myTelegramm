@@ -44,7 +44,7 @@ export default class Header extends Component<HeaderType> {
             events: { click: this.handlerVisible.bind(this) },
           }).getContent()}
         </div>
-        <div class={this.props.isOpen ? styles.menu_active : styles.menu}>
+        <div class={this.props.isOpen ? styles.menu_active : 'hidden'}>
           {this.childrenHTML.elements.menu}
         </div>
       </div>

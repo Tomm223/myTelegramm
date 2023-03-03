@@ -121,7 +121,7 @@ export default class FormSend extends Component<FormSendType> {
             {this.childrenHTML.elements.input}
             <div class={styles.form__btn}>{this.childrenHTML.elements.btn}</div>
           </form>
-          <div class={this.props.isOpen ? styles.menu_active : styles.menu}>
+          <div class={this.props.isOpen ? styles.menu_active : 'hidden'}>
             {this.childrenHTML.elements.attach}
           </div>
         </div>
