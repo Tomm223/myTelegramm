@@ -94,7 +94,16 @@ export default class Store extends EventBus {
       const saveState: InitialStateType = {
         ...Initialstate,
         isAuth: false,
-        user: null,
+        user: {
+          id: 0,
+          first_name: '',
+          second_name: '',
+          display_name: '',
+          login: '',
+          email: '',
+          phone: '',
+          avatar: '',
+        },
         chat: {
           title: this._state.chat.title,
           avatar: this._state.chat.avatar,
@@ -104,7 +113,6 @@ export default class Store extends EventBus {
           messages: [],
         },
       }
-
       localStorage.setItem(Store.STORE_NAME, JSON.stringify(saveState))
     })
   }

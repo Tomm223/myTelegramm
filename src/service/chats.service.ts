@@ -98,6 +98,7 @@ export class ChatsController {
 
   public async getNewChatList(data: GetChatsRequest) {
     try {
+      Actions.startChatListLoading()
       const api = new ChatAPI()
       const list = await api.getChats(data)
 
