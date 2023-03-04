@@ -3,7 +3,6 @@ import ButtonMore from '@/shared/buttons/ButtonMore'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Component from '@/core/Component'
-import Img from 'static/icons/pics_profile.png'
 
 interface HeaderType {
   chatID?: number
@@ -33,17 +32,21 @@ export default class Header extends Component<HeaderType> {
     }
   }
 
+  protected init(): void {
+    this.children.buttonMore = new ButtonMore({
+      isActive: this.props.isOpen || false,
+      events: { click: this.handlerVisible.bind(this) },
+    })
+  }
+
   protected render(): HTMLElement {
     return (
       <div class={styles.header}>
-        {Avatar({ link: this.props.avatar || Img })}
+        {new Avatar({
+          link: this.props.avatar || '',
+        }).getContent()}
         <h3 class={styles.title}>{this.props.title || ''}</h3>
-        <div class={styles.btn}>
-          {new ButtonMore({
-            isActive: this.props.isOpen || false,
-            events: { click: this.handlerVisible.bind(this) },
-          }).getContent()}
-        </div>
+        <div class={styles.btn}>{this.childrenHTML.elements.buttonMore}</div>
         <div class={this.props.isOpen ? styles.menu_active : 'hidden'}>
           {this.childrenHTML.elements.menu}
         </div>

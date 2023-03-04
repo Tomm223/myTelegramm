@@ -1,15 +1,25 @@
 import CompileMaster from '@/core/CompileJSX'
+import Component from '@/core/Component'
+import { API_BASE_RESOURCES } from '@/http/index'
 import styles from './styles.module.scss'
+import Img from 'static/icons/pics_profile.png'
 
-interface Avatar {
+interface AvatarType {
   link: string
   width?: string
 }
 
-export default function Avatar({ link, width }: Avatar) {
-  return (
-    <div style={`width:${width}; height:${width};`} class={styles.block}>
-      <img class={styles.img} src={link} alt="Avatar" />
-    </div>
-  )
+export default class Avatar extends Component<AvatarType> {
+  protected render(): HTMLElement {
+    const style = this.props.width ? `width:${this.props.width}; height:${this.props.width};` : ''
+    return (
+      <div style={style} class={styles.block}>
+        <img
+          class={styles.img}
+          src={this.props.link ? API_BASE_RESOURCES + this.props.link : Img}
+          alt="Avatar"
+        />
+      </div>
+    )
+  }
 }

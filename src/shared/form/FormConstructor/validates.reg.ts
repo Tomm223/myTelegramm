@@ -18,7 +18,7 @@ const RegPhone = RegExp(/^[0-9\s]{10,15}$/)
 const RegEmail = RegExp(
   /^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$/
 )
-const RegPassword = RegExp(/(?=^.{8,40}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
+const RegPassword = RegExp(/(?=^.{0,40}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
 
 function getvalidateFunc(reg: any, messageError: string) {
   return (string: string) => {
@@ -47,7 +47,7 @@ export const ValidatesForm = {
   password: getvalidateFunc(
     RegPassword,
     `Пароль должен содержать: cтрочные и прописные латинские буквы, 
-      цифры, спецсимволы. Минимум 8 символов`
+      цифры, спецсимволы.`
   ),
   email: getvalidateFunc(RegExp(RegEmail), 'Не корректный email'),
   phone: getvalidateFunc(RegExp(RegPhone), 'Не корректный номер телефона. Пример: 8(999)900-90-90'),
