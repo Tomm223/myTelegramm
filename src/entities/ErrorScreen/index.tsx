@@ -2,14 +2,14 @@ import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Component from '@/core/Component'
-import { useNavigate } from '@/core/routing'
+import Router from 'src/app/router'
 
 interface ErrorType {
   numberError: number | undefined | null
   type: '400' | '500'
 }
 
-export default class ErrorPage extends Component<ErrorType> {
+export default class ErrorScreen extends Component<ErrorType> {
   protected render(): HTMLElement {
     const text = this.props.type === '400' ? 'Не туда попали' : 'Мы уже фиксим'
 
@@ -26,7 +26,7 @@ export default class ErrorPage extends Component<ErrorType> {
               name: 'Назад к чатам',
               events: {
                 click: () => {
-                  useNavigate('/messanger')
+                  Router.go('/messenger')
                 },
               },
             }).getContent()}

@@ -54,6 +54,24 @@ export default class ModalDefault extends Component<ModalDefaultType> {
     this._element?.removeEventListener('click', this.handleClick.bind(this))
   }
 
+  interceptorShow() {
+    const { isOpen } = this.props
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      return
+    }
+
+    document.body.style.overflow = ''
+  }
+
+  protected componentDidMount(): void {
+    this.interceptorShow()
+  }
+
+  protected componentDidUpdate(oldProps: ModalDefaultType, newProps: ModalDefaultType): void {
+    this.interceptorShow()
+  }
+
   protected render(): HTMLElement {
     return (
       <div

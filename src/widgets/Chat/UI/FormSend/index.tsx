@@ -7,11 +7,9 @@ import Photo from '@/static/icons/pics_message.svg'
 import File from '@/static/icons/file.svg'
 import Local from '@/static/icons/local.svg'
 import styles from './styles.module.scss'
-import { throtlle } from '@/utils/throtlle'
 import { FormSendEventBus } from './eventbus'
-import { debounce } from '@/utils/debounce'
 import MenuChat from '../MenuChat'
-import ButtonMenu from '../MenuChat/ButtonMenu'
+import ButtonFile from '../MenuChat/ButtonFile'
 
 interface FormSendType {
   events?: any
@@ -21,9 +19,8 @@ interface FormSendType {
   attach?: Component
   btn?: Component
   input?: Component
+  onSubmit?: (data: string) => void
 }
-
-function handlerClick() {}
 
 export default class FormSend extends Component<FormSendType> {
   constructor(props: FormSendType) {
@@ -40,21 +37,21 @@ export default class FormSend extends Component<FormSendType> {
     props.attach = new MenuChat({
       ref: 'menu',
       buttons: [
-        new ButtonMenu({
+        new ButtonFile({
           img: Photo,
           text: 'Фото или Видео',
           onSelect: () => {},
           inputName: 'photo/movie',
           accepting: 'images+videos',
         }),
-        new ButtonMenu({
+        new ButtonFile({
           img: File,
           text: 'Файл',
           onSelect: () => {},
           inputName: 'file',
           accepting: 'files',
         }),
-        new ButtonMenu({
+        new ButtonFile({
           img: Local,
           text: 'Локация',
           onSelect: () => {},
@@ -63,6 +60,7 @@ export default class FormSend extends Component<FormSendType> {
         }),
       ],
     })
+
     super(props)
   }
 
@@ -71,8 +69,11 @@ export default class FormSend extends Component<FormSendType> {
 
     let value = this.getValue()
     if (!value) return
+
+    if (this.props.onSubmit) {
+      this.props.onSubmit(value)
+    }
     this.resetValue()
-    console.log(value)
   }
 
   getValue(): string {
@@ -120,7 +121,7 @@ export default class FormSend extends Component<FormSendType> {
             {this.childrenHTML.elements.input}
             <div class={styles.form__btn}>{this.childrenHTML.elements.btn}</div>
           </form>
-          <div class={this.props.isOpen ? styles.menu_active : styles.menu}>
+          <div class={this.props.isOpen ? styles.menu_active : 'hidden'}>
             {this.childrenHTML.elements.attach}
           </div>
         </div>

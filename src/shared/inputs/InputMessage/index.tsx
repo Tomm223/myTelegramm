@@ -11,7 +11,7 @@ interface InputMessageType {
 
 export default class InputMessage extends Component<InputMessageType> {
   handleChange(e: Event) {
-    let input = e.target as HTMLInputElement
+    const input = e.target as HTMLInputElement
     e.preventDefault()
 
     if (this.props.onChange) {

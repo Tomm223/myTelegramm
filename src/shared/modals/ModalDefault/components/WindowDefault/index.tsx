@@ -3,7 +3,7 @@ import Component from '@/core/Component'
 import styles from './styles.module.scss'
 
 interface WindowDefaultType {
-  children: Component | Component[]
+  children: Component | Component[] | HTMLElement
   style: string
 }
 

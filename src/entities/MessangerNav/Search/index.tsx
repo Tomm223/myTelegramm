@@ -6,7 +6,6 @@ import InputSearch from './UI/input'
 import { EventBus } from '@/core/EventBus'
 import { EVENTS, SearchEventBus } from './eventbus'
 import { debounce } from '@/utils/debounce'
-import { ChatListEventBus, ChatListEVENTS } from '../ChatsList/eventbus'
 
 interface SearchType {
   inputName?: string
@@ -22,7 +21,7 @@ function handleVisible(e: MouseEvent) {
 }
 
 function handleBlur(e: FocusEvent) {
-  let input = e.target as HTMLInputElement
+  const input = e.target as HTMLInputElement
   if (!input.value) {
     SearchEventBus.emit(EVENTS.VISIBLE, e)
   }
@@ -52,9 +51,11 @@ export default class Search extends Component<SearchType> {
   }
 
   onInputChange(e: Event) {
-    let input = e.target as HTMLInputElement
-    console.log(input)
-    ChatListEventBus.emit(ChatListEVENTS.TO_FILTER, input.value)
+    const input = e.target as HTMLInputElement
+
+    if (this.props.onChange) {
+      this.props.onChange(input.value)
+    }
   }
 
   protected registerEvents(
@@ -66,7 +67,7 @@ export default class Search extends Component<SearchType> {
 
   toFocus() {
     if (this.props.isFocus && !Array.isArray(this.children.input)) {
-      let input = this._element?.getElementsByTagName('input')[0]
+      const input = this._element?.getElementsByTagName('input')[0]
       input?.focus()
     }
   }
@@ -76,7 +77,6 @@ export default class Search extends Component<SearchType> {
   }
 
   protected componentDidUpdate(): void {
-    console.log('open')
     this.toFocus()
   }
 

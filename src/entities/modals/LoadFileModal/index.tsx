@@ -8,12 +8,12 @@ import ButtonLoadFile from '@/shared/buttons/ButtonLoadFile'
 import { AcceptInputChoose } from '@/shared/inputs/InputFile'
 
 interface LoadFileModalType {
-  isOpen: boolean
+  isOpen?: boolean
   size?: Size
-  onClose?: () => void
-  form?: Component
-  inputName: string
-  accepting: AcceptInputChoose
+  modal?: Component
+  inputName?: string
+  accepting?: AcceptInputChoose
+  onSubmit?: (form: any) => Promise<boolean>
 }
 
 interface Size {
@@ -23,23 +23,37 @@ interface Size {
 }
 
 export default class LoadFileModal extends Component<LoadFileModalType> {
-  constructor(props: LoadFileModalType) {
-    props.form = new ModalDefault({
+  handleClose() {
+    this.setProps({ isOpen: false })
+  }
+
+  protected init(): void {
+    this.children.modal = new ModalDefault({
       background: 'dark',
-      isOpen: props.isOpen,
-      onOut: props.onClose,
-      size: props.size,
+      isOpen: !!this.props.isOpen,
+      onOut: this.handleClose.bind(this),
+      size: this.props.size,
       children: new FormConstructorTitle({
+        setting: 'files',
+        onSubmit: async (data: any) => {
+          if (!this.props.onSubmit) return
+          const resp = await this.props.onSubmit(data)
+          if (resp) {
+            const modal = this.children.modal as Component
+            modal.setProps({ isOpen: false })
+          }
+        },
         title: 'Загрузить Файл',
         inputs: [
           new ButtonLoadFile({
-            name: props.inputName,
-            accepting: props.accepting,
+            name: this.props.inputName || 'Выберите файл',
+            accepting: this.props.accepting || 'files',
           }),
         ],
         validate: {},
         buttons: [
           new ButtonConstructor({
+            type: 'submit',
             name: 'Загрузить',
             view: 'primary',
             events: {
@@ -49,53 +63,16 @@ export default class LoadFileModal extends Component<LoadFileModalType> {
         ],
       }),
     })
-    super(props)
+  }
+
+  protected componentDidUpdate(oldProps: LoadFileModalType, newProps: LoadFileModalType): void {
+    const modal = this.children.modal as Component
+    if (oldProps.isOpen !== newProps.isOpen) {
+      modal.setProps({ isOpen: newProps.isOpen })
+    }
   }
 
   protected render(): HTMLElement {
-    return <div>{this.childrenHTML.elements.form}</div>
+    return <div>{this.childrenHTML.elements.modal}</div>
   }
 }
-
-/*
-{new ModalDefault({
-          background: 'dark',
-          isOpen: this.props.isOpen,
-          onOut: this.props.onClose,
-          size: this.props.size,
-          children: new FormConstructorTitle({
-            title: 'Загрузить Файл',
-            inputs: [new ButtonLoadFile({})],
-            buttons: [
-              new ButtonConstructor({
-                name: 'Загрузить',
-                view: 'primary',
-                events: {
-                  click: () => {},
-                },
-              }),
-            ],
-          }),
-        }).getContent()}
-
-
-        {new ModalDefault({
-          background: 'dark',
-          isOpen: this.props.isOpen,
-          onOut: this.props.onClose,
-          size: this.props.size,
-          children: new FormConstructorTitle({
-            title: 'Загрузить Файл',
-            inputs: [new ButtonLoadFile({})],
-            buttons: [
-              new ButtonConstructor({
-                name: 'Загрузить',
-                view: 'primary',
-                events: {
-                  click: () => {},
-                },
-              }),
-            ],
-          }),
-        }).getContent()}
-*/

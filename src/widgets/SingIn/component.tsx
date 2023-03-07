@@ -2,16 +2,20 @@ import CompileMaster from '../../core/CompileJSX'
 import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import ModalDefault from '@/shared/modals/ModalDefault'
-import styles from './styles.module.scss'
 import Component from '@/core/Component'
 import { ValidateSingIn } from './constants'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
-import { useNavigate } from '@/core/routing'
+import Router from 'src/app/router'
+import { SingInRequest } from '@/types/user'
+import LoaderFullPage from '@/shared/Loaders/LoaderFullPage'
 
 interface SingInType {
   size: Size
-  onSubmit: (form: Form) => void
+  onSubmit: (form: SingInRequest) => void
   modal?: Component
+  loading?: boolean
+  error?: string
+  loader?: Component
 }
 interface Form {
   login: string
@@ -26,7 +30,7 @@ interface Size {
 
 const setLocation = (e: MouseEvent) => {
   e.preventDefault()
-  useNavigate('/sing-up')
+  Router.go('/sing-up')
 }
 
 export default class SingIn extends Component<SingInType> {
@@ -37,7 +41,9 @@ export default class SingIn extends Component<SingInType> {
       isOpen: true,
       onOut: () => {},
       children: new FormConstructorTitle({
-        onSubmit: (e) => console.log(e),
+        error: props.error,
+        disable: props.loading,
+        onSubmit: props.onSubmit,
         validate: ValidateSingIn,
         title: 'Вход',
         inputs: [
@@ -70,7 +76,20 @@ export default class SingIn extends Component<SingInType> {
     super(props)
   }
 
+  protected componentDidUpdate(oldProps: SingInType, newProps: SingInType): void {
+    if (newProps.error) {
+      this.children?.modal?.children?.window?.children?.children.children.constructo?.setProps({
+        error: newProps.error,
+      })
+    }
+  }
+
   protected render(): HTMLElement {
-    return <div>{this.childrenHTML.elements.modal}</div>
+    return (
+      <div>
+        {this.childrenHTML.elements.modal}
+        {new LoaderFullPage({ isShow: !!this.props.loading }).getContent()}
+      </div>
+    )
   }
 }

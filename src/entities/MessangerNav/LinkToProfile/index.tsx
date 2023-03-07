@@ -2,7 +2,7 @@ import CompileMaster from '@/core/CompileJSX'
 import styles from './styles.module.scss'
 import Polygon1 from '@/static/icons/Polygon1.svg'
 import Component from '@/core/Component'
-import { useNavigate } from '@/core/routing'
+import Router from 'src/app/router'
 
 interface LinkToProfileType {
   onClick?: () => void
@@ -12,21 +12,21 @@ interface LinkToProfileType {
 export default class LinkToProfile extends Component<LinkToProfileType> {
   handleHref(e: MouseEvent) {
     e.preventDefault()
-    let tag = e.currentTarget as HTMLAnchorElement
-    let pathname = tag.getAttribute('route') as string | null
+    const tag = e.currentTarget as HTMLAnchorElement
+    const pathname = tag.getAttribute('route') as string | null
 
     if (!pathname) return
-    useNavigate(pathname)
+    Router.go(pathname)
   }
 
   protected addEvents(): void {
-    let link = this._element as HTMLAnchorElement
+    const link = this._element as HTMLAnchorElement
 
     link.addEventListener('click', this.handleHref.bind(this))
   }
 
   protected removeEvents(): void {
-    let link = this._element as HTMLAnchorElement
+    const link = this._element as HTMLAnchorElement
     link.removeEventListener('click', this.handleHref.bind(this))
   }
 

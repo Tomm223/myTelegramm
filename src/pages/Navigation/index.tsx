@@ -1,15 +1,15 @@
 import Component from '@/core/Component'
 import CompileMaster from '@/core/CompileJSX'
-import { useNavigate } from '@/core/routing'
+import Router from 'src/app/router'
 
 export default class Nagivation extends Component {
   handleHref(e: MouseEvent) {
     e.preventDefault()
-    let tag = e.target as HTMLAnchorElement
-    let pathname = tag.getAttribute('route') as string | null
+    const tag = e.target as HTMLAnchorElement
+    const pathname = tag.getAttribute('route') as string | null
 
     if (!pathname) return
-    useNavigate(pathname)
+    Router.go(pathname)
   }
 
   protected addEvents(): void {
@@ -30,22 +30,22 @@ export default class Nagivation extends Component {
     return (
       <nav class="nav_test">
         <div class="item_test">
-          <a class="link_test" route="/profile">
+          <a class="link_test" route="/setting">
             /Profile
           </a>
         </div>
         <div class="item_test">
-          <a class="link_test" route="/sing-in">
+          <a class="link_test" route="/sing-up">
             /SingUp
           </a>
         </div>
         <div class="item_test">
-          <a class="link_test" route="/sing-up">
+          <a class="link_test" route="/sing-in">
             /SingIn
           </a>
         </div>
         <div class="item_test">
-          <a class="link_test" route="/messanger">
+          <a class="link_test" route="/messenger">
             /Messanger
           </a>
         </div>

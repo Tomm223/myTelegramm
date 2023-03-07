@@ -1,8 +1,4 @@
 export function deepEqual(obj1: any, obj2: any): boolean {
-  // if (obj2._render && obj2._render === true) {
-  //   return false
-  // }
-
   if (obj1 === obj2) {
     //Same object reference
     return true
@@ -25,12 +21,16 @@ export function deepEqual(obj1: any, obj2: any): boolean {
       } else {
         isEqual = false
       }
-    } else if (typeof obj1[i] != 'object' && typeof obj1[i] != 'object') {
+    } else if (typeof obj1[i] != 'object' && typeof obj2[i] != 'object') {
       if (obj1[i] === obj2[i]) {
       } else {
         isEqual = false
       }
-    } else if (obj1[i] == null && obj2[i] == null) {
+    } else if (obj1[i] == null || obj2[i] == null) {
+      if (obj1[i] === obj2[i]) {
+      } else {
+        isEqual = false
+      }
     }
   }
   return isEqual

@@ -5,13 +5,16 @@ import ModalDefault from '@/shared/modals/ModalDefault'
 import { StateSingUp, ValidateSingUp } from './constants'
 import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
-import FormConstructor from '@/shared/form/FormConstructor'
-import { useNavigate } from '@/core/routing'
+import Router from 'src/app/router'
+import { SingUpRequest } from '@/types/user'
+import LoaderFullPage from '@/shared/Loaders/LoaderFullPage'
 
 interface SingUpType {
   size: Size
-  onSubmit: (form: Form) => void
+  onSubmit: (form: SingUpRequest) => void
   modal?: Component
+  loading?: boolean
+  error?: string
 }
 interface Form {
   email: string
@@ -29,7 +32,7 @@ interface Size {
 
 const setLocation = (e: MouseEvent) => {
   e.preventDefault()
-  useNavigate('/sing-in')
+  Router.go('/sing-in')
 }
 
 export default class SingUp extends Component<SingUpType> {
@@ -40,9 +43,9 @@ export default class SingUp extends Component<SingUpType> {
       isOpen: true,
       onOut: () => {},
       children: new FormConstructorTitle({
-        onSubmit: (e) => {
-          console.log(e)
-        },
+        error: props.error,
+        disable: props.loading,
+        onSubmit: props.onSubmit,
         ref: 'form',
         validate: ValidateSingUp,
         title: 'Регистрация',
@@ -73,7 +76,20 @@ export default class SingUp extends Component<SingUpType> {
     super(props)
   }
 
+  protected componentDidUpdate(oldProps: SingUpType, newProps: SingUpType): void {
+    if (newProps.error) {
+      this.children?.modal?.children?.window?.children?.children.children.constructo?.setProps({
+        error: newProps.error,
+      })
+    }
+  }
+
   protected render(): HTMLElement {
-    return <div>{this.childrenHTML.elements.modal}</div>
+    return (
+      <div>
+        {this.childrenHTML.elements.modal}
+        {new LoaderFullPage({ isShow: !!this.props.loading }).getContent()}
+      </div>
+    )
   }
 }

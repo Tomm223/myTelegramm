@@ -22,6 +22,8 @@ $col_msg_gray: #f8f8f8;
 $col_msg_blue: #e4edfd;
 $col_scrollbar: #999;
 $col_scrollbar_hover: #959595;
+$col_loader: #b8b8b8;
+$col_loader_active: #949494;
 
 @mixin scrollbar_zero {
   &::-webkit-scrollbar {

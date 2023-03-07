@@ -10,7 +10,7 @@ interface FormConstructorTitleType extends FormConstructorType {
 
 export default class FormConstructorTitle extends Component {
   constructor(props: FormConstructorTitleType) {
-    let propsForCostructor = { ...props, title: undefined, constructor: undefined }
+    const propsForCostructor = { ...props, title: undefined, constructor: undefined }
     props.constructo = new FormConstructor({
       ...propsForCostructor,
     })

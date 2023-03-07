@@ -5,13 +5,16 @@ import InputText from '@/shared/inputs/InputText'
 import ButtonConstructor from '@/shared/buttons/ButtonConstructor'
 import Component from '@/core/Component'
 import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
+import ModalFormDefault from '@/shared/modals/ModalFormDefault'
+import { InputTextEventBus } from '@/shared/inputs/InputText/eventbus'
 
 interface AddUserType {
-  onClose: () => void
-  onSubmit: (form: Record<string, string>) => void
-  isOpen: boolean
-  size: Size
+  onSubmit?: (form: Record<string, string>) => Promise<boolean>
+  isOpen?: boolean
+  size?: Size
   modal?: Component
+  loading?: boolean
+  error?: string
 }
 
 interface Size {
@@ -21,34 +24,57 @@ interface Size {
 }
 
 export default class AddUser extends Component<AddUserType> {
-  protected render(): HTMLElement {
-    return (
-      <div>
-        {/* {this.childrenHTML.elements.modal} */}
-        {new ModalDefault({
-          background: 'dark',
-          isOpen: this.props.isOpen,
-          size: this.props.size,
-          onOut: this.props.onClose,
-          children: new FormConstructorTitle({
-            title: 'Добавить Пользователя',
-            inputs: [
-              new InputText({
-                name: 'add_name',
-                label: 'Имя',
-              }),
-            ],
-            buttons: [
-              new ButtonConstructor({
-                name: 'Добавить',
-                view: 'primary',
-                type: 'submit',
-              }),
-            ],
-            onSubmit: this.props.onSubmit,
+  handleClose() {
+    this.setProps({ isOpen: false })
+  }
+
+  protected init(): void {
+    this.children.modal = new ModalDefault({
+      background: 'dark',
+      isOpen: !!this.props.isOpen,
+      size: this.props.size,
+      onOut: this.handleClose.bind(this),
+      children: new FormConstructorTitle({
+        disable: this.props.loading,
+        error: this.props.error,
+        title: 'Добавить Пользователя',
+        inputs: [
+          new InputText({
+            name: 'add_name',
+            label: 'ID пользователя',
+            type: 'number',
           }),
-        }).getContent()}
-      </div>
-    )
+        ],
+        buttons: [
+          new ButtonConstructor({
+            name: 'Добавить',
+            view: 'primary',
+            type: 'submit',
+          }),
+        ],
+        onSubmit: async (data: any) => {
+          if (!this.props.onSubmit) return
+          const resp = await this.props.onSubmit(data)
+          console.log('resp', resp)
+
+          if (resp) {
+            const modal = this.children.modal as Component
+            modal.setProps({ isOpen: false })
+            console.log('close', modal.props)
+          }
+        },
+      }),
+    })
+  }
+
+  protected componentDidUpdate(oldProps: AddUserType, newProps: AddUserType): void {
+    const modal = this.children.modal as Component
+    if (oldProps.isOpen !== newProps.isOpen) {
+      modal.setProps({ isOpen: newProps.isOpen })
+    }
+  }
+
+  protected render(): HTMLElement {
+    return <div>{this.childrenHTML.elements.modal}</div>
   }
 }

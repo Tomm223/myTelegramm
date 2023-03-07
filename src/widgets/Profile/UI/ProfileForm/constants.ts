@@ -1,5 +1,6 @@
 import { StateForm, ValidateForm } from '@/shared/form/FormConstructor/types'
 import { ValidatesForm } from '@/shared/form/FormConstructor/validates.reg'
+import { UserType } from '@/types/user'
 
 export const ProfileState: { data: StateForm; password: StateForm } = {
   data: {
@@ -7,7 +8,7 @@ export const ProfileState: { data: StateForm; password: StateForm } = {
     login: '',
     first_name: '',
     second_name: '',
-    name: '',
+    display_name: '',
     password: '',
     phone: '',
   },
@@ -19,7 +20,7 @@ export const ProfileValidate: { data: ValidateForm; password: ValidateForm } = {
     email: ValidatesForm.email,
     login: ValidatesForm.login,
     first_name: ValidatesForm.first_name,
-    name: ValidatesForm.first_name,
+    display_name: ValidatesForm.first_name,
     second_name: ValidatesForm.second_name,
     phone: ValidatesForm.phone,
   },
@@ -30,7 +31,7 @@ export const ProfileValidate: { data: ValidateForm; password: ValidateForm } = {
   },
 }
 
-export const PersonForm = (isEdit: boolean) => ({
+export const PersonForm = (isEdit: boolean, user: UserType) => ({
   state: ProfileState.data,
   validate: ProfileValidate.data,
   inputs: [
@@ -38,36 +39,36 @@ export const PersonForm = (isEdit: boolean) => ({
       isEdit: isEdit,
       label: 'Почта',
       name: 'email',
-      text: 'katenkadem1denko@yandex.ru',
+      text: user.email,
       type: 'text',
     },
-    { isEdit: isEdit, label: 'Логин', name: 'login', text: 'Dancsgo', type: 'text' },
+    { isEdit: isEdit, label: 'Логин', name: 'login', text: user.login, type: 'text' },
     {
       isEdit: isEdit,
       label: 'Имя',
       name: 'first_name',
-      text: 'Daniil',
+      text: user.first_name,
       type: 'text',
     },
     {
       isEdit: isEdit,
       label: 'Фамилия',
       name: 'second_name',
-      text: 'Osipov',
+      text: user.second_name,
       type: 'text',
     },
     {
       isEdit: isEdit,
       label: 'Имя в чате',
       name: 'display_name',
-      text: 'Dannial`',
+      text: user.display_name,
       type: 'text',
     },
     {
       isEdit: isEdit,
       label: 'Телефон',
       name: 'phone',
-      text: '89534545',
+      text: user.phone,
       type: 'number',
     },
   ],
@@ -80,22 +81,22 @@ export const PasswordForm = (isEdit: boolean) => ({
     {
       isEdit: isEdit,
       label: 'Старый пароль',
-      name: 'old_password',
-      text: 'Osipov',
+      name: 'oldPassword',
+      text: '',
       type: 'text',
     },
     {
       isEdit: isEdit,
       label: 'Новый пароль',
-      name: 'password',
-      text: 'Dannial`',
+      name: 'newPassword',
+      text: '',
       type: 'password',
     },
     {
       isEdit: isEdit,
       label: 'Повторите Пароль',
       name: 'repeat_password',
-      text: 'Dannial',
+      text: '',
       type: 'password',
     },
   ],

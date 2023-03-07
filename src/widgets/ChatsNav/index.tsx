@@ -7,6 +7,7 @@ import LinkToProfile from '@/entities/MessangerNav/LinkToProfile'
 import Component from '@/core/Component'
 import { ChatNavEventBus, CHATNAVEVENTS } from './eventbus'
 import { EventBus } from '@/core/EventBus'
+import Actions from '@/store/Actions'
 
 interface ChatNavType {
   list?: Component
@@ -33,19 +34,17 @@ export default class ChatNav extends Component<ChatNavType> {
   }
 
   handleChangeFilter(string: string) {
-    this.setProps({ filter: string })
-  }
-
-  protected componentDidUpdate(oldProps: ChatNavType, newProps: ChatNavType): void {
-    console.log('update nav')
+    // this.setProps({ filter: string })
+    Actions.setSearchChatList(string)
   }
 
   protected render(): HTMLElement {
     return (
       <nav class={styles.nav}>
-        <div class={styles.nav__link}>{new LinkToProfile({ href: '/profile' }).getContent()}</div>
+        <div class={styles.nav__link}>{new LinkToProfile({ href: '/setting' }).getContent()}</div>
         <div class={styles.nav__search}>{this.childrenHTML.elements.search}</div>
-        <div class={styles.nav__overflow}>{this.childrenHTML.elements.list}</div>
+        {/* {<div class={styles.nav__overflow}>{this.childrenHTML.elements.list}</div>} */}
+        {this.childrenHTML.elements.list}
       </nav>
     )
   }

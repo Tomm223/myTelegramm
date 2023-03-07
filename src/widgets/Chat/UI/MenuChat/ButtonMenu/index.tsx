@@ -1,33 +1,27 @@
 import CompileMaster from '@/core/CompileJSX'
 import Component from '@/core/Component'
+import { EventBus } from '@/core/EventBus'
 import InputFile, { AcceptInputChoose } from '@/shared/inputs/InputFile'
+import { ButtonMenuBus, ButtonMenuEVENTS } from './eventbus'
 import styles from './styles.module.scss'
 
 interface ButtonMenuType {
-  img?: string
-  text?: string
-  events?: Record<string, () => void>
-  input?: Component
-  inputName: string
-  onSelect: () => void
-  accepting: AcceptInputChoose
+  img: string
+  text: string
+  onClick?: () => void
 }
 
 export default class ButtonMenu extends Component<ButtonMenuType> {
-  constructor(props: ButtonMenuType) {
-    props.input = new InputFile({
-      name: props.inputName,
-      accepting: props.accepting,
-      isOpen: false,
-      onChange: props.onSelect,
-    })
-
-    super(props)
+  protected registerEvents(
+    eventBus: EventBus<Record<string, string>, Record<string, any[]>>
+  ): void {
+    ButtonMenuBus.on(ButtonMenuEVENTS.CLICK(this.id), this.handleClick.bind(this))
   }
 
-  handleClick() {
-    if (Array.isArray(this.children.input)) return
-    this.children.input.setProps({ isOpen: true })
+  handleClick(e: MouseEvent) {
+    if (this.props.onClick) {
+      this.props.onClick()
+    }
   }
 
   protected addEvents(): void {
@@ -35,7 +29,7 @@ export default class ButtonMenu extends Component<ButtonMenuType> {
   }
 
   protected removeEvents(): void {
-    this._element?.addEventListener('click', this.handleClick.bind(this))
+    this._element?.removeEventListener('click', this.handleClick.bind(this))
   }
 
   protected render(): HTMLElement {
@@ -47,18 +41,10 @@ export default class ButtonMenu extends Component<ButtonMenuType> {
       ) : (
         <div class={styles.img}>{this.props.img}</div>
       )
-
     return (
       <button class={styles.btn}>
         {img}
         <p class={styles.text}>{this.props.text}</p>
-        {this.childrenHTML.elements.input}
-        {/* {new InputFile({
-          name: this.props.inputName,
-          accepting: '.png, .jpg, .jpeg',
-          isOpen: false,
-          onChange: this.props.onSelect,
-        }).getContent()} */}
       </button>
     )
   }
