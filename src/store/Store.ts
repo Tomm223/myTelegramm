@@ -113,6 +113,7 @@ export default class Store extends EventBus {
           messages: [],
         },
       }
+
       localStorage.setItem(Store.STORE_NAME, JSON.stringify(saveState))
     })
   }

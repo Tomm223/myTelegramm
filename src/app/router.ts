@@ -83,6 +83,8 @@ class RouterInst {
 
   start() {
     window.onpopstate = ((event: any) => {
+      console.log('onpopstate', event)
+
       this._onRoute(event.currentTarget.location.pathname)
     }).bind(this)
 
@@ -131,7 +133,7 @@ class RouterInst {
 
       route = routeOfPath
     } else {
-      route = this.getRoute('/no-found') || this.getRoute('/error')
+      route = this.getRouteNoFound() || this.getRouteError()
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
@@ -157,6 +159,14 @@ class RouterInst {
 
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname))
+  }
+
+  getRouteNoFound() {
+    return this.routes.find((route) => route.match('/no-found')) as Route
+  }
+
+  getRouteError() {
+    return this.routes.find((route) => route.match('/error')) as Route
   }
 }
 

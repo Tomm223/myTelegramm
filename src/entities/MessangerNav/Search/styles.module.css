@@ -8,10 +8,7 @@
   position: relative;
 }
 .form_active::before {
-  content: "";
-  background-image: url("../../../../static/icons/search.svg");
-  background-position: center;
-  background-repeat: no-repeat;
+  content: '';
   width: 20px;
   height: 20px;
   position: absolute;
@@ -49,4 +46,4 @@
 
 .img {
   margin-right: 5px;
-}/*# sourceMappingURL=styles.module.css.map */
+} /*# sourceMappingURL=styles.module.css.map */

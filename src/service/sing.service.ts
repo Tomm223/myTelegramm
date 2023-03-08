@@ -1,10 +1,10 @@
 import { SingAPI } from '@/api/sing.api'
 import { useValidation } from '@/shared/form/FormConstructor/validates.reg'
 import Actions from '@/store/Actions'
-import { SingInRequest, SingUpRequest, UserType } from '@/types/user'
+import { SingInRequest, SingUpRequest } from '@/types/user'
 import { ValidateSingIn } from '@/widgets/SingIn/constants'
 import { ValidateSingUp } from '@/widgets/SingUp/constants'
-import Router from 'src/app/router'
+import Router from '@/app/router'
 
 export class SingController {
   public async getUser() {
