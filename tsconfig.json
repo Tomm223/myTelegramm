@@ -49,5 +49,7 @@
     // "noUnusedLocals": true /* Enable error reporting when a local variables aren't read. */,
     // "noUnusedParameters": true /* Raise an error when a function parameter isn't read */,
     // "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "**/*.config.ts", "**/*.config.tsx"]
 }

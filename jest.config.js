@@ -10,10 +10,16 @@ const config = {
   preset: 'ts-jest',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   modulePaths: ['<rootDir>'],
+  rootDir: '.',
+  detectOpenHandles: true,
+  errorOnDeprecated: false,
+  showSeed: true,
+  // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   transform: {
-    '^.+\\.test.jsx?$': 'babel-jest',
+    // '^.+\\.test.jsx?$': 'babel-jest',
     '^.+\\.test.(ts|js)x?$': [
       'ts-jest',
+
       {
         rootDir: '.',
         isolatedModules: false,

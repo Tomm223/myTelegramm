@@ -38,7 +38,9 @@ const authorizationUser = async () => {
     const api = new SingController()
 
     const user = await api.getUser()
-
+    if (user === null) {
+      throw new Error('')
+    }
     setUser(user)
     return true
   } catch {

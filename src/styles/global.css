@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 * {
   font-family: Inter, sans-serif;
   font-weight: 500;
@@ -73,4 +73,4 @@
 }
 *::-webkit-scrollbar-thumb:hover {
   background-color: #959595;
-} /*# sourceMappingURL=global.css.map */
+}/*# sourceMappingURL=global.css.map */

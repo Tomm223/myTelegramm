@@ -1,28 +1,36 @@
 import { SingAPI } from '@/api/sing.api'
 import { useValidation } from '@/shared/form/FormConstructor/validates.reg'
 import Actions from '@/store/Actions'
-import { SingInRequest, SingUpRequest } from '@/types/user'
+import { SingInRequest, SingUpRequest, UserType } from '@/types/user'
 import { ValidateSingIn } from '@/widgets/SingIn/constants'
 import { ValidateSingUp } from '@/widgets/SingUp/constants'
 import Router from '@/app/router'
 
 export class SingController {
+  private _mockResolve: unknown
+
+  constructor(mockResolve?: unknown) {
+    if (mockResolve) {
+      this._mockResolve = mockResolve
+    }
+  }
+
   public async getUser() {
     try {
-      const api = new SingAPI()
+      const api = new SingAPI(this._mockResolve)
       const user = await api.getUser()
       if (!user) {
-        throw new Error()
+        return null
       }
       return user
     } catch {
-      throw new Error()
+      return null
     }
   }
 
   public async logout() {
     try {
-      const api = new SingAPI()
+      const api = new SingAPI(this._mockResolve)
       const status = await api.singout()
 
       if (!status) {
@@ -48,7 +56,7 @@ export class SingController {
       if (!validateData) {
         throw new Error('FormData don`t valid')
       }
-      const api = new SingAPI()
+      const api = new SingAPI(this._mockResolve)
 
       const status = await api.singin(data)
 
@@ -66,8 +74,6 @@ export class SingController {
       Router.go('/messenger')
     } catch (error) {
       // Логика обработки ошибок
-      console.log(error)
-
       Actions.setSingInPageError('Неверный логин или пароль')
     }
   }
@@ -81,7 +87,7 @@ export class SingController {
       if (!validateData) {
         throw new Error('FormData don`t valid')
       }
-      const api = new SingAPI()
+      const api = new SingAPI(this._mockResolve)
 
       const userID = await api.singup(data)
 
@@ -104,21 +110,3 @@ export class SingController {
     }
   }
 }
-
-/*
-{
-  "first_name": "Daniil",
-  "second_name": "Osipov",
-  "login": "Daniil",
-  "email": "dan.osipov99@mail.ru",
-  "password": "Dancsgo1337.",
-  "phone": "89539005656"
-}
-{"email":"nmkmkmk@kmmk.ru",
-"login":"kjmf",
-"first_name":"Ssdfd",
-"second_name":"Mdfd",
-"password":"MKMKmk34343...",
-"phone":"493534534576756"
-}
-*/

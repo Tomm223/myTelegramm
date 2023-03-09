@@ -1,7 +1,6 @@
 import Component from '@/core/Component'
 import { renderDOM } from '@/core/renderDOM'
 import Actions from '@/store/Actions'
-import Store from '@/store/Store'
 import { isEqual } from '@/utils/isEqual'
 
 class Route {
@@ -50,7 +49,7 @@ class Route {
 }
 
 class RouterInst {
-  __instance: any
+  static __instance: RouterInst
 
   routes: Route[]
 
@@ -61,9 +60,7 @@ class RouterInst {
   _rootQuery: string
 
   constructor(rootQuery: string) {
-    if (RouterInst.__instance) {
-      return RouterInst.__instance
-    }
+    if (RouterInst.__instance) return RouterInst.__instance
 
     this.routes = []
     this.history = window.history
@@ -81,14 +78,12 @@ class RouterInst {
     return this
   }
 
-  start() {
+  async start() {
     window.onpopstate = ((event: any) => {
-      console.log('onpopstate', event)
-
-      this._onRoute(event.currentTarget.location.pathname)
+      this.go(event.currentTarget.location.pathname)
     }).bind(this)
 
-    this._onRoute(window.location.pathname)
+    await this.go(window.location.pathname)
   }
 
   // _makeProxyOnRoute(fn: any) {
@@ -104,6 +99,7 @@ class RouterInst {
   async isRedirected(pathname: string): Promise<boolean> {
     const isValidUser = await this.isValidUser()
     let isRedirect = false
+
     if (isValidUser) {
       if (pathname !== '/messenger' && pathname !== '/setting') {
         // return '/messenger'
@@ -144,9 +140,9 @@ class RouterInst {
     route.render(props)
   }
 
-  go(pathname: string, props?: Record<string, any>) {
+  async go(pathname: string, props?: Record<string, any>) {
     this.history.pushState({}, '', pathname)
-    this._onRoute(pathname, props)
+    await this._onRoute(pathname, props)
   }
 
   back() {

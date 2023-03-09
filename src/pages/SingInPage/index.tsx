@@ -19,8 +19,6 @@ export default class SingInPage extends Component<SingInPageType> {
   }
 
   protected render(): HTMLElement {
-    console.log(API_BASE_RESOURCES, 'dfd')
-
     return <div>{this.childrenHTML.elements.modal}</div>
   }
 }
