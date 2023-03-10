@@ -1,4 +1,3 @@
-import Store from '@/store/index'
 import { TestHelper } from '../utils/testHelpers'
 import { InitialStore } from '../store/Store'
 import { SingController } from '@/service/sing.service'

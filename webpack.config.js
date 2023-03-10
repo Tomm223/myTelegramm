@@ -48,7 +48,8 @@ const config = {
             },
           },
         ],
-        exclude: ['/node_modules/'],
+        include: [/\.(ts|tsx)$/i],
+        exclude: [/\.test.(ts|tsx)$/i, /\.config.(ts|tsx)$/i],
       },
       {
         test: /\.css$/i,

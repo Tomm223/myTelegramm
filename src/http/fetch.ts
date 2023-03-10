@@ -1,4 +1,3 @@
-import { SingInRequest } from '@/types/user'
 export const METHODS = {
   GET: 'GET',
   POST: 'POST',
@@ -40,6 +39,10 @@ export class HTTPTransport {
 
   mockResolve(resp: any) {
     this._mockRes = resp
+  }
+
+  _getmockResolve() {
+    return this._mockRes
   }
 
   mockResolveEnd() {

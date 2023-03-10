@@ -1,4 +1,4 @@
-import { ChatList } from 'src/types/chats'
+import { ChatList } from '@/types/chats'
 import { ChatsController } from '@/service/chats.service'
 import Store from '@/store/index'
 import Actions from '@/store/Actions'
@@ -12,19 +12,6 @@ describe('ChatsController', () => {
       { avatar: null, id: 2, title: 'Two', unread_count: 0, last_message: null },
     ]
   })
-
-  // test('getChatToken', async () => {
-  //   const token = { sdsd: 'sdds', a: 1 }
-  //   const id = 343
-
-  //   const controller = new ChatsController(token)
-  //   await controller.getChatToken(id)
-
-  //   const { token: tokenCheck, chatID: idCheck } = Store.getState().chat
-
-  //   expect(tokenCheck).toBe(token)
-  //   expect(idCheck).toBe(id)
-  // })
 
   test('getNewChatList', async () => {
     const controller = new ChatsController(list)
