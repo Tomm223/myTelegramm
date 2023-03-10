@@ -1,6 +1,9 @@
 FROM node:18 
 
-WORKDIR /daniil_osipov
+WORKDIR /usr/src/app
+
+COPY package.json .
+COPY package-lock.json .
 
 COPY . .
 
