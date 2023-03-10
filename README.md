@@ -1,11 +1,29 @@
-### Practicum frontend: sprint_3
+# 🚀 Welcome to your new awesome project!
 
-<hr/>
-Description: Web chat messenger.
+This project has been created using **webpack-cli**, you can now run
 
-Commans:
-npm run start = Starts local server at 3000 port
-npm run build = Makes a build
+```
+npm run build
+```
 
-Deployed example (Netlify) = https://admirable-semifreddo-be1b57.netlify.app/
-Design template (Figma) = https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1
+or
+
+```
+yarn build
+```
+
+Webpack: статика изображения картинки иконки
+
+pre-commit: настройка
+
+Docker: 0. .dockerignore -
+
+1. Dockerfile(from node; workdir /app; copy . .; run npm install; esxpose 3000 cmd ['node','server.js'])
+2. docker build .
+3. docker images(посмтреть все образы)
+4. docker run -d -p 8080:3000 <id:image>
+
+ТЕсты:
+
+1. Router.back/forward
+2. chat.service getChatToken

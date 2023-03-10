@@ -1,7 +1,6 @@
 import Component from '@/core/Component'
 import { renderDOM } from '@/core/renderDOM'
 import Actions from '@/store/Actions'
-import Store from '@/store/Store'
 import { isEqual } from '@/utils/isEqual'
 
 class Route {
@@ -50,7 +49,7 @@ class Route {
 }
 
 class RouterInst {
-  __instance: any
+  static __instance: RouterInst
 
   routes: Route[]
 
@@ -61,9 +60,7 @@ class RouterInst {
   _rootQuery: string
 
   constructor(rootQuery: string) {
-    if (RouterInst.__instance) {
-      return RouterInst.__instance
-    }
+    if (RouterInst.__instance) return RouterInst.__instance
 
     this.routes = []
     this.history = window.history
@@ -81,12 +78,12 @@ class RouterInst {
     return this
   }
 
-  start() {
+  async start() {
     window.onpopstate = ((event: any) => {
-      this._onRoute(event.currentTarget.location.pathname)
+      this.go(event.currentTarget.location.pathname)
     }).bind(this)
 
-    this._onRoute(window.location.pathname)
+    await this.go(window.location.pathname)
   }
 
   // _makeProxyOnRoute(fn: any) {
@@ -102,6 +99,7 @@ class RouterInst {
   async isRedirected(pathname: string): Promise<boolean> {
     const isValidUser = await this.isValidUser()
     let isRedirect = false
+
     if (isValidUser) {
       if (pathname !== '/messenger' && pathname !== '/setting') {
         // return '/messenger'
@@ -131,7 +129,7 @@ class RouterInst {
 
       route = routeOfPath
     } else {
-      route = this.getRoute('/no-found') || this.getRoute('/error')
+      route = this.getRouteNoFound() || this.getRouteError()
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
@@ -142,9 +140,9 @@ class RouterInst {
     route.render(props)
   }
 
-  go(pathname: string, props?: Record<string, any>) {
+  async go(pathname: string, props?: Record<string, any>) {
     this.history.pushState({}, '', pathname)
-    this._onRoute(pathname, props)
+    await this._onRoute(pathname, props)
   }
 
   back() {
@@ -157,6 +155,14 @@ class RouterInst {
 
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname))
+  }
+
+  getRouteNoFound() {
+    return this.routes.find((route) => route.match('/no-found')) as Route
+  }
+
+  getRouteError() {
+    return this.routes.find((route) => route.match('/error')) as Route
   }
 }
 
