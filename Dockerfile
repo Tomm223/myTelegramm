@@ -2,8 +2,6 @@ FROM node
 
 WORKDIR /myApp
 
-COPY package*.json ./
-
 # COPY package.json .
 # COPY package-lock.json .
 # RUN npm ci --only=production
