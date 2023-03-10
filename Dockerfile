@@ -2,13 +2,12 @@ FROM node
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-COPY package-lock.json .
+COPY . .
+# COPY package.json .
+# COPY package-lock.json .
 
-RUN curl -v https://registry.npmjs.com/
 RUN npm install
 
-COPY . .
 
 EXPOSE 3000
 

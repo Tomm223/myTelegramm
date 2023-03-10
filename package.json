@@ -19,7 +19,7 @@
     "@types/jest": "29.4.0",
     "@types/uuid": "9.0.1",
     "@typescript-eslint/eslint-plugin": "5.49.0",
-    "@typescript-eslint/parse": "5.49.0",
+    "@typescript-eslint/parser": "5.49.0",
     "css-loader": "6.7.3",
     "dotenv-webpack": "8.0.1",
     "eslint": "8.32.0",
