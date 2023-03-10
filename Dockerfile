@@ -2,13 +2,14 @@ FROM node
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY package*.json ./
+
 # COPY package.json .
 # COPY package-lock.json .
-
-RUN npm install
-
+RUN npm ci --only=production
+# RUN npm install
+COPY . .
 
 EXPOSE 3000
 
-CMD 'node server.js'
+CMD [ "node", "server.js" ]
