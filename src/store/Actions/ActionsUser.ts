@@ -50,7 +50,7 @@ const authorizationUser = async () => {
 }
 
 export type UserActType = {
-  authorizationUser: () => Promise<boolean>
+  // authorizationUser: () => Promise<boolean>
   getIsAuth: () => boolean
   setUser: (user: UserType) => void
   resetUser: () => void
@@ -59,7 +59,7 @@ export type UserActType = {
 }
 
 const userAct: UserActType = {
-  authorizationUser,
+  // authorizationUser,
   setIsAuth,
   resetUser,
   setUser,

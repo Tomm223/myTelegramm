@@ -55,7 +55,6 @@ export class HTTPTransport {
         res({ status: 200, response: JSON.stringify(this._mockRes) })
       })
     }
-
     return this._request(url, options, timeout)
   }
 

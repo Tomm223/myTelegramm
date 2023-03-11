@@ -16,6 +16,7 @@ interface SingUpType {
   loading?: boolean
   error?: string
 }
+
 interface Form {
   email: string
   login: string

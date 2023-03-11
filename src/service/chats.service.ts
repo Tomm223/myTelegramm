@@ -81,6 +81,7 @@ export class ChatsController {
     try {
       const api = new ChatAPI(this._mockResolve)
       const status = await api.removeChat(id)
+
       if (typeof status === 'boolean') {
         alert('Вы не можете удалять этот чат')
         return status
@@ -95,7 +96,7 @@ export class ChatsController {
       alert(`Вы удалили чат ${status.result.title}`)
       return true
     } catch {
-      alert('Error CreateChat Fronted Service')
+      alert('Error RemoveChat Fronted Service')
     }
   }
 

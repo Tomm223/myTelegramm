@@ -15,6 +15,20 @@ export class SingController {
     }
   }
 
+  public async authorizationUser() {
+    try {
+      const user = await this.getUser()
+      if (user === null) {
+        throw new Error('')
+      }
+      Actions.setUser(user)
+      return true
+    } catch {
+      console.log('пользователь не авторизован')
+      return false
+    }
+  }
+
   public async getUser() {
     try {
       const api = new SingAPI(this._mockResolve)

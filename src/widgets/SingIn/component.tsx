@@ -8,6 +8,9 @@ import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 import Router from '@/app/router'
 import { SingInRequest } from '@/types/user'
 import LoaderFullPage from '@/shared/Loaders/LoaderFullPage'
+import SingUnPage from '@/pages/SingUpPage'
+import Nagivation from '@/pages/Navigation'
+import SingInPage from '@/pages/SingInPage'
 
 interface SingInType {
   size: Size
@@ -30,7 +33,24 @@ interface Size {
 
 const setLocation = (e: MouseEvent) => {
   e.preventDefault()
-  Router.go('/sing-up')
+  // Router.go('/sing-up')
+  Router._unsubscribe()
+  setTimeout(async () => {
+    Router.use('/sing-in', SingInPage)
+    Router.use('/sing-up', SingUnPage)
+    Router.use('/', Nagivation)
+    await Router.start()
+  }, 2000)
+  setTimeout(async () => {
+    Router._unsubscribe()
+  }, 4000)
+  setTimeout(async () => {
+    Router.use('/sing-in', SingInPage)
+    Router.use('/sing-up', SingUnPage)
+    Router.use('/', Nagivation)
+
+    await Router.start()
+  }, 6000)
 }
 
 export default class SingIn extends Component<SingInType> {

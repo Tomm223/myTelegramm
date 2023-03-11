@@ -1,4 +1,4 @@
-import { ChatList } from '@/types/chats'
+import { ChatList, DeleteChatResponse } from '@/types/chats'
 import { ChatsController } from '@/service/chats.service'
 import Store from '@/store/index'
 import Actions from '@/store/Actions'
@@ -30,12 +30,16 @@ describe('ChatsController', () => {
     expect(chatList).toEqual(list)
   })
   test('removeChat', async () => {
-    const controller = new ChatsController(list)
+    const deleteResp: DeleteChatResponse = {
+      result: { id: 1, title: '3', avatar: null, created_by: 2 },
+      userId: 1,
+    }
+    const controller = new ChatsController(deleteResp)
     await controller.removeChat(3)
 
     const chatList = Actions.getChatList()
 
-    expect(chatList).toEqual(list)
+    expect(chatList).toEqual(deleteResp)
   })
 
   test('pushNewChats', async () => {

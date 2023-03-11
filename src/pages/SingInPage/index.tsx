@@ -2,7 +2,6 @@ import Component from '@/core/Component'
 import SingIn from '@/widgets/SingIn'
 import CompileMaster from '@/core/CompileJSX'
 import { SingController } from '@/service/sing.service'
-import { API_BASE_RESOURCES } from '@/http/index'
 
 interface SingInPageType {
   modal?: Component
