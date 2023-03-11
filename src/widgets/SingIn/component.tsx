@@ -8,6 +8,9 @@ import FormConstructorTitle from '@/shared/form/FormConstructorTitle'
 import Router from '@/app/router'
 import { SingInRequest } from '@/types/user'
 import LoaderFullPage from '@/shared/Loaders/LoaderFullPage'
+import SingUnPage from '@/pages/SingUpPage'
+import Nagivation from '@/pages/Navigation'
+import SingInPage from '@/pages/SingInPage'
 
 interface SingInType {
   size: Size

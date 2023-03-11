@@ -11,10 +11,22 @@
     "watch": "webpack --watch",
     "serve": "webpack serve",
     "clean": "rimraf node_modules/",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "lint:js": "npx eslint src/",
+    "lint:style": "npx stylelint src/"
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@types/jest": "29.4.0",
     "@types/uuid": "9.0.1",

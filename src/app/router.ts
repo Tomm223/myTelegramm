@@ -1,6 +1,6 @@
+import { SingController } from '@/service/sing.service'
 import Component from '@/core/Component'
 import { renderDOM } from '@/core/renderDOM'
-import Actions from '@/store/Actions'
 import { isEqual } from '@/utils/isEqual'
 
 class Route {
@@ -86,13 +86,9 @@ class RouterInst {
     await this.go(window.location.pathname)
   }
 
-  // _makeProxyOnRoute(fn: any) {
-  //   if (typeof fn !== 'function') throw new Error(`Rout dont can make proxy for ${fn} `)
-
-  // }
-
   async isValidUser() {
-    const isAuth = await Actions.authorizationUser()
+    const controller = new SingController()
+    const isAuth = await controller.authorizationUser()
     return isAuth
   }
 
@@ -131,7 +127,6 @@ class RouterInst {
     } else {
       route = this.getRouteNoFound() || this.getRouteError()
     }
-
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave()
     }
@@ -163,6 +158,18 @@ class RouterInst {
 
   getRouteError() {
     return this.routes.find((route) => route.match('/error')) as Route
+  }
+
+  _unsubscribe() {
+    this.routes = []
+    this._currentRoute = null
+
+    const rootDiv = document.querySelector(this._rootQuery) as HTMLElement
+    rootDiv.innerHTML = ''
+    document.body.style.overflow = 'visible'
+    window.onpopstate = () => {}
+
+    this.history.pushState({}, '', '/')
   }
 }
 
