@@ -33,24 +33,7 @@ interface Size {
 
 const setLocation = (e: MouseEvent) => {
   e.preventDefault()
-  // Router.go('/sing-up')
-  Router._unsubscribe()
-  setTimeout(async () => {
-    Router.use('/sing-in', SingInPage)
-    Router.use('/sing-up', SingUnPage)
-    Router.use('/', Nagivation)
-    await Router.start()
-  }, 2000)
-  setTimeout(async () => {
-    Router._unsubscribe()
-  }, 4000)
-  setTimeout(async () => {
-    Router.use('/sing-in', SingInPage)
-    Router.use('/sing-up', SingUnPage)
-    Router.use('/', Nagivation)
-
-    await Router.start()
-  }, 6000)
+  Router.go('/sing-up')
 }
 
 export default class SingIn extends Component<SingInType> {
